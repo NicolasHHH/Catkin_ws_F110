@@ -1,0 +1,2 @@
+beginner_tutorials:f1tenth_simulator:hty_lab:hty_lab2:hty_lab3:learning_tf
+-DCATKIN_DEVEL_PREFIX=/home/parallels/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/parallels/catkin_ws/install -G Unix Makefiles

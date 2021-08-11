@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "browse": {
+                "databaseFilename": "",
+                "limitSymbolsToIncludedHeaders": true
+            },
+            "includePath": [
+                "/opt/ros/noetic/include/**",
+                "/home/parallels/catkin_ws/src/beginner_tutorials/include/**",
+                "/home/parallels/catkin_ws/src/f1tenth_simulator/include/**",
+                "/usr/include/**",
+                "${workspaceFolder}/devel/include"
+            ],
+            "name": "ROS"
+        }
+    ],
+    "version": 4
+}

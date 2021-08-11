@@ -1,0 +1,1 @@
+/usr/bin/c++    -rdynamic CMakeFiles/hty_lab2.dir/src/safety_node.cpp.o  -o /home/parallels/catkin_ws/devel/lib/hty_lab2/hty_lab2 
