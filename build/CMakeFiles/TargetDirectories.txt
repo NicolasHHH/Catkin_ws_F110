@@ -115,6 +115,14 @@
 /home/parallels/catkin_ws/build/hty_lab3/CMakeFiles/edit_cache.dir
 /home/parallels/catkin_ws/build/hty_lab3/CMakeFiles/test.dir
 /home/parallels/catkin_ws/build/hty_lab3/CMakeFiles/wall_follow.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/install/strip.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/install/local.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/install.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/list_install_components.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/rebuild_cache.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/edit_cache.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/test.dir
+/home/parallels/catkin_ws/build/hty_lab4/CMakeFiles/gap_follow.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/install/strip.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/install/local.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/visualization_msgs_generate_messages_lisp.dir

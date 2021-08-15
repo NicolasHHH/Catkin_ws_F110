@@ -1052,6 +1052,19 @@ wall_follow/fast:
 .PHONY : wall_follow/fast
 
 #=============================================================================
+# Target rules for targets named gap_follow
+
+# Build rule for target.
+gap_follow: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 gap_follow
+.PHONY : gap_follow
+
+# fast build rule for target.
+gap_follow/fast:
+	$(MAKE) -f hty_lab4/CMakeFiles/gap_follow.dir/build.make hty_lab4/CMakeFiles/gap_follow.dir/build
+.PHONY : gap_follow/fast
+
+#=============================================================================
 # Target rules for targets named visualization_msgs_generate_messages_lisp
 
 # Build rule for target.
@@ -1990,6 +2003,7 @@ help:
 	@echo "... sensor_msgs_generate_messages_eus"
 	@echo "... ackermann_msgs_generate_messages_cpp"
 	@echo "... wall_follow"
+	@echo "... gap_follow"
 	@echo "... visualization_msgs_generate_messages_lisp"
 	@echo "... hty_lab_genpy"
 	@echo "... actionlib_generate_messages_py"

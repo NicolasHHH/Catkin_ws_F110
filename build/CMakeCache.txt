@@ -504,6 +504,12 @@ hty_lab3std_msgs_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab3std_m
 hty_lab3std_msgs_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab3std_msgs
 
 //Value Computed by CMake
+hty_lab4_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab4
+
+//Value Computed by CMake
+hty_lab4_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab4
+
+//Value Computed by CMake
 hty_lab_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab
 
 //Value Computed by CMake
@@ -750,7 +756,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=10
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
