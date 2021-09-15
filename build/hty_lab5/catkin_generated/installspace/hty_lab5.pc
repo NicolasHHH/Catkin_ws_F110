@@ -1,0 +1,8 @@
+prefix=/home/parallels/catkin_ws/install
+
+Name: hty_lab5
+Description: Description of hty_lab5
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: nav_msgs roscpp rospy std_msgs

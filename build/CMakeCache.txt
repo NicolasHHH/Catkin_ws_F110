@@ -510,6 +510,12 @@ hty_lab4_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab4
 hty_lab4_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab4
 
 //Value Computed by CMake
+hty_lab5_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab5
+
+//Value Computed by CMake
+hty_lab5_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab5
+
+//Value Computed by CMake
 hty_lab_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab
 
 //Value Computed by CMake
@@ -571,6 +577,12 @@ rospy_DIR:PATH=/opt/ros/noetic/share/rospy/cmake
 
 //The directory containing a CMake configuration file for rostime.
 rostime_DIR:PATH=/opt/ros/noetic/share/rostime/cmake
+
+//Value Computed by CMake
+scan_matching_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab5
+
+//Value Computed by CMake
+scan_matching_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab5
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/noetic/share/sensor_msgs/cmake
@@ -756,7 +768,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=11
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=12
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

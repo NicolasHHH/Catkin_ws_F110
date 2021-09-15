@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/parallels/catkin_ws/build/gtest/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/beginner_tutorials/cmake_install.cmake")
+  include("/home/parallels/catkin_ws/build/hty_lab5/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/hty_lab2/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/hty_lab3/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/hty_lab4/cmake_install.cmake")

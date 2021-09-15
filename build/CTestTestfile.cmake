@@ -6,6 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("beginner_tutorials")
+subdirs("hty_lab5")
 subdirs("hty_lab2")
 subdirs("hty_lab3")
 subdirs("hty_lab4")
