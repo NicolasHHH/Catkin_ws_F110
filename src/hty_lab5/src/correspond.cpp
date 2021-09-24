@@ -10,10 +10,10 @@ const int DOWN_SMALL = 2;
 const int DOWN_BIG = 3;
 
 void getNaiveCorrespondence(vector<Point>& old_points, vector<Point>& trans_points, vector<Point>& points,
-                        vector< vector<int> >& jump_table, vector<Correspondence>& c, float prob){
+                            vector< vector<int> >& jump_table, vector<Correspondence>& c, float prob){
 
-      c.clear();
-      int last_best = -1;
+      c.clear(); // vector vide 
+      int last_best = -1;  
       const int n = trans_points.size();
       const int m = old_points.size();
       float min_dist = 100000.00;
@@ -23,11 +23,11 @@ void getNaiveCorrespondence(vector<Point>& old_points, vector<Point>& trans_poin
       //Do for each point
       for(int i = 0; i<n; ++i){
         for(int j = 0; j<m; ++j){
-          float dist = old_points[i].distToPoint2(&trans_points[j]);
+          float dist = old_points[i].distToPoint2(&trans_points[j]);  // à modifier
           if(dist<min_dist){
             min_dist = dist;
             min_index = j;
-            second_min_index = j-1;
+            second_min_index = j-1;  // c'est nulle : j-1 peut ếtre égal à -1
           }
         }
         c.push_back(Correspondence(&trans_points[i], &points[i], &old_points[min_index], &old_points[second_min_index]));
@@ -36,11 +36,14 @@ void getNaiveCorrespondence(vector<Point>& old_points, vector<Point>& trans_poin
 
 }
 
+// à modifier
 void getCorrespondence(vector<Point>& old_points, vector<Point>& trans_points, vector<Point>& points,
                         vector< vector<int> >& jump_table, vector<Correspondence>& c, float prob){
 
   // Written with inspiration from: https://github.com/AndreaCensi/gpc/blob/master/c/gpc.c
   // use helper functions and structs in transform.h and correspond.h
+  // helper functions : computeJump(table, points)
+
   // input : old_points : vector of struct points containing the old points (points of the previous frame)
   // input : trans_points : vector of struct points containing the new points transformed to the previous frame using the current estimated transform
   // input : points : vector of struct points containing the new points

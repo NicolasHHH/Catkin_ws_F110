@@ -10,8 +10,10 @@ using namespace std;
 
 struct Point {
   float r, theta;
-  Point() : r(0), theta(0){};
-  Point(float range, float angle) : r(range), theta(angle){};
+  Point() : r(0), theta(0){}; // constructeur de base 
+
+  Point(float range, float angle) : r(range), theta(angle){}; // constructeur 
+
   float distToPoint(const Point* pt2) const {
     return sqrt(r*r + pt2->r*pt2->r - 2*r*pt2->r*cos(pt2->theta-theta));
   }
@@ -21,16 +23,22 @@ struct Point {
   float radialGap(const Point* pt2) const{
     return abs(r-pt2->r);
   }
+  // la position du point par rapport à Lidar 
   float getX() { return r * cos(theta); }
   float getY() { return r * sin(theta); }
+  // surcharge : je suis à gauche moi < p , je suis à droit p > moi : à tester !!!
   bool operator<(const Point& p) { return theta < p.theta; }
   bool operator>(const Point& p) { return theta > p.theta; }
+
   geometry_msgs::Point getPoint() const {
     geometry_msgs::Point p;
-    p.x = r * cos(theta); p.y = r * sin(theta); p.z = 0.0;
+    p.x = r * cos(theta); 
+    p.y = r * sin(theta);  // on aurait pu utiliser getX() getY()
+    p.z = 0.0;
     return p;
   }
-  void wrapTheta(){
+  void wrapTheta(){ 
+    // dans l'intervalle (-pi, pi)
     while(theta > M_PI){
       theta -= 2*M_PI;
     }
@@ -68,8 +76,8 @@ struct Correspondence{
     v << p1y - p2y, p2x - p1x;
   }
   Eigen::Vector2f getNormalNorm(){
-    // Eigen::Vector2f v;
-    // v << p->getX() - pix,  p->getY() - piy;
+    Eigen::Vector2f v;
+    v << p->getX() - pix,  p->getY() - piy;
     if (v.norm() > 0) { v = v / v.norm(); }
     return v;
   }
