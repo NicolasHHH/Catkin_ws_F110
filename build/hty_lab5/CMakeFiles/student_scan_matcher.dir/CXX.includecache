@@ -31,7 +31,7 @@ cmath
 -
 ros/ros.h
 /home/parallels/catkin_ws/src/hty_lab5/src/ros/ros.h
-Eigen/Geometry
+eigen3/Eigen/Geometry
 -
 complex
 -

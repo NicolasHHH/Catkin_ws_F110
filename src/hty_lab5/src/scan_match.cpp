@@ -18,10 +18,10 @@ const string& TOPIC_POS = "/scan_match_location";
 const string& TOPIC_RVIZ = "/scan_match_debug";
 const string& FRAME_POINTS = "laser";
 
-const float RANGE_LIMIT = 10.0;
+const float RANGE_LIMIT = 8.0;
 
-const float MAX_ITER = 2.0;
-const float MIN_INFO = 0.1;
+const float MAX_ITER =0.6;
+const float MIN_INFO = 0.2;
 const float A = (1-MIN_INFO)/MAX_ITER/MAX_ITER;
 
 
@@ -62,7 +62,7 @@ class ScanProcessor {
 
       //We have nothing to compare to!
       if(prev_points.empty()){
-        ROS_INFO("First Scan");
+        //ROS_INFO("First Scan");
         prev_points = points;
         return;
       }
@@ -75,7 +75,7 @@ class ScanProcessor {
 
       int count = 0;
       computeJump(jump_table, prev_points);
-      ROS_INFO("Starting Optimization");
+      //ROS_INFO("Starting Optimization");
 
       curr_trans = Transform();
 

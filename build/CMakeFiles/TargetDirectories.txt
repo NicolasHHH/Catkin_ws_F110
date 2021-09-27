@@ -78,7 +78,7 @@
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/install.dir
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/list_install_components.dir
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/test.dir
-/home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/student_scan_matcher.dir
+/home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/scan_matcher.dir
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/tf2_msgs_generate_messages_lisp.dir
 /home/parallels/catkin_ws/build/hty_lab5/CMakeFiles/rebuild_cache.dir

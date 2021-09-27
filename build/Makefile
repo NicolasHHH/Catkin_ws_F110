@@ -701,17 +701,17 @@ talker/fast:
 .PHONY : talker/fast
 
 #=============================================================================
-# Target rules for targets named student_scan_matcher
+# Target rules for targets named scan_matcher
 
 # Build rule for target.
-student_scan_matcher: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 student_scan_matcher
-.PHONY : student_scan_matcher
+scan_matcher: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 scan_matcher
+.PHONY : scan_matcher
 
 # fast build rule for target.
-student_scan_matcher/fast:
-	$(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/build
-.PHONY : student_scan_matcher/fast
+scan_matcher/fast:
+	$(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/build
+.PHONY : scan_matcher/fast
 
 #=============================================================================
 # Target rules for targets named tf2_msgs_generate_messages_nodejs
@@ -2002,7 +2002,7 @@ help:
 	@echo "... beginner_tutorials_gennodejs"
 	@echo "... std_msgs_generate_messages_nodejs"
 	@echo "... talker"
-	@echo "... student_scan_matcher"
+	@echo "... scan_matcher"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... tf2_msgs_generate_messages_eus"

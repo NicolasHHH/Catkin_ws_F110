@@ -15,8 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   tf
   geometry_msgs
 )
-find_package(Eigen3 REQUIRED)
-
+find_package(Eigen3 REQUIRED 
+Eigen REQUIRED
+moveit_ros_planning_interface)
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
@@ -202,6 +203,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-add_executable(student_scan_matcher src/scan_match.cpp src/transform.cpp src/correspond.cpp src/visualization.cpp)
-target_link_libraries(student_scan_matcher ${catkin_LIBRARIES})
+add_executable(scan_matcher src/scan_match.cpp src/transform.cpp src/correspond.cpp src/visualization.cpp)
+target_link_libraries(scan_matcher ${catkin_LIBRARIES})
 #add_dependencies(scan_matcher emu_imu_scan_matching_generate_messages_cpp)

@@ -13,8 +13,8 @@ class Wall_follow{
     private:
         // PID params
         const double Kp = 1;
-        const double Kd = 0.1;
-        const double Ki = 0;
+        const double Kd = 0.2;
+        const double Ki = 0.01;
 
         double servo_offset = 0.0;
         double prev_error = 0.0 ;
@@ -23,9 +23,9 @@ class Wall_follow{
 
         // WALL FOLLOW PARAMS
         const int ANGLE_RANGE = 270; // Hokuyo 10LX has 270 degrees scan
-        const double DESIRED_DISTANCE_RIGHT = 0.45; // meters
-        const double DESIRED_DISTANCE_LEFT = 0.65;
-        const double VELOCITY = 2.00; // meters per second
+        const double DESIRED_DISTANCE_RIGHT = 2.4; // meters
+        const double DESIRED_DISTANCE_LEFT = 2.0;
+        const double VELOCITY = 1.50; // meters per second
         const double CAR_LENGTH = 0.50; // Traxxas Rally is 20 inches or 0.5 meters
 
         // ROS 
@@ -60,7 +60,7 @@ class Wall_follow{
         void pid_control(double error, double velocity){
 
             //TODO: Use kp, ki & kd to implement a PID controller for 
-            integral += error;
+            integral = prev_error + error;
             double angle = Kp * error + Kd * (error - prev_error) + Ki * integral;
             prev_error = error;
             ackermann_msgs::AckermannDriveStamped drive_msg;
@@ -111,13 +111,13 @@ class Wall_follow{
             // send error to pid_control
             double velocity = VELOCITY;
             if (abs(alpha *180/3.14) < 10){
-                velocity = 1.5;
+                velocity = 0.75*VELOCITY;
             }
             else if (abs(alpha *180/3.14) < 20){
-                velocity = 1.2;
+                velocity = 0.6*VELOCITY;
             }
             else{
-                velocity = 0.9;
+                velocity = 0.45*VELOCITY;
             }
 
             pid_control(error, velocity);

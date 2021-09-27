@@ -14,18 +14,20 @@ class Gap_follow{
         ros::NodeHandle n;
         ros::Subscriber sub_scan;
         ros::Publisher pub_drive;
-        const int window = 10;  
+        const int window = 20;  
         // un petit window est plus sensible aux petits obstactles 
 
-        const int plafond = 3.6; //4
+        const int plafond = 4.6; //4
         // plafond grand: moins de turbulence
         // plafond petit: sensible aux petits obstactles( moins moyenné par les grandes distances)
 
-        const int rayon = 100; //90
+        const int rayon = 90; //90
         // rayon of bubble;
 
-        const double seuil = 0.4;
+        const double seuil = 0.8;
         // rue étroite
+
+        const double VELOCITY = 1.0;
 
     public:
         Gap_follow(){
@@ -143,15 +145,15 @@ class Gap_follow{
             //ROS_INFO("best point: %u max_gap: %d",best_point,max_gap[1]-max_gap[0]);
             //ROS_INFO("angle: %f range: %f",angle,proc_ranges[best_point]);
             if (std::abs(angle) < 10.0/180*3.14){
-                velocity = 1.8;
+                velocity = 0.9 * VELOCITY;
             }
             else if (std::abs(angle) < 20.0/180*3.14){
-                velocity = 1.5;
+                velocity = 0.75*VELOCITY;
             }
             else if (std::abs(angle) < 30.0/180*3.14){
-                velocity = 1.2;
+                velocity = 0.6 * VELOCITY;
             }
-            else{ velocity = 0.9;}
+            else{ velocity = 0.45*VELOCITY;}
             ackermann_msgs::AckermannDriveStamped drive_msg;
             drive_msg.header.stamp = ros::Time::now();
             drive_msg.header.frame_id = "laser";

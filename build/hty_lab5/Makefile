@@ -168,19 +168,19 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-hty_lab5/CMakeFiles/student_scan_matcher.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hty_lab5/CMakeFiles/student_scan_matcher.dir/rule
-.PHONY : hty_lab5/CMakeFiles/student_scan_matcher.dir/rule
+hty_lab5/CMakeFiles/scan_matcher.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 hty_lab5/CMakeFiles/scan_matcher.dir/rule
+.PHONY : hty_lab5/CMakeFiles/scan_matcher.dir/rule
 
 # Convenience name for target.
-student_scan_matcher: hty_lab5/CMakeFiles/student_scan_matcher.dir/rule
+scan_matcher: hty_lab5/CMakeFiles/scan_matcher.dir/rule
 
-.PHONY : student_scan_matcher
+.PHONY : scan_matcher
 
 # fast build rule for target.
-student_scan_matcher/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/build
-.PHONY : student_scan_matcher/fast
+scan_matcher/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/build
+.PHONY : scan_matcher/fast
 
 # Convenience name for target.
 hty_lab5/CMakeFiles/tf2_msgs_generate_messages_nodejs.dir/rule:
@@ -728,7 +728,7 @@ src/correspond.o: src/correspond.cpp.o
 
 # target to build an object file
 src/correspond.cpp.o:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/correspond.cpp.o
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/correspond.cpp.o
 .PHONY : src/correspond.cpp.o
 
 src/correspond.i: src/correspond.cpp.i
@@ -737,7 +737,7 @@ src/correspond.i: src/correspond.cpp.i
 
 # target to preprocess a source file
 src/correspond.cpp.i:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/correspond.cpp.i
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/correspond.cpp.i
 .PHONY : src/correspond.cpp.i
 
 src/correspond.s: src/correspond.cpp.s
@@ -746,7 +746,7 @@ src/correspond.s: src/correspond.cpp.s
 
 # target to generate assembly for a file
 src/correspond.cpp.s:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/correspond.cpp.s
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/correspond.cpp.s
 .PHONY : src/correspond.cpp.s
 
 src/scan_match.o: src/scan_match.cpp.o
@@ -755,7 +755,7 @@ src/scan_match.o: src/scan_match.cpp.o
 
 # target to build an object file
 src/scan_match.cpp.o:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/scan_match.cpp.o
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/scan_match.cpp.o
 .PHONY : src/scan_match.cpp.o
 
 src/scan_match.i: src/scan_match.cpp.i
@@ -764,7 +764,7 @@ src/scan_match.i: src/scan_match.cpp.i
 
 # target to preprocess a source file
 src/scan_match.cpp.i:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/scan_match.cpp.i
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/scan_match.cpp.i
 .PHONY : src/scan_match.cpp.i
 
 src/scan_match.s: src/scan_match.cpp.s
@@ -773,7 +773,7 @@ src/scan_match.s: src/scan_match.cpp.s
 
 # target to generate assembly for a file
 src/scan_match.cpp.s:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/scan_match.cpp.s
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/scan_match.cpp.s
 .PHONY : src/scan_match.cpp.s
 
 src/transform.o: src/transform.cpp.o
@@ -782,7 +782,7 @@ src/transform.o: src/transform.cpp.o
 
 # target to build an object file
 src/transform.cpp.o:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/transform.cpp.o
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/transform.cpp.o
 .PHONY : src/transform.cpp.o
 
 src/transform.i: src/transform.cpp.i
@@ -791,7 +791,7 @@ src/transform.i: src/transform.cpp.i
 
 # target to preprocess a source file
 src/transform.cpp.i:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/transform.cpp.i
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/transform.cpp.i
 .PHONY : src/transform.cpp.i
 
 src/transform.s: src/transform.cpp.s
@@ -800,7 +800,7 @@ src/transform.s: src/transform.cpp.s
 
 # target to generate assembly for a file
 src/transform.cpp.s:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/transform.cpp.s
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/transform.cpp.s
 .PHONY : src/transform.cpp.s
 
 src/visualization.o: src/visualization.cpp.o
@@ -809,7 +809,7 @@ src/visualization.o: src/visualization.cpp.o
 
 # target to build an object file
 src/visualization.cpp.o:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/visualization.cpp.o
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/visualization.cpp.o
 .PHONY : src/visualization.cpp.o
 
 src/visualization.i: src/visualization.cpp.i
@@ -818,7 +818,7 @@ src/visualization.i: src/visualization.cpp.i
 
 # target to preprocess a source file
 src/visualization.cpp.i:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/visualization.cpp.i
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/visualization.cpp.i
 .PHONY : src/visualization.cpp.i
 
 src/visualization.s: src/visualization.cpp.s
@@ -827,7 +827,7 @@ src/visualization.s: src/visualization.cpp.s
 
 # target to generate assembly for a file
 src/visualization.cpp.s:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/student_scan_matcher.dir/build.make hty_lab5/CMakeFiles/student_scan_matcher.dir/src/visualization.cpp.s
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f hty_lab5/CMakeFiles/scan_matcher.dir/build.make hty_lab5/CMakeFiles/scan_matcher.dir/src/visualization.cpp.s
 .PHONY : src/visualization.cpp.s
 
 # Help Target
@@ -840,7 +840,7 @@ help:
 	@echo "... install"
 	@echo "... list_install_components"
 	@echo "... test"
-	@echo "... student_scan_matcher"
+	@echo "... scan_matcher"
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... rebuild_cache"

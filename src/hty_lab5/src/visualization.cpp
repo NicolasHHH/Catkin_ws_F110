@@ -8,7 +8,7 @@ PointVisualizer::PointVisualizer(ros::Publisher& pub, string ns, string frame_id
   dots.pose.orientation.w = 1.0;
   dots.id = num_visuals;
   dots.type = visualization_msgs::Marker::POINTS;
-  dots.scale.x = dots.scale.y = 0.005;
+  dots.scale.x = dots.scale.y = 0.05;
   ++num_visuals;
 }
 
@@ -35,7 +35,7 @@ CorrespondenceVisualizer::CorrespondenceVisualizer(ros::Publisher& pub, string n
   line_list.pose.orientation.w = 1.0;
   line_list.id = num_visuals;
   line_list.type = visualization_msgs::Marker::LINE_LIST;
-  line_list.scale.x = 0.001;
+  line_list.scale.x = 0.01;
   num_visuals++;
 }
 
