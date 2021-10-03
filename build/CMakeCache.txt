@@ -346,6 +346,15 @@ LSB_RELEASE_EXECUTABLE:FILEPATH=/usr/bin/lsb_release
 //Path to a program.
 NOSETESTS:FILEPATH=/usr/bin/nosetests3
 
+//The directory containing a CMake configuration file for OpenCV2.
+OpenCV2_DIR:PATH=OpenCV2_DIR-NOTFOUND
+
+//The directory containing a CMake configuration file for OpenCV.
+OpenCV_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/opencv4
+
+//pkg-config executable
+PKG_CONFIG_EXECUTABLE:FILEPATH=/usr/bin/pkg-config
+
 //Path to a program.
 PYTHON_EXECUTABLE:FILEPATH=/usr/bin/python3
 
@@ -388,8 +397,20 @@ _gtest_INCLUDES:FILEPATH=/usr/include/gtest/gtest.h
 //Path to a file.
 _gtest_SOURCES:FILEPATH=/usr/src/gtest/src/gtest.cc
 
+//Path to a file.
+_path_name:FILEPATH=_path_name-NOTFOUND
+
 //The directory containing a CMake configuration file for ackermann_args.
 ackermann_args_DIR:PATH=ackermann_args_DIR-NOTFOUND
+
+//Value Computed by CMake
+ackermann_cmd_mux_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/racecar/ackermann_cmd_mux
+
+//Value Computed by CMake
+ackermann_cmd_mux_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/racecar/ackermann_cmd_mux
+
+//Dependencies for the target
+ackermann_cmd_mux_nodelet_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libnodeletlib.so;general;/opt/ros/noetic/lib/libbondcpp.so;general;/usr/lib/aarch64-linux-gnu/libuuid.so;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/aarch64-linux-gnu/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython3.8.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libdynamic_reconfigure_config_init_mutex.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;general;yaml-cpp;
 
 //The directory containing a CMake configuration file for ackermann_msgs.
 ackermann_msgs_DIR:PATH=/opt/ros/noetic/share/ackermann_msgs/cmake
@@ -406,11 +427,32 @@ beginner_tutorials_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/beginner_tu
 //Value Computed by CMake
 beginner_tutorials_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/beginner_tutorials
 
+//The directory containing a CMake configuration file for bond.
+bond_DIR:PATH=/opt/ros/noetic/share/bond/cmake
+
+//The directory containing a CMake configuration file for bondcpp.
+bondcpp_DIR:PATH=/opt/ros/noetic/share/bondcpp/cmake
+
 //The directory containing a CMake configuration file for catkin.
 catkin_DIR:PATH=/opt/ros/noetic/share/catkin/cmake
 
+//The directory containing a CMake configuration file for class_loader.
+class_loader_DIR:PATH=/opt/ros/noetic/share/class_loader/cmake
+
 //The directory containing a CMake configuration file for cpp_common.
 cpp_common_DIR:PATH=/opt/ros/noetic/share/cpp_common/cmake
+
+//The directory containing a CMake configuration file for cv_bridge.
+cv_bridge_DIR:PATH=/opt/ros/noetic/share/cv_bridge/cmake
+
+//The directory containing a CMake configuration file for dynamic_reconfigure.
+dynamic_reconfigure_DIR:PATH=/opt/ros/noetic/share/dynamic_reconfigure/cmake
+
+//Value Computed by CMake
+f110_occgrid_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/f110_occgrid
+
+//Value Computed by CMake
+f110_occgrid_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/f110_occgrid
 
 //Value Computed by CMake
 f1tenth_simulator_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/f1tenth_simulator
@@ -521,6 +563,9 @@ hty_lab_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab
 //Value Computed by CMake
 hty_lab_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab
 
+//The directory containing a CMake configuration file for image_transport.
+image_transport_DIR:PATH=/opt/ros/noetic/share/image_transport/cmake
+
 //The directory containing a CMake configuration file for interactive_markers.
 interactive_markers_DIR:PATH=/opt/ros/noetic/share/interactive_markers/cmake
 
@@ -547,6 +592,21 @@ messege_runtime_DIR:PATH=messege_runtime_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for nav_msgs.
 nav_msgs_DIR:PATH=/opt/ros/noetic/share/nav_msgs/cmake
+
+//The directory containing a CMake configuration file for nodelet.
+nodelet_DIR:PATH=/opt/ros/noetic/share/nodelet/cmake
+
+//Value Computed by CMake
+particle_filter_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/particle_filter
+
+//Value Computed by CMake
+particle_filter_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/particle_filter
+
+//Path to a library.
+pkgcfg_lib_yaml-cpp_yaml-cpp:FILEPATH=/usr/lib/aarch64-linux-gnu/libyaml-cpp.so
+
+//The directory containing a CMake configuration file for pluginlib.
+pluginlib_DIR:PATH=/opt/ros/noetic/share/pluginlib/cmake
 
 //The directory containing a CMake configuration file for rosconsole.
 rosconsole_DIR:PATH=/opt/ros/noetic/share/rosconsole/cmake
@@ -586,6 +646,9 @@ scan_matching_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab5
 
 //The directory containing a CMake configuration file for sensor_msgs.
 sensor_msgs_DIR:PATH=/opt/ros/noetic/share/sensor_msgs/cmake
+
+//The directory containing a CMake configuration file for smclib.
+smclib_DIR:PATH=/opt/ros/noetic/share/smclib/cmake
 
 //The directory containing a CMake configuration file for std_msgs.
 std_msgs_DIR:PATH=/opt/ros/noetic/share/std_msgs/cmake
@@ -768,7 +831,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=12
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -811,8 +874,12 @@ CMAKE_STRIP-ADVANCED:INTERNAL=1
 CMAKE_UNAME:INTERNAL=/usr/bin/uname
 //ADVANCED property for variable: CMAKE_VERBOSE_MAKEFILE
 CMAKE_VERBOSE_MAKEFILE-ADVANCED:INTERNAL=1
+//Details about finding OpenCV
+FIND_PACKAGE_MESSAGE_DETAILS_OpenCV:INTERNAL=[/usr][v4.2.0()]
 //Details about finding PY_em
 FIND_PACKAGE_MESSAGE_DETAILS_PY_em:INTERNAL=[/usr/lib/python3/dist-packages/em.py][v()]
+//Details about finding PkgConfig
+FIND_PACKAGE_MESSAGE_DETAILS_PkgConfig:INTERNAL=[/usr/bin/pkg-config][v0.29.1()]
 //Details about finding PythonInterp
 FIND_PACKAGE_MESSAGE_DETAILS_PythonInterp:INTERNAL=[/usr/bin/python3][v3.8.10()]
 //Details about finding Threads
@@ -837,6 +904,8 @@ GTEST_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 GTEST_MAIN_LIBRARY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: GTEST_MAIN_LIBRARY_DEBUG
 GTEST_MAIN_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: PKG_CONFIG_EXECUTABLE
+PKG_CONFIG_EXECUTABLE-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: PYTHON_EXECUTABLE
 PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 //This needs to be in PYTHONPATH when 'setup.py install' is called.
@@ -845,6 +914,7 @@ PYTHON_EXECUTABLE-ADVANCED:INTERNAL=1
 PYTHON_INSTALL_DIR:INTERNAL=lib/python3/dist-packages
 //CMAKE_INSTALL_PREFIX during last run
 _GNUInstallDirs_LAST_CMAKE_INSTALL_PREFIX:INTERNAL=/home/parallels/catkin_ws/install
+__pkg_config_checked_yaml-cpp:INTERNAL=1
 //ADVANCED property for variable: gmock_build_tests
 gmock_build_tests-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: gtest_build_samples
@@ -857,4 +927,42 @@ gtest_disable_pthreads-ADVANCED:INTERNAL=1
 gtest_force_shared_crt-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: gtest_hide_internal_symbols
 gtest_hide_internal_symbols-ADVANCED:INTERNAL=1
+//ADVANCED property for variable: pkgcfg_lib_yaml-cpp_yaml-cpp
+pkgcfg_lib_yaml-cpp_yaml-cpp-ADVANCED:INTERNAL=1
+prefix_result:INTERNAL=/usr//usr/lib/aarch64-linux-gnu
+yaml-cpp_CFLAGS:INTERNAL=
+yaml-cpp_CFLAGS_I:INTERNAL=
+yaml-cpp_CFLAGS_OTHER:INTERNAL=
+yaml-cpp_FOUND:INTERNAL=1
+yaml-cpp_INCLUDEDIR:INTERNAL=/usr/include
+yaml-cpp_INCLUDE_DIRS:INTERNAL=
+yaml-cpp_LDFLAGS:INTERNAL=-L/usr//usr/lib/aarch64-linux-gnu;-lyaml-cpp
+yaml-cpp_LDFLAGS_OTHER:INTERNAL=
+yaml-cpp_LIBDIR:INTERNAL=/usr//usr/lib/aarch64-linux-gnu
+yaml-cpp_LIBRARIES:INTERNAL=yaml-cpp
+yaml-cpp_LIBRARY_DIRS:INTERNAL=/usr//usr/lib/aarch64-linux-gnu
+yaml-cpp_LIBS:INTERNAL=
+yaml-cpp_LIBS_L:INTERNAL=
+yaml-cpp_LIBS_OTHER:INTERNAL=
+yaml-cpp_LIBS_PATHS:INTERNAL=
+yaml-cpp_MODULE_NAME:INTERNAL=yaml-cpp
+yaml-cpp_PREFIX:INTERNAL=/usr
+yaml-cpp_STATIC_CFLAGS:INTERNAL=
+yaml-cpp_STATIC_CFLAGS_I:INTERNAL=
+yaml-cpp_STATIC_CFLAGS_OTHER:INTERNAL=
+yaml-cpp_STATIC_INCLUDE_DIRS:INTERNAL=
+yaml-cpp_STATIC_LDFLAGS:INTERNAL=-L/usr//usr/lib/aarch64-linux-gnu;-lyaml-cpp
+yaml-cpp_STATIC_LDFLAGS_OTHER:INTERNAL=
+yaml-cpp_STATIC_LIBDIR:INTERNAL=
+yaml-cpp_STATIC_LIBRARIES:INTERNAL=yaml-cpp
+yaml-cpp_STATIC_LIBRARY_DIRS:INTERNAL=/usr//usr/lib/aarch64-linux-gnu
+yaml-cpp_STATIC_LIBS:INTERNAL=
+yaml-cpp_STATIC_LIBS_L:INTERNAL=
+yaml-cpp_STATIC_LIBS_OTHER:INTERNAL=
+yaml-cpp_STATIC_LIBS_PATHS:INTERNAL=
+yaml-cpp_VERSION:INTERNAL=0.6.2
+yaml-cpp_yaml-cpp_INCLUDEDIR:INTERNAL=
+yaml-cpp_yaml-cpp_LIBDIR:INTERNAL=
+yaml-cpp_yaml-cpp_PREFIX:INTERNAL=
+yaml-cpp_yaml-cpp_VERSION:INTERNAL=
 

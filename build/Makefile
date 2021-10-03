@@ -1182,43 +1182,238 @@ actionlib_generate_messages_eus/fast:
 .PHONY : actionlib_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named ackermann_msgs_generate_messages_nodejs
+# Target rules for targets named dynamic_reconfigure_generate_messages_lisp
 
 # Build rule for target.
-ackermann_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_nodejs
-.PHONY : ackermann_msgs_generate_messages_nodejs
+dynamic_reconfigure_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_generate_messages_lisp
+.PHONY : dynamic_reconfigure_generate_messages_lisp
 
 # fast build rule for target.
-ackermann_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_nodejs.dir/build.make hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_nodejs.dir/build
-.PHONY : ackermann_msgs_generate_messages_nodejs/fast
+dynamic_reconfigure_generate_messages_lisp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_lisp.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named ackermann_msgs_generate_messages_lisp
+# Target rules for targets named nodelet_generate_messages_eus
 
 # Build rule for target.
-ackermann_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_lisp
-.PHONY : ackermann_msgs_generate_messages_lisp
+nodelet_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodelet_generate_messages_eus
+.PHONY : nodelet_generate_messages_eus
 
 # fast build rule for target.
-ackermann_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_lisp.dir/build.make hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_lisp.dir/build
-.PHONY : ackermann_msgs_generate_messages_lisp/fast
+nodelet_generate_messages_eus/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_eus.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_eus.dir/build
+.PHONY : nodelet_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named ackermann_msgs_generate_messages_py
+# Target rules for targets named ackermann_cmd_mux_nodelet
 
 # Build rule for target.
-ackermann_msgs_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_py
-.PHONY : ackermann_msgs_generate_messages_py
+ackermann_cmd_mux_nodelet: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_cmd_mux_nodelet
+.PHONY : ackermann_cmd_mux_nodelet
 
 # fast build rule for target.
-ackermann_msgs_generate_messages_py/fast:
-	$(MAKE) -f hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_py.dir/build.make hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_py.dir/build
-.PHONY : ackermann_msgs_generate_messages_py/fast
+ackermann_cmd_mux_nodelet/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_cmd_mux_nodelet.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_cmd_mux_nodelet.dir/build
+.PHONY : ackermann_cmd_mux_nodelet/fast
+
+#=============================================================================
+# Target rules for targets named nodelet_generate_messages_py
+
+# Build rule for target.
+nodelet_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodelet_generate_messages_py
+.PHONY : nodelet_generate_messages_py
+
+# fast build rule for target.
+nodelet_generate_messages_py/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_py.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_py.dir/build
+.PHONY : nodelet_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named bond_generate_messages_cpp
+
+# Build rule for target.
+bond_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bond_generate_messages_cpp
+.PHONY : bond_generate_messages_cpp
+
+# fast build rule for target.
+bond_generate_messages_cpp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_cpp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_cpp.dir/build
+.PHONY : bond_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named bond_generate_messages_eus
+
+# Build rule for target.
+bond_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bond_generate_messages_eus
+.PHONY : bond_generate_messages_eus
+
+# fast build rule for target.
+bond_generate_messages_eus/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_eus.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_eus.dir/build
+.PHONY : bond_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named nodelet_generate_messages_lisp
+
+# Build rule for target.
+nodelet_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodelet_generate_messages_lisp
+.PHONY : nodelet_generate_messages_lisp
+
+# fast build rule for target.
+nodelet_generate_messages_lisp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_lisp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_lisp.dir/build
+.PHONY : nodelet_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named bond_generate_messages_py
+
+# Build rule for target.
+bond_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bond_generate_messages_py
+.PHONY : bond_generate_messages_py
+
+# fast build rule for target.
+bond_generate_messages_py/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_py.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_py.dir/build
+.PHONY : bond_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named bond_generate_messages_nodejs
+
+# Build rule for target.
+bond_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bond_generate_messages_nodejs
+.PHONY : bond_generate_messages_nodejs
+
+# fast build rule for target.
+bond_generate_messages_nodejs/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_nodejs.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_nodejs.dir/build
+.PHONY : bond_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named nodelet_generate_messages_nodejs
+
+# Build rule for target.
+nodelet_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodelet_generate_messages_nodejs
+.PHONY : nodelet_generate_messages_nodejs
+
+# fast build rule for target.
+nodelet_generate_messages_nodejs/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_nodejs.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_nodejs.dir/build
+.PHONY : nodelet_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_reconfigure_generate_messages_cpp
+
+# Build rule for target.
+dynamic_reconfigure_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_generate_messages_cpp
+.PHONY : dynamic_reconfigure_generate_messages_cpp
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_cpp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_cpp.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named ackermann_cmd_mux_gencfg
+
+# Build rule for target.
+ackermann_cmd_mux_gencfg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_cmd_mux_gencfg
+.PHONY : ackermann_cmd_mux_gencfg
+
+# fast build rule for target.
+ackermann_cmd_mux_gencfg/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_cmd_mux_gencfg.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_cmd_mux_gencfg.dir/build
+.PHONY : ackermann_cmd_mux_gencfg/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_reconfigure_generate_messages_nodejs
+
+# Build rule for target.
+dynamic_reconfigure_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_generate_messages_nodejs
+.PHONY : dynamic_reconfigure_generate_messages_nodejs
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_nodejs/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_nodejs.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_reconfigure_generate_messages_py
+
+# Build rule for target.
+dynamic_reconfigure_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_generate_messages_py
+.PHONY : dynamic_reconfigure_generate_messages_py
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_py/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_py.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_reconfigure_generate_messages_eus
+
+# Build rule for target.
+dynamic_reconfigure_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_generate_messages_eus
+.PHONY : dynamic_reconfigure_generate_messages_eus
+
+# fast build rule for target.
+dynamic_reconfigure_generate_messages_eus/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_generate_messages_eus.dir/build
+.PHONY : dynamic_reconfigure_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named nodelet_generate_messages_cpp
+
+# Build rule for target.
+nodelet_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 nodelet_generate_messages_cpp
+.PHONY : nodelet_generate_messages_cpp
+
+# fast build rule for target.
+nodelet_generate_messages_cpp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_cpp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/nodelet_generate_messages_cpp.dir/build
+.PHONY : nodelet_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named dynamic_reconfigure_gencfg
+
+# Build rule for target.
+dynamic_reconfigure_gencfg: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 dynamic_reconfigure_gencfg
+.PHONY : dynamic_reconfigure_gencfg
+
+# fast build rule for target.
+dynamic_reconfigure_gencfg/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/dynamic_reconfigure_gencfg.dir/build
+.PHONY : dynamic_reconfigure_gencfg/fast
+
+#=============================================================================
+# Target rules for targets named ackermann_msgs_generate_messages_cpp
+
+# Build rule for target.
+ackermann_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_cpp
+.PHONY : ackermann_msgs_generate_messages_cpp
+
+# fast build rule for target.
+ackermann_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_cpp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_cpp.dir/build
+.PHONY : ackermann_msgs_generate_messages_cpp/fast
 
 #=============================================================================
 # Target rules for targets named ackermann_msgs_generate_messages_eus
@@ -1230,8 +1425,60 @@ ackermann_msgs_generate_messages_eus: cmake_check_build_system
 
 # fast build rule for target.
 ackermann_msgs_generate_messages_eus/fast:
-	$(MAKE) -f hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_eus.dir/build.make hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_eus.dir/build
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_eus.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_eus.dir/build
 .PHONY : ackermann_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named ackermann_msgs_generate_messages_lisp
+
+# Build rule for target.
+ackermann_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_lisp
+.PHONY : ackermann_msgs_generate_messages_lisp
+
+# fast build rule for target.
+ackermann_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_lisp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_lisp.dir/build
+.PHONY : ackermann_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named bond_generate_messages_lisp
+
+# Build rule for target.
+bond_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 bond_generate_messages_lisp
+.PHONY : bond_generate_messages_lisp
+
+# fast build rule for target.
+bond_generate_messages_lisp/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_lisp.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/bond_generate_messages_lisp.dir/build
+.PHONY : bond_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named ackermann_msgs_generate_messages_nodejs
+
+# Build rule for target.
+ackermann_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_nodejs
+.PHONY : ackermann_msgs_generate_messages_nodejs
+
+# fast build rule for target.
+ackermann_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_nodejs.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_nodejs.dir/build
+.PHONY : ackermann_msgs_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named ackermann_msgs_generate_messages_py
+
+# Build rule for target.
+ackermann_msgs_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_py
+.PHONY : ackermann_msgs_generate_messages_py
+
+# fast build rule for target.
+ackermann_msgs_generate_messages_py/fast:
+	$(MAKE) -f racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_py.dir/build.make racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_py.dir/build
+.PHONY : ackermann_msgs_generate_messages_py/fast
 
 #=============================================================================
 # Target rules for targets named safety_node
@@ -1245,19 +1492,6 @@ safety_node: cmake_check_build_system
 safety_node/fast:
 	$(MAKE) -f hty_lab2/CMakeFiles/safety_node.dir/build.make hty_lab2/CMakeFiles/safety_node.dir/build
 .PHONY : safety_node/fast
-
-#=============================================================================
-# Target rules for targets named ackermann_msgs_generate_messages_cpp
-
-# Build rule for target.
-ackermann_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 ackermann_msgs_generate_messages_cpp
-.PHONY : ackermann_msgs_generate_messages_cpp
-
-# fast build rule for target.
-ackermann_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_cpp.dir/build.make hty_lab2/CMakeFiles/ackermann_msgs_generate_messages_cpp.dir/build
-.PHONY : ackermann_msgs_generate_messages_cpp/fast
 
 #=============================================================================
 # Target rules for targets named wall_follow
@@ -2039,12 +2273,30 @@ help:
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_eus"
-	@echo "... ackermann_msgs_generate_messages_nodejs"
-	@echo "... ackermann_msgs_generate_messages_lisp"
-	@echo "... ackermann_msgs_generate_messages_py"
-	@echo "... ackermann_msgs_generate_messages_eus"
-	@echo "... safety_node"
+	@echo "... dynamic_reconfigure_generate_messages_lisp"
+	@echo "... nodelet_generate_messages_eus"
+	@echo "... ackermann_cmd_mux_nodelet"
+	@echo "... nodelet_generate_messages_py"
+	@echo "... bond_generate_messages_cpp"
+	@echo "... bond_generate_messages_eus"
+	@echo "... nodelet_generate_messages_lisp"
+	@echo "... bond_generate_messages_py"
+	@echo "... bond_generate_messages_nodejs"
+	@echo "... nodelet_generate_messages_nodejs"
+	@echo "... dynamic_reconfigure_generate_messages_cpp"
+	@echo "... ackermann_cmd_mux_gencfg"
+	@echo "... dynamic_reconfigure_generate_messages_nodejs"
+	@echo "... dynamic_reconfigure_generate_messages_py"
+	@echo "... dynamic_reconfigure_generate_messages_eus"
+	@echo "... nodelet_generate_messages_cpp"
+	@echo "... dynamic_reconfigure_gencfg"
 	@echo "... ackermann_msgs_generate_messages_cpp"
+	@echo "... ackermann_msgs_generate_messages_eus"
+	@echo "... ackermann_msgs_generate_messages_lisp"
+	@echo "... bond_generate_messages_lisp"
+	@echo "... ackermann_msgs_generate_messages_nodejs"
+	@echo "... ackermann_msgs_generate_messages_py"
+	@echo "... safety_node"
 	@echo "... wall_follow"
 	@echo "... gap_follow"
 	@echo "... lab1_pubs_test"

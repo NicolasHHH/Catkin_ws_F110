@@ -1,2 +1,2 @@
-beginner_tutorials:f1tenth_simulator:hty_lab:hty_lab2:hty_lab3:hty_lab4:hty_lab5:learning_tf
+beginner_tutorials:f1tenth_simulator:hty_lab:hty_lab2:hty_lab3:hty_lab4:hty_lab5:learning_tf:particle_filter:racecar/ackermann_cmd_mux
 -DCATKIN_DEVEL_PREFIX=/home/parallels/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/parallels/catkin_ws/install -G Unix Makefiles

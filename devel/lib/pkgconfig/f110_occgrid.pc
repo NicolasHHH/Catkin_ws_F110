@@ -1,0 +1,8 @@
+prefix=/home/parallels/catkin_ws/devel
+
+Name: f110_occgrid
+Description: Description of f110_occgrid
+Version: 0.0.0
+Cflags: -I/home/parallels/catkin_ws/devel/include -I/home/parallels/catkin_ws/src/f110_occgrid/include
+Libs: -L${prefix}/lib -lf110_occgrid
+Requires: geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs tf message_runtime
