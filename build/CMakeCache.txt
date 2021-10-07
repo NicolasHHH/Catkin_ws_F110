@@ -558,6 +558,12 @@ hty_lab5_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab5
 hty_lab5_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab5
 
 //Value Computed by CMake
+hty_lab6_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab6
+
+//Value Computed by CMake
+hty_lab6_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hty_lab6
+
+//Value Computed by CMake
 hty_lab_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab
 
 //Value Computed by CMake
@@ -576,7 +582,7 @@ learning_tf_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/learning_tf
 learning_tf_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/learning_tf
 
 //Path to a library.
-lib:FILEPATH=/usr/lib/liborocos-kdl.so
+lib:FILEPATH=/opt/ros/noetic/lib/libtf2.so
 
 //The directory containing a CMake configuration file for message_filters.
 message_filters_DIR:PATH=/opt/ros/noetic/share/message_filters/cmake
@@ -679,6 +685,30 @@ tf_ros_DIR:PATH=tf_ros_DIR-NOTFOUND
 
 //The directory containing a CMake configuration file for visualization_msgs.
 visualization_msgs_DIR:PATH=/opt/ros/noetic/share/visualization_msgs/cmake
+
+//Value Computed by CMake
+waypoint_generator_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/waypoint-develop/waypoint_generator
+
+//Value Computed by CMake
+waypoint_generator_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/waypoint-develop/waypoint_generator
+
+//Value Computed by CMake
+waypoint_logger_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/waypoint_logger
+
+//Value Computed by CMake
+waypoint_logger_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/waypoint_logger
+
+//Value Computed by CMake
+waypoint_meta_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/waypoint-develop/waypoint_meta
+
+//Value Computed by CMake
+waypoint_meta_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/waypoint-develop/waypoint_meta
+
+//Value Computed by CMake
+waypoint_touring_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/waypoint-develop/waypoint_touring
+
+//Value Computed by CMake
+waypoint_touring_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/waypoint-develop/waypoint_touring
 
 //The directory containing a CMake configuration file for xmlrpcpp.
 xmlrpcpp_DIR:PATH=/opt/ros/noetic/share/xmlrpcpp/cmake
@@ -831,7 +861,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=14
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=19
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP

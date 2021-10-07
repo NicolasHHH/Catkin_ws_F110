@@ -285,6 +285,19 @@ gtest/fast:
 .PHONY : gtest/fast
 
 #=============================================================================
+# Target rules for targets named _catkin_empty_exported_target
+
+# Build rule for target.
+_catkin_empty_exported_target: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 _catkin_empty_exported_target
+.PHONY : _catkin_empty_exported_target
+
+# fast build rule for target.
+_catkin_empty_exported_target/fast:
+	$(MAKE) -f waypoint-develop/waypoint_meta/CMakeFiles/_catkin_empty_exported_target.dir/build.make waypoint-develop/waypoint_meta/CMakeFiles/_catkin_empty_exported_target.dir/build
+.PHONY : _catkin_empty_exported_target/fast
+
+#=============================================================================
 # Target rules for targets named client
 
 # Build rule for target.
@@ -753,19 +766,6 @@ tf2_msgs_generate_messages_eus/fast:
 .PHONY : tf2_msgs_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named actionlib_generate_messages_nodejs
-
-# Build rule for target.
-actionlib_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_nodejs
-.PHONY : actionlib_generate_messages_nodejs
-
-# fast build rule for target.
-actionlib_generate_messages_nodejs/fast:
-	$(MAKE) -f hty_lab5/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make hty_lab5/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
-.PHONY : actionlib_generate_messages_nodejs/fast
-
-#=============================================================================
 # Target rules for targets named geometry_msgs_generate_messages_nodejs
 
 # Build rule for target.
@@ -1104,19 +1104,6 @@ sensor_msgs_generate_messages_eus/fast:
 .PHONY : sensor_msgs_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named _catkin_empty_exported_target
-
-# Build rule for target.
-_catkin_empty_exported_target: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 _catkin_empty_exported_target
-.PHONY : _catkin_empty_exported_target
-
-# fast build rule for target.
-_catkin_empty_exported_target/fast:
-	$(MAKE) -f hty_lab5/CMakeFiles/_catkin_empty_exported_target.dir/build.make hty_lab5/CMakeFiles/_catkin_empty_exported_target.dir/build
-.PHONY : _catkin_empty_exported_target/fast
-
-#=============================================================================
 # Target rules for targets named actionlib_generate_messages_lisp
 
 # Build rule for target.
@@ -1180,6 +1167,19 @@ actionlib_generate_messages_eus: cmake_check_build_system
 actionlib_generate_messages_eus/fast:
 	$(MAKE) -f hty_lab5/CMakeFiles/actionlib_generate_messages_eus.dir/build.make hty_lab5/CMakeFiles/actionlib_generate_messages_eus.dir/build
 .PHONY : actionlib_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named actionlib_generate_messages_nodejs
+
+# Build rule for target.
+actionlib_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 actionlib_generate_messages_nodejs
+.PHONY : actionlib_generate_messages_nodejs
+
+# fast build rule for target.
+actionlib_generate_messages_nodejs/fast:
+	$(MAKE) -f hty_lab5/CMakeFiles/actionlib_generate_messages_nodejs.dir/build.make hty_lab5/CMakeFiles/actionlib_generate_messages_nodejs.dir/build
+.PHONY : actionlib_generate_messages_nodejs/fast
 
 #=============================================================================
 # Target rules for targets named dynamic_reconfigure_generate_messages_lisp
@@ -1520,147 +1520,17 @@ gap_follow/fast:
 .PHONY : gap_follow/fast
 
 #=============================================================================
-# Target rules for targets named lab1_pubs_test
+# Target rules for targets named pure
 
 # Build rule for target.
-lab1_pubs_test: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 lab1_pubs_test
-.PHONY : lab1_pubs_test
+pure: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 pure
+.PHONY : pure
 
 # fast build rule for target.
-lab1_pubs_test/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/lab1_pubs_test.dir/build.make hty_lab/CMakeFiles/lab1_pubs_test.dir/build
-.PHONY : lab1_pubs_test/fast
-
-#=============================================================================
-# Target rules for targets named hty_lab_generate_messages_py
-
-# Build rule for target.
-hty_lab_generate_messages_py: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages_py
-.PHONY : hty_lab_generate_messages_py
-
-# fast build rule for target.
-hty_lab_generate_messages_py/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages_py.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages_py.dir/build
-.PHONY : hty_lab_generate_messages_py/fast
-
-#=============================================================================
-# Target rules for targets named hty_lab_genpy
-
-# Build rule for target.
-hty_lab_genpy: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_genpy
-.PHONY : hty_lab_genpy
-
-# fast build rule for target.
-hty_lab_genpy/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_genpy.dir/build.make hty_lab/CMakeFiles/hty_lab_genpy.dir/build
-.PHONY : hty_lab_genpy/fast
-
-#=============================================================================
-# Target rules for targets named visualization_msgs_generate_messages_cpp
-
-# Build rule for target.
-visualization_msgs_generate_messages_cpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_cpp
-.PHONY : visualization_msgs_generate_messages_cpp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_cpp/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build.make hty_lab/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build
-.PHONY : visualization_msgs_generate_messages_cpp/fast
-
-#=============================================================================
-# Target rules for targets named visualization_msgs_generate_messages_lisp
-
-# Build rule for target.
-visualization_msgs_generate_messages_lisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_lisp
-.PHONY : visualization_msgs_generate_messages_lisp
-
-# fast build rule for target.
-visualization_msgs_generate_messages_lisp/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make hty_lab/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
-.PHONY : visualization_msgs_generate_messages_lisp/fast
-
-#=============================================================================
-# Target rules for targets named hty_lab_generate_messages_nodejs
-
-# Build rule for target.
-hty_lab_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages_nodejs
-.PHONY : hty_lab_generate_messages_nodejs
-
-# fast build rule for target.
-hty_lab_generate_messages_nodejs/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages_nodejs.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages_nodejs.dir/build
-.PHONY : hty_lab_generate_messages_nodejs/fast
-
-#=============================================================================
-# Target rules for targets named lab1_subs_scan
-
-# Build rule for target.
-lab1_subs_scan: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 lab1_subs_scan
-.PHONY : lab1_subs_scan
-
-# fast build rule for target.
-lab1_subs_scan/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/lab1_subs_scan.dir/build.make hty_lab/CMakeFiles/lab1_subs_scan.dir/build
-.PHONY : lab1_subs_scan/fast
-
-#=============================================================================
-# Target rules for targets named hty_lab_gennodejs
-
-# Build rule for target.
-hty_lab_gennodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_gennodejs
-.PHONY : hty_lab_gennodejs
-
-# fast build rule for target.
-hty_lab_gennodejs/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_gennodejs.dir/build.make hty_lab/CMakeFiles/hty_lab_gennodejs.dir/build
-.PHONY : hty_lab_gennodejs/fast
-
-#=============================================================================
-# Target rules for targets named visualization_msgs_generate_messages_eus
-
-# Build rule for target.
-visualization_msgs_generate_messages_eus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_eus
-.PHONY : visualization_msgs_generate_messages_eus
-
-# fast build rule for target.
-visualization_msgs_generate_messages_eus/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build.make hty_lab/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build
-.PHONY : visualization_msgs_generate_messages_eus/fast
-
-#=============================================================================
-# Target rules for targets named hty_lab_gencpp
-
-# Build rule for target.
-hty_lab_gencpp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_gencpp
-.PHONY : hty_lab_gencpp
-
-# fast build rule for target.
-hty_lab_gencpp/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_gencpp.dir/build.make hty_lab/CMakeFiles/hty_lab_gencpp.dir/build
-.PHONY : hty_lab_gencpp/fast
-
-#=============================================================================
-# Target rules for targets named visualization_msgs_generate_messages_nodejs
-
-# Build rule for target.
-visualization_msgs_generate_messages_nodejs: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_nodejs
-.PHONY : visualization_msgs_generate_messages_nodejs
-
-# fast build rule for target.
-visualization_msgs_generate_messages_nodejs/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make hty_lab/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
-.PHONY : visualization_msgs_generate_messages_nodejs/fast
+pure/fast:
+	$(MAKE) -f hty_lab6/CMakeFiles/pure.dir/build.make hty_lab6/CMakeFiles/pure.dir/build
+.PHONY : pure/fast
 
 #=============================================================================
 # Target rules for targets named visualization_msgs_generate_messages_py
@@ -1672,34 +1542,73 @@ visualization_msgs_generate_messages_py: cmake_check_build_system
 
 # fast build rule for target.
 visualization_msgs_generate_messages_py/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make hty_lab/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
+	$(MAKE) -f hty_lab6/CMakeFiles/visualization_msgs_generate_messages_py.dir/build.make hty_lab6/CMakeFiles/visualization_msgs_generate_messages_py.dir/build
 .PHONY : visualization_msgs_generate_messages_py/fast
 
 #=============================================================================
-# Target rules for targets named hty_lab_genlisp
+# Target rules for targets named visualization_msgs_generate_messages_nodejs
 
 # Build rule for target.
-hty_lab_genlisp: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_genlisp
-.PHONY : hty_lab_genlisp
+visualization_msgs_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_nodejs
+.PHONY : visualization_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-hty_lab_genlisp/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_genlisp.dir/build.make hty_lab/CMakeFiles/hty_lab_genlisp.dir/build
-.PHONY : hty_lab_genlisp/fast
+visualization_msgs_generate_messages_nodejs/fast:
+	$(MAKE) -f hty_lab6/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build.make hty_lab6/CMakeFiles/visualization_msgs_generate_messages_nodejs.dir/build
+.PHONY : visualization_msgs_generate_messages_nodejs/fast
 
 #=============================================================================
-# Target rules for targets named hty_lab_generate_messages
+# Target rules for targets named visualization_msgs_generate_messages_eus
 
 # Build rule for target.
-hty_lab_generate_messages: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages
-.PHONY : hty_lab_generate_messages
+visualization_msgs_generate_messages_eus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_eus
+.PHONY : visualization_msgs_generate_messages_eus
 
 # fast build rule for target.
-hty_lab_generate_messages/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages.dir/build
-.PHONY : hty_lab_generate_messages/fast
+visualization_msgs_generate_messages_eus/fast:
+	$(MAKE) -f hty_lab6/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build.make hty_lab6/CMakeFiles/visualization_msgs_generate_messages_eus.dir/build
+.PHONY : visualization_msgs_generate_messages_eus/fast
+
+#=============================================================================
+# Target rules for targets named visualization_msgs_generate_messages_lisp
+
+# Build rule for target.
+visualization_msgs_generate_messages_lisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_lisp
+.PHONY : visualization_msgs_generate_messages_lisp
+
+# fast build rule for target.
+visualization_msgs_generate_messages_lisp/fast:
+	$(MAKE) -f hty_lab6/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build.make hty_lab6/CMakeFiles/visualization_msgs_generate_messages_lisp.dir/build
+.PHONY : visualization_msgs_generate_messages_lisp/fast
+
+#=============================================================================
+# Target rules for targets named visualization_msgs_generate_messages_cpp
+
+# Build rule for target.
+visualization_msgs_generate_messages_cpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 visualization_msgs_generate_messages_cpp
+.PHONY : visualization_msgs_generate_messages_cpp
+
+# fast build rule for target.
+visualization_msgs_generate_messages_cpp/fast:
+	$(MAKE) -f hty_lab6/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build.make hty_lab6/CMakeFiles/visualization_msgs_generate_messages_cpp.dir/build
+.PHONY : visualization_msgs_generate_messages_cpp/fast
+
+#=============================================================================
+# Target rules for targets named lab1_pubs_test
+
+# Build rule for target.
+lab1_pubs_test: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lab1_pubs_test
+.PHONY : lab1_pubs_test
+
+# fast build rule for target.
+lab1_pubs_test/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/lab1_pubs_test.dir/build.make hty_lab/CMakeFiles/lab1_pubs_test.dir/build
+.PHONY : lab1_pubs_test/fast
 
 #=============================================================================
 # Target rules for targets named hty_lab_generate_messages_lisp
@@ -1715,17 +1624,121 @@ hty_lab_generate_messages_lisp/fast:
 .PHONY : hty_lab_generate_messages_lisp/fast
 
 #=============================================================================
-# Target rules for targets named lab1_pubs_lidar
+# Target rules for targets named hty_lab_gencpp
 
 # Build rule for target.
-lab1_pubs_lidar: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 lab1_pubs_lidar
-.PHONY : lab1_pubs_lidar
+hty_lab_gencpp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_gencpp
+.PHONY : hty_lab_gencpp
 
 # fast build rule for target.
-lab1_pubs_lidar/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/lab1_pubs_lidar.dir/build.make hty_lab/CMakeFiles/lab1_pubs_lidar.dir/build
-.PHONY : lab1_pubs_lidar/fast
+hty_lab_gencpp/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_gencpp.dir/build.make hty_lab/CMakeFiles/hty_lab_gencpp.dir/build
+.PHONY : hty_lab_gencpp/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_geneus
+
+# Build rule for target.
+hty_lab_geneus: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_geneus
+.PHONY : hty_lab_geneus
+
+# fast build rule for target.
+hty_lab_geneus/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_geneus.dir/build.make hty_lab/CMakeFiles/hty_lab_geneus.dir/build
+.PHONY : hty_lab_geneus/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_generate_messages_py
+
+# Build rule for target.
+hty_lab_generate_messages_py: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages_py
+.PHONY : hty_lab_generate_messages_py
+
+# fast build rule for target.
+hty_lab_generate_messages_py/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages_py.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages_py.dir/build
+.PHONY : hty_lab_generate_messages_py/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_generate_messages
+
+# Build rule for target.
+hty_lab_generate_messages: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages
+.PHONY : hty_lab_generate_messages
+
+# fast build rule for target.
+hty_lab_generate_messages/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages.dir/build
+.PHONY : hty_lab_generate_messages/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_genlisp
+
+# Build rule for target.
+hty_lab_genlisp: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_genlisp
+.PHONY : hty_lab_genlisp
+
+# fast build rule for target.
+hty_lab_genlisp/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_genlisp.dir/build.make hty_lab/CMakeFiles/hty_lab_genlisp.dir/build
+.PHONY : hty_lab_genlisp/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_generate_messages_nodejs
+
+# Build rule for target.
+hty_lab_generate_messages_nodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_generate_messages_nodejs
+.PHONY : hty_lab_generate_messages_nodejs
+
+# fast build rule for target.
+hty_lab_generate_messages_nodejs/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_generate_messages_nodejs.dir/build.make hty_lab/CMakeFiles/hty_lab_generate_messages_nodejs.dir/build
+.PHONY : hty_lab_generate_messages_nodejs/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_genpy
+
+# Build rule for target.
+hty_lab_genpy: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_genpy
+.PHONY : hty_lab_genpy
+
+# fast build rule for target.
+hty_lab_genpy/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_genpy.dir/build.make hty_lab/CMakeFiles/hty_lab_genpy.dir/build
+.PHONY : hty_lab_genpy/fast
+
+#=============================================================================
+# Target rules for targets named hty_lab_gennodejs
+
+# Build rule for target.
+hty_lab_gennodejs: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_gennodejs
+.PHONY : hty_lab_gennodejs
+
+# fast build rule for target.
+hty_lab_gennodejs/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_gennodejs.dir/build.make hty_lab/CMakeFiles/hty_lab_gennodejs.dir/build
+.PHONY : hty_lab_gennodejs/fast
+
+#=============================================================================
+# Target rules for targets named lab1_subs_scan
+
+# Build rule for target.
+lab1_subs_scan: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lab1_subs_scan
+.PHONY : lab1_subs_scan
+
+# fast build rule for target.
+lab1_subs_scan/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/lab1_subs_scan.dir/build.make hty_lab/CMakeFiles/lab1_subs_scan.dir/build
+.PHONY : lab1_subs_scan/fast
 
 #=============================================================================
 # Target rules for targets named hty_lab_generate_messages_cpp
@@ -1754,17 +1767,17 @@ hty_lab_generate_messages_eus/fast:
 .PHONY : hty_lab_generate_messages_eus/fast
 
 #=============================================================================
-# Target rules for targets named hty_lab_geneus
+# Target rules for targets named lab1_pubs_lidar
 
 # Build rule for target.
-hty_lab_geneus: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 hty_lab_geneus
-.PHONY : hty_lab_geneus
+lab1_pubs_lidar: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 lab1_pubs_lidar
+.PHONY : lab1_pubs_lidar
 
 # fast build rule for target.
-hty_lab_geneus/fast:
-	$(MAKE) -f hty_lab/CMakeFiles/hty_lab_geneus.dir/build.make hty_lab/CMakeFiles/hty_lab_geneus.dir/build
-.PHONY : hty_lab_geneus/fast
+lab1_pubs_lidar/fast:
+	$(MAKE) -f hty_lab/CMakeFiles/lab1_pubs_lidar.dir/build.make hty_lab/CMakeFiles/lab1_pubs_lidar.dir/build
+.PHONY : lab1_pubs_lidar/fast
 
 #=============================================================================
 # Target rules for targets named random_walk
@@ -2204,6 +2217,7 @@ help:
 	@echo "... gmock"
 	@echo "... gtest_main"
 	@echo "... gtest"
+	@echo "... _catkin_empty_exported_target"
 	@echo "... client"
 	@echo "... listener"
 	@echo "... rosgraph_msgs_generate_messages_py"
@@ -2240,7 +2254,6 @@ help:
 	@echo "... tf2_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_lisp"
 	@echo "... tf2_msgs_generate_messages_eus"
-	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... geometry_msgs_generate_messages_nodejs"
 	@echo "... tf2_msgs_generate_messages_py"
 	@echo "... geometry_msgs_generate_messages_cpp"
@@ -2267,12 +2280,12 @@ help:
 	@echo "... tf_generate_messages_nodejs"
 	@echo "... sensor_msgs_generate_messages_cpp"
 	@echo "... sensor_msgs_generate_messages_eus"
-	@echo "... _catkin_empty_exported_target"
 	@echo "... actionlib_generate_messages_lisp"
 	@echo "... actionlib_msgs_generate_messages_py"
 	@echo "... actionlib_generate_messages_cpp"
 	@echo "... actionlib_msgs_generate_messages_cpp"
 	@echo "... actionlib_generate_messages_eus"
+	@echo "... actionlib_generate_messages_nodejs"
 	@echo "... dynamic_reconfigure_generate_messages_lisp"
 	@echo "... nodelet_generate_messages_eus"
 	@echo "... ackermann_cmd_mux_nodelet"
@@ -2299,25 +2312,26 @@ help:
 	@echo "... safety_node"
 	@echo "... wall_follow"
 	@echo "... gap_follow"
-	@echo "... lab1_pubs_test"
-	@echo "... hty_lab_generate_messages_py"
-	@echo "... hty_lab_genpy"
-	@echo "... visualization_msgs_generate_messages_cpp"
-	@echo "... visualization_msgs_generate_messages_lisp"
-	@echo "... hty_lab_generate_messages_nodejs"
-	@echo "... lab1_subs_scan"
-	@echo "... hty_lab_gennodejs"
-	@echo "... visualization_msgs_generate_messages_eus"
-	@echo "... hty_lab_gencpp"
-	@echo "... visualization_msgs_generate_messages_nodejs"
+	@echo "... pure"
 	@echo "... visualization_msgs_generate_messages_py"
-	@echo "... hty_lab_genlisp"
-	@echo "... hty_lab_generate_messages"
+	@echo "... visualization_msgs_generate_messages_nodejs"
+	@echo "... visualization_msgs_generate_messages_eus"
+	@echo "... visualization_msgs_generate_messages_lisp"
+	@echo "... visualization_msgs_generate_messages_cpp"
+	@echo "... lab1_pubs_test"
 	@echo "... hty_lab_generate_messages_lisp"
-	@echo "... lab1_pubs_lidar"
+	@echo "... hty_lab_gencpp"
+	@echo "... hty_lab_geneus"
+	@echo "... hty_lab_generate_messages_py"
+	@echo "... hty_lab_generate_messages"
+	@echo "... hty_lab_genlisp"
+	@echo "... hty_lab_generate_messages_nodejs"
+	@echo "... hty_lab_genpy"
+	@echo "... hty_lab_gennodejs"
+	@echo "... lab1_subs_scan"
 	@echo "... hty_lab_generate_messages_cpp"
 	@echo "... hty_lab_generate_messages_eus"
-	@echo "... hty_lab_geneus"
+	@echo "... lab1_pubs_lidar"
 	@echo "... random_walk"
 	@echo "... mux"
 	@echo "... f1tenth_simulator"
