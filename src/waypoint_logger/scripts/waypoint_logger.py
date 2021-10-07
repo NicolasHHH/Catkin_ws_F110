@@ -26,7 +26,7 @@ def pose_save_waypoint(data):
     euler = tf.transformations.euler_from_quaternion(quaternion)
     global count
     count += 1
-    if(count>= 100):
+    if(count>= 300):
     	count =0
     	print ("pose: ", data.pose.position.x,data.pose.position.y,euler[2])
     	file_pose.write('%f, %f, %f, %f\n' % (data.pose.position.x,data.pose.position.y,data.pose.orientation.z, data.pose.orientation.w))
@@ -44,7 +44,7 @@ def odom_save_waypoint(data):
     #if data.twist.twist.linear.x>0.:
     global count2
     count2+=1
-    if (count2 >= 200):
+    if (count2 >= 300):
     	count2=0
     	print ("odom:",data.pose.pose.position.x,data.pose.pose.position.y,euler[2])
     	file_odom.write('%f, %f, %f, %f, %f\n' % (data.pose.pose.position.x,data.pose.pose.position.y,data.pose.pose.orientation.z,data.pose.pose.orientation.w,speed))

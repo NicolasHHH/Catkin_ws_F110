@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 import rospy
 import tf
-from tf import listener
+from tf.transformations import euler_from_quaternion
+import tf2_py
+
 import tf2_ros
-import tf_conversions
+
 
 import math
 import numpy as np
@@ -17,15 +19,21 @@ from nav_msgs.msg import Odometry
 import geometry_msgs.msg
 from geometry_msgs.msg import PoseStamped
 from ackermann_msgs.msg import AckermannDriveStamped
-import visualization_msgs.msg as viz_msgs
+import rviz
 import std_msgs.msg as std_msgs
+
+import visualization_msgs.msg as viz_msgs
+from std_msgs.msg import Float32, ColorRGBA
+from geometry_msgs.msg import Vector3
+from visualization_msgs.msg import Marker
+
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PointStamped
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
 #from tf.transformations import euler_from_quaternion
 
 VELOCITY = 2.0 # meters per second
-LOOK_AHEAD_DIST = 0.8
+LOOK_AHEAD_DIST = 2.5
 global way_points 
 way_points= []
 
@@ -40,7 +48,9 @@ class PurePursuit(object):
         self.waypoints = way_points
         self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
         self.pose_sub = rospy.Subscriber('/gt_pose', PoseStamped, self.pose_callback)
+
         self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 2)
+        self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 2)
         self.frame = ""
         self.time = 0.0
         self.velocity = 0.0
@@ -61,18 +71,21 @@ class PurePursuit(object):
         print( "voiture at: "+str(x)+" "+str(y))#+" orient: "+str(z)+" "+str(w))
 
         closeX,closeY = x+100.0, y+100.0
-        aheadX,aheadY= x+100,y+100
+        aheadX,aheadY= x,y
         rotationZ = 0;
-        mindistCar,mindistL = 10,20;
+        mindistCar,mindistL = 60,40;
         stateclose = True
         for waypoint in self.waypoints:
             dist = self.dist_euclid(waypoint[0],waypoint[1],x,y)
-            if(dist<mindistCar and stateclose):
-                mindistCar = dist
-                closeX = waypoint[0]
-                closeY = waypoint[1]
-                rotationZ = waypoint[2]
-            if (abs(dist-LOOK_AHEAD_DIST)<mindistL):
+            alpha = math.atan((waypoint[1]-y)/(waypoint[0]-x+0.0001))
+            euler = euler_from_quaternion([0,0,waypoint[2],waypoint[3]])
+            delta = abs(euler[2] - alpha)
+            if(delta>3.14):
+                delta -= 3.14
+            if(delta<-3.14):
+                delta += 3.14
+            print("alpha",alpha,euler,delta)
+            if (abs(dist-LOOK_AHEAD_DIST)<mindistL and delta < 1):
                 #print(aheadX,aheadY,x,y,dist)
                 mindistL = dist;
                 aheadX = waypoint[0]
@@ -80,7 +93,7 @@ class PurePursuit(object):
                 rotationZ = waypoint[2]
                 rotationW = waypoint[3]
                 self.speed = waypoint[4]
-        #print("aheadXY: ",aheadX,aheadY,rotationZ)
+        print("aheadXY: ",aheadX,aheadY,x,y)
 
         aheadPoint = PointStamped()
         aheadPoint.header.frame_id = "map"
@@ -94,8 +107,8 @@ class PurePursuit(object):
         
         # TODO: calculate curvature/steering angle
         curve = 2*(transformed_point.point.y)/LOOK_AHEAD_DIST**2
-        angle = curve*0.3  #+3.14/4
-        print(aheadY,transformed_point.point.y,"angle",angle)
+        angle = curve*0.5  #+3.14/4
+        print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
 
         
         # TODO: publish drive message, don't forget to limit the steering angle between -0.4189 and 0.4189 radians
@@ -109,13 +122,48 @@ class PurePursuit(object):
         if abs(angle) > 0.418:
             angle = angle/abs(angle)*0.418
         self.drive_pub.publish(drive_msg)
-    
+        rospy.Rate(1)
         return
 
     def odom_callback(self, odom_msg):
         #print("===odom_callback")
+        self.mark_way_points()
         self.speed = odom_msg.twist.twist.linear.x;
+        #rospy.sleep(0.1)
         return
+    def mark_way_points(self):
+        """
+        Create slightly transparent disks for way-points.
+        :param color: disk RGBA value
+        """
+        marker_array = []
+        id = 0
+        for wp in self.waypoints: 
+            marker = Marker()
+            marker.header.seq = 1
+            id+=1
+            marker.id = id
+            marker.header.frame_id = "map"
+            marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
+            marker.action = Marker.ADD
+            marker.header.stamp = rospy.Time.now()
+            marker.pose.position.x = wp[0];
+            marker.pose.position.y = wp[1];
+            marker.pose.position.z = 0;
+            marker.pose.orientation.x = 0.0;
+            marker.pose.orientation.y = 0.0;
+            marker.pose.orientation.z = wp[2];
+            marker.pose.orientation.w = wp[3];
+            marker.scale.x = 0.2;
+            marker.scale.y = 0.1;
+            marker.scale.z = 0.1;
+            marker.color.a = 0.3; 
+            marker.color.r = 0.0;
+            marker.color.g = 1.0;
+            marker.color.b = 0.0;
+            marker_array.append(marker)
+        self.rviz_pub.publish( viz_msgs.MarkerArray(marker_array) );
+
 
 
 
@@ -133,6 +181,7 @@ def main():
     rospy.init_node('pure_pursuit_node')
     rospy.Rate(0.1)
     pp = PurePursuit()
+    
     rospy.spin()
 if __name__ == '__main__':
     main()
@@ -187,4 +236,11 @@ if __name__ == '__main__':
         
         #self.tf_buffer = tf2_ros.Buffer()
         #self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+
+
+            if(dist<mindistCar and stateclose):
+                mindistCar = dist
+                closeX = waypoint[0]
+                closeY = waypoint[1]
+                rotationZ = waypoint[2]
 """
