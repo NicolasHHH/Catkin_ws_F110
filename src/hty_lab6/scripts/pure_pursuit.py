@@ -33,7 +33,7 @@ CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
 #from tf.transformations import euler_from_quaternion
 
 VELOCITY = 2.0 # meters per second
-LOOK_AHEAD_DIST = 2.5
+LOOK_AHEAD_DIST = 1.0
 global way_points 
 way_points= []
 
@@ -46,21 +46,26 @@ class PurePursuit(object):
     def __init__(self):
         self.tf_listener = tf.TransformListener()
         self.waypoints = way_points
-        self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
+        #self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
         self.pose_sub = rospy.Subscriber('/gt_pose', PoseStamped, self.pose_callback)
 
         self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 2)
-        self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 2)
+        self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 100)
+        self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 2)
         self.frame = ""
         self.time = 0.0
         self.velocity = 0.0
+        self.x = 0 
+        self.y = 0
+        self.mindistL = 5;
         # TODO: create ROS subscribers and publishers.
         return
     def dist_euclid(self,x1,y1,x2,y2):
-        return math.sqrt((x1-x2)**2 +(y1-y2)**2)
+        #print( "voiture at: "+str(x2)+" "+str(y2))
+        return (x1-x2)**2 +(y1-y2)**2
 
     def pose_callback(self, pose_msg):
-        print("===pose_callback")
+        
         # TODO: find the current waypoint to track using methods mentioned in lecture
         self.frame = pose_msg.header.frame_id
         self.time = pose_msg.header.stamp
@@ -68,47 +73,52 @@ class PurePursuit(object):
         y = pose_msg.pose.position.y;
         z = pose_msg.pose.orientation.z;
         w = pose_msg.pose.orientation.w;
-        print( "voiture at: "+str(x)+" "+str(y))#+" orient: "+str(z)+" "+str(w))
+        #+" orient: "+str(z)+" "+str(w))
 
-        closeX,closeY = x+100.0, y+100.0
-        aheadX,aheadY= x,y
-        rotationZ = 0;
-        mindistCar,mindistL = 60,40;
-        stateclose = True
-        for waypoint in self.waypoints:
+        rotationZ = self.waypoints[0][2]
+        rotationW = self.waypoints[0][3]
+        euler = euler_from_quaternion([0,0,z,w])
+        self.mindistL = 10;
+
+        for waypoint in way_points:
             dist = self.dist_euclid(waypoint[0],waypoint[1],x,y)
-            alpha = math.atan((waypoint[1]-y)/(waypoint[0]-x+0.0001))
-            euler = euler_from_quaternion([0,0,waypoint[2],waypoint[3]])
-            delta = abs(euler[2] - alpha)
-            if(delta>3.14):
-                delta -= 3.14
-            if(delta<-3.14):
-                delta += 3.14
-            print("alpha",alpha,euler,delta)
-            if (abs(dist-LOOK_AHEAD_DIST)<mindistL and delta < 1):
-                #print(aheadX,aheadY,x,y,dist)
-                mindistL = dist;
-                aheadX = waypoint[0]
-                aheadY = waypoint[1]
-                rotationZ = waypoint[2]
-                rotationW = waypoint[3]
-                self.speed = waypoint[4]
-        print("aheadXY: ",aheadX,aheadY,x,y)
+            
+            if (dist<LOOK_AHEAD_DIST+self.mindistL and dist >LOOK_AHEAD_DIST-self.mindistL ):
+                #print(self.x,self.y,"dist: ",dist,self.mindistL)
+                alpha = math.atan((waypoint[1]-y)/(waypoint[0]-x+0.0001))
+                delta = euler[2] - alpha 
+                if(delta>3.14):
+                    delta -= 3.14
+                if(delta<-3.14):
+                    delta += 3.14
+                if (np.abs(delta)<1):
+                    self.mindistL = dist;
+                    self.x = waypoint[0]
+                    self.y = waypoint[1]
+                    rotationZ = waypoint[2]
+                    rotationW = waypoint[3]
+                #self.speed = waypoint[4]
+            
+
+        #print("aheadXY: ",self.x,self.y)
+        self.mark_point(self.x,self.y,rotationZ,rotationW)
 
         aheadPoint = PointStamped()
         aheadPoint.header.frame_id = "map"
-        aheadPoint.point.x = aheadX
-        aheadPoint.point.y = aheadY
+        aheadPoint.point.x = self.x
+        aheadPoint.point.y = self.y
         aheadPoint.point.z = 0
+        
 
         # TODO: transform goal point to vehicle frame of refercence
-        
+        transformed_point = pose_msg
         transformed_point = self.tf_listener.transformPoint("base_link",aheadPoint)
+            
         
         # TODO: calculate curvature/steering angle
         curve = 2*(transformed_point.point.y)/LOOK_AHEAD_DIST**2
-        angle = curve*0.5  #+3.14/4
-        print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
+        angle = curve*0.4 #+3.14/4
+        #print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
 
         
         # TODO: publish drive message, don't forget to limit the steering angle between -0.4189 and 0.4189 radians
@@ -119,15 +129,15 @@ class PurePursuit(object):
         drive_msg.drive.steering_angle = angle
         drive_msg.drive.speed = VELOCITY
 
-        if abs(angle) > 0.418:
-            angle = angle/abs(angle)*0.418
+        if abs(angle) > 0.618:
+            angle = angle/abs(angle)*0.618
+
         self.drive_pub.publish(drive_msg)
-        rospy.Rate(1)
         return
 
     def odom_callback(self, odom_msg):
         #print("===odom_callback")
-        self.mark_way_points()
+        #self.mark_way_points()
         self.speed = odom_msg.twist.twist.linear.x;
         #rospy.sleep(0.1)
         return
@@ -163,6 +173,35 @@ class PurePursuit(object):
             marker.color.b = 0.0;
             marker_array.append(marker)
         self.rviz_pub.publish( viz_msgs.MarkerArray(marker_array) );
+    def mark_point(self,aheadX,aheadY,aheadZ,aheadW):
+        """
+        Create slightly transparent disks for way-points.
+        :param color: disk RGBA value
+        """
+        id = 0
+        marker = Marker()
+        marker.header.seq = 100
+        marker.id = id
+        marker.header.frame_id = "map"
+        marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
+        marker.action = Marker.ADD
+        marker.header.stamp = rospy.Time.now()
+        marker.pose.position.x = aheadX;
+        marker.pose.position.y = aheadY;
+        marker.pose.position.z = 0;
+        marker.pose.orientation.x = 0.0;
+        marker.pose.orientation.y = 0.0;
+        marker.pose.orientation.z = aheadZ;
+        marker.pose.orientation.w = aheadW;
+        marker.scale.x = 0.3;
+        marker.scale.y = 0.1;
+        marker.scale.z = 0.1;
+        marker.color.a = 0.5; 
+        marker.color.r = 1.0;
+        marker.color.g = 0.0;
+        marker.color.b = 0.0;
+        self.rviz_pub_point.publish( marker );
+        return
 
 
 
@@ -179,9 +218,8 @@ def main():
     print(way_points[0])
     #tf.listener()
     rospy.init_node('pure_pursuit_node')
-    rospy.Rate(0.1)
+    rospy.Rate(100)
     pp = PurePursuit()
-    
     rospy.spin()
 if __name__ == '__main__':
     main()

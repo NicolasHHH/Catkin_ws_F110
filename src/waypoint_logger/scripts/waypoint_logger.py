@@ -12,8 +12,8 @@ import geometry_msgs.msg
 from geometry_msgs.msg import PoseStamped
 
 home = expanduser('~')
-file_odom = open('waypoint4.csv', 'w') #strftime(home+'/rcws/logs/wp-%Y-%m-%d-%H-%M-%S',gmtime())
-file_pose = open('waypoint5.csv', 'w') 
+file_odom = open('waypoint6_100.csv', 'w') #strftime(home+'/rcws/logs/wp-%Y-%m-%d-%H-%M-%S',gmtime())
+file_pose = open('waypoint7_100.csv', 'w') 
 count = 0
 count2 = 0
 
@@ -26,7 +26,7 @@ def pose_save_waypoint(data):
     euler = tf.transformations.euler_from_quaternion(quaternion)
     global count
     count += 1
-    if(count>= 300):
+    if(count>= 100):
     	count =0
     	print ("pose: ", data.pose.position.x,data.pose.position.y,euler[2])
     	file_pose.write('%f, %f, %f, %f\n' % (data.pose.position.x,data.pose.position.y,data.pose.orientation.z, data.pose.orientation.w))
@@ -44,7 +44,7 @@ def odom_save_waypoint(data):
     #if data.twist.twist.linear.x>0.:
     global count2
     count2+=1
-    if (count2 >= 300):
+    if (count2 >= 100):
     	count2=0
     	print ("odom:",data.pose.pose.position.x,data.pose.pose.position.y,euler[2])
     	file_odom.write('%f, %f, %f, %f, %f\n' % (data.pose.pose.position.x,data.pose.pose.position.y,data.pose.pose.orientation.z,data.pose.pose.orientation.w,speed))
@@ -60,7 +60,7 @@ def shutdown():
  
 def listener(): 
     rospy.init_node('waypoints_logger', anonymous=True)
-    rospy.Rate(2)
+    rospy.Rate(10)
     rospy.Subscriber('/odom', Odometry, odom_save_waypoint,) # pf/pose/
     rospy.Subscriber('/gt_pose', PoseStamped, pose_save_waypoint) # pf/pose/
     rospy.spin()
