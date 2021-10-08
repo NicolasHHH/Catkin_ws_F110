@@ -32,8 +32,8 @@ from geometry_msgs.msg import PointStamped
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
 #from tf.transformations import euler_from_quaternion
 
-VELOCITY = 2.0 # meters per second
-LOOK_AHEAD_DIST = 1.0
+VELOCITY = 3.0 # meters per second
+LOOK_AHEAD_DIST = 0.9
 global way_points 
 way_points= []
 
@@ -49,9 +49,9 @@ class PurePursuit(object):
         #self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
         self.pose_sub = rospy.Subscriber('/gt_pose', PoseStamped, self.pose_callback)
 
-        self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 2)
+        self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 20)
         self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 100)
-        self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 2)
+        self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 20)
         self.frame = ""
         self.time = 0.0
         self.velocity = 0.0
@@ -91,7 +91,7 @@ class PurePursuit(object):
                     delta -= 3.14
                 if(delta<-3.14):
                     delta += 3.14
-                if (np.abs(delta)<1):
+                if (np.abs(delta)<3):
                     self.mindistL = dist;
                     self.x = waypoint[0]
                     self.y = waypoint[1]
@@ -129,15 +129,15 @@ class PurePursuit(object):
         drive_msg.drive.steering_angle = angle
         drive_msg.drive.speed = VELOCITY
 
-        if abs(angle) > 0.618:
-            angle = angle/abs(angle)*0.618
+        if abs(angle) > 0.518:
+            angle = angle/abs(angle)*0.518
 
         self.drive_pub.publish(drive_msg)
         return
 
     def odom_callback(self, odom_msg):
         #print("===odom_callback")
-        #self.mark_way_points()
+        self.mark_way_points()
         self.speed = odom_msg.twist.twist.linear.x;
         #rospy.sleep(0.1)
         return
@@ -208,7 +208,7 @@ class PurePursuit(object):
 
 def main():
 
-    with open("waypoint4.csv" ,'r') as f: 
+    with open("waypoint6_100.csv" ,'r') as f: 
         cr = csv.reader(f)
         for row in cr:
                 array =[]
