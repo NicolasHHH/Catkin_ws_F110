@@ -1,0 +1,7 @@
+set(waypoint_touring_SETUP_PY_SETUP_MODULE "distutils.core")
+set(waypoint_touring_SETUP_PY_VERSION "0.0.1")
+set(waypoint_touring_SETUP_PY_SCRIPTS "")
+set(waypoint_touring_SETUP_PY_PACKAGES "waypoint_touring")
+set(waypoint_touring_SETUP_PY_PACKAGE_DIRS "src/waypoint_touring")
+set(waypoint_touring_SETUP_PY_MODULES "")
+set(waypoint_touring_SETUP_PY_MODULE_DIRS "")
