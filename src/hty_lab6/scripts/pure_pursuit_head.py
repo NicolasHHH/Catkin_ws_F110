@@ -28,12 +28,10 @@ from visualization_msgs.msg import Marker
 
 # static parameters
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
-VELOCITY = 2.5 # meters per second
-LOOK_AHEAD_DIST = 0.9
+VELOCITY = 3.5 # meters per second
 HEADER_DIS = 1.5*CAR_LENGTH
 global way_points 
 way_points= []
-
 
 
 class PurePursuit(object):
@@ -99,7 +97,7 @@ class PurePursuit(object):
         transformed_point = self.tf_listener.transformPoint("base_link",aheadPoint)
         
         # TODO: calculate curvature/steering angle
-        curve = 2*(transformed_point.point.y)/LOOK_AHEAD_DIST**2
+        curve = 2*(transformed_point.point.y)/0.9**2
         angle = curve*0.4 #+3.14/4
         #print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
 
@@ -116,7 +114,8 @@ class PurePursuit(object):
             angle = angle/abs(angle)*0.418
 
         self.drive_pub.publish(drive_msg)
-        #rospy.sleep(0.01)
+        #self.mark_way_points()
+        rospy.sleep(0.01)
         return
 
     def odom_callback(self, odom_msg):
@@ -151,14 +150,14 @@ class PurePursuit(object):
             marker.pose.position.x = wp[0];
             marker.pose.position.y = wp[1];
             marker.pose.position.z = 0;
-            marker.pose.orientation.x = 0.0;
-            marker.pose.orientation.y = 0.0;
+            marker.pose.orientation.x = 0.0
+            marker.pose.orientation.y = 0.0
             marker.pose.orientation.z = wp[2];
             marker.pose.orientation.w = wp[3];
             marker.scale.x = 0.2;
             marker.scale.y = 0.1;
             marker.scale.z = 0.1;
-            marker.color.a = 0.3; 
+            marker.color.a = 0.8; 
             marker.color.r = 0.0;
             marker.color.g = 1.0;
             marker.color.b = 0.0;
@@ -186,9 +185,9 @@ class PurePursuit(object):
         marker.pose.orientation.z = aheadZ;
         marker.pose.orientation.w = aheadW;
         marker.scale.x = 0.3;
-        marker.scale.y = 0.1;
-        marker.scale.z = 0.1;
-        marker.color.a = 0.5; 
+        marker.scale.y = 0.3;
+        marker.scale.z = 0.3;
+        marker.color.a = 0.9; 
         marker.color.r = 1.0;
         marker.color.g = 0.0;
         marker.color.b = 0.0;
@@ -215,6 +214,7 @@ def main():
     rospy.Rate(100)
     
     pp = PurePursuit()
+    
     rospy.spin()
 if __name__ == '__main__':
     main()
