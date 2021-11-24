@@ -28,9 +28,9 @@ from visualization_msgs.msg import Marker
 
 # static parameters
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
-VELOCITY = 3.0 # meters per second
+VELOCITY = 2.5 # meters per second
 LOOK_AHEAD_DIST = 0.9
-HEADER_DIS = 2*CAR_LENGTH
+HEADER_DIS = 1.5*CAR_LENGTH
 global way_points 
 way_points= []
 
@@ -52,15 +52,12 @@ class PurePursuit(object):
        
         self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 2)
         self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 2)
-        self.frame = "."
+        #self.frame = "."
         # self.time = 0.0
-        self.velocity = 0.0
+        #self.velocity = 0.0
         self.carX = 0 
         self.carY = 0
         self.carA = 0
-        self.x = 0 
-        self.y = 0
-        self.mindistL = 0;
         return
         
     def dist_euclid(self,x1,y1,x2,y2):
@@ -80,7 +77,6 @@ class PurePursuit(object):
         #euler = euler_from_quaternion([0,0,z,w])
         targetX = self.carX + math.cos(self.carA)*HEADER_DIS
         targetY = self.carY + math.sin(self.carA)*HEADER_DIS
-        self.mindistL = 10
         NearX  = targetX
         NearY = targetY
         dis_Near_target = 100
@@ -105,7 +101,7 @@ class PurePursuit(object):
         # TODO: calculate curvature/steering angle
         curve = 2*(transformed_point.point.y)/LOOK_AHEAD_DIST**2
         angle = curve*0.4 #+3.14/4
-        print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
+        #print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
 
         
         # TODO: publish drive message, don't forget to limit the steering angle between -0.4189 and 0.4189 radians
@@ -148,7 +144,7 @@ class PurePursuit(object):
             marker.header.seq = 1
             id+=1
             marker.id = id
-            marker.header.frame_id = "/map"
+            marker.header.frame_id = "map"
             marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
             marker.action = Marker.ADD
             marker.header.stamp = rospy.Time.now()
@@ -204,7 +200,7 @@ class PurePursuit(object):
 
 def main():
 
-    with open("waypoint2.csv" ,'r') as f: 
+    with open("waypoint6_100.csv" ,'r') as f: 
         cr = csv.reader(f)
         for row in cr:
                 array =[]
@@ -216,7 +212,7 @@ def main():
     
     #tf.listener()
     rospy.init_node('pure_pursuit_node')
-    #rospy.Rate(100)
+    rospy.Rate(100)
     
     pp = PurePursuit()
     rospy.spin()
