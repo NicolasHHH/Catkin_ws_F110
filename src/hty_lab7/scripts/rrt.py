@@ -30,7 +30,8 @@ class Node(object):
         self.y = None
         self.parent = None
         self.cost = None # only used in RRT*
-        self.is_root = false
+        
+        self.is_root = false # ??????
 
 # class def for RRT
 class RRT(object):
