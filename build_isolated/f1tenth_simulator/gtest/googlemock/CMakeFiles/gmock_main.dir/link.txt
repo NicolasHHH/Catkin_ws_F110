@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -Wall -Wextra -O3  -shared -Wl,-soname,libgmock_main.so -o ../lib/libgmock_main.so CMakeFiles/gmock_main.dir/src/gmock_main.cc.o  -Wl,-rpath,/home/parallels/catkin_ws/build_isolated/f1tenth_simulator/gtest/lib ../lib/libgmock.so ../lib/libgtest.so -lpthread 

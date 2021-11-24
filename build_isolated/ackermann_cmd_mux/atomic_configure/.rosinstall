@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/parallels/catkin_ws/devel_isolated/ackermann_cmd_mux/setup.sh

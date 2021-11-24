@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/parallels/catkin_ws/devel_isolated/f1tenth_simulator/setup.sh

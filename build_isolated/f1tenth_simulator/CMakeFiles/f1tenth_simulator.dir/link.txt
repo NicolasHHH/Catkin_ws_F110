@@ -1,0 +1,2 @@
+/usr/bin/ar qc libf1tenth_simulator.a  CMakeFiles/f1tenth_simulator.dir/src/distance_transform.cpp.o CMakeFiles/f1tenth_simulator.dir/src/ks_kinematics.cpp.o CMakeFiles/f1tenth_simulator.dir/src/precompute.cpp.o CMakeFiles/f1tenth_simulator.dir/src/scan_simulator_2d.cpp.o CMakeFiles/f1tenth_simulator.dir/src/st_kinematics.cpp.o
+/usr/bin/ranlib libf1tenth_simulator.a

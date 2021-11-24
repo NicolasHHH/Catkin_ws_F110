@@ -3,6 +3,6 @@ prefix=/home/parallels/catkin_ws/devel
 Name: hty_lab
 Description: Description of hty_lab
 Version: 0.0.0
-Cflags: -I/home/parallels/catkin_ws/src/hty_lab/include
+Cflags: 
 Libs: -L${prefix}/lib -lhty_lab
 Requires: ackermann_msgs geometry_msgs message_generation message_runtime nav_msgs roscpp roscpp roslib rospy sensor_msgs std_msgs tf2 tf2_geometry_msgs tf2_ros visualization_msgs

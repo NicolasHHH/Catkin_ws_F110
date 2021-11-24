@@ -115,14 +115,13 @@ generate_messages(
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
   LIBRARIES hty_lab
   CATKIN_DEPENDS ackermann_msgs geometry_msgs message_generation message_runtime nav_msgs roscpp roscpp roslib rospy sensor_msgs std_msgs tf2 tf2_geometry_msgs tf2_ros visualization_msgs
   DEPENDS system_lib
 )
 
 ###########
-## Build ##
+## Build ##INCLUDE_DIRS include
 ###########
 
 ## Specify additional locations of header files

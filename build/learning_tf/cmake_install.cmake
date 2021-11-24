@@ -72,22 +72,3 @@ if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_
   file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learning_tf" TYPE FILE FILES "/home/parallels/catkin_ws/src/learning_tf/package.xml")
 endif()
 
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/lib/pkgconfig" TYPE FILE FILES "/home/parallels/catkin_ws/build/learning_tf/catkin_generated/installspace/learning_tf.pc")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learning_tf/cmake" TYPE FILE FILES "/home/parallels/catkin_ws/build/learning_tf/catkin_generated/installspace/learning_tf-msg-extras.cmake")
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learning_tf/cmake" TYPE FILE FILES
-    "/home/parallels/catkin_ws/build/learning_tf/catkin_generated/installspace/learning_tfConfig.cmake"
-    "/home/parallels/catkin_ws/build/learning_tf/catkin_generated/installspace/learning_tfConfig-version.cmake"
-    )
-endif()
-
-if("x${CMAKE_INSTALL_COMPONENT}x" STREQUAL "xUnspecifiedx" OR NOT CMAKE_INSTALL_COMPONENT)
-  file(INSTALL DESTINATION "${CMAKE_INSTALL_PREFIX}/share/learning_tf" TYPE FILE FILES "/home/parallels/catkin_ws/src/learning_tf/package.xml")
-endif()
-

@@ -1,0 +1,16 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/parallels/catkin_ws/src/hty_lab7/node/rrt_node.cpp
+rrt/rrt.h
+/home/parallels/catkin_ws/src/hty_lab7/node/rrt/rrt.h
+
+/home/parallels/catkin_ws/src/hty_lab7/src/rrt.cpp
+rrt/rrt.h
+/home/parallels/catkin_ws/src/hty_lab7/src/rrt/rrt.h
+

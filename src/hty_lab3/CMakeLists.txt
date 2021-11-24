@@ -107,7 +107,7 @@ find_package(catkin REQUIRED COMPONENTS
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
+  
   LIBRARIES hty_lab3
   CATKIN_DEPENDS ackermann_msgs geometry_msgs nav_msgs roscpp rospy sensor_msgs std_msgs
   DEPENDS system_lib
@@ -115,7 +115,7 @@ catkin_package(
 
 
 ###########
-## Build ##
+## Build ##INCLUDE_DIRS include
 ###########
 
 ## Specify additional locations of header files

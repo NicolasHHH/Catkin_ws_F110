@@ -82,11 +82,6 @@ find_package(catkin REQUIRED COMPONENTS
 
 generate_messages( DEPENDENCIES std_msgs ackermann_msgs   geometry_msgs   nav_msgs  sensor_msgs   std_msgs  )
   # Include catkin_libraries
-  catkin_package(
-      INCLUDE_DIRS include
-      LIBRARIES ${PROJECT_NAME}
-      CATKIN_DEPENDS message_runtime
-  )
 ## Generate added messages and services with any dependencies listed here
 # generate_messages(
 #   DEPENDENCIES
@@ -122,14 +117,13 @@ generate_messages( DEPENDENCIES std_msgs ackermann_msgs   geometry_msgs   nav_ms
 ## CATKIN_DEPENDS: catkin_packages dependent projects also need
 ## DEPENDS: system dependencies of this project that dependent projects also need
 catkin_package(
-  INCLUDE_DIRS include
   LIBRARIES learning_tf
   CATKIN_DEPENDS ackermann_msgs genmsg geometry_msgs interactive_markers message_generation nav_msgs roscpp roslib rospy sensor_msgs std_msgs tf tf2 tf2_geometry_msgs tf2_ros tf_geometry_msgs tf_ros message_runtime
   DEPENDS system_lib
 )
 
 ###########
-## Build ##
+## Build ##INCLUDE_DIRS include
 ###########
 
 ## Specify additional locations of header files

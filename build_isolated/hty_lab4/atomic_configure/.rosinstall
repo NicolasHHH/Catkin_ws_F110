@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/parallels/catkin_ws/devel_isolated/hty_lab4/setup.sh
