@@ -5,16 +5,18 @@ pose_topic: "/gt_pose"
 scan_topic: "/scan"
 drive_topic: '/drive'
 
-Occupancy_width: 285
-Occupancy_height: 225
+Occupancy_width: 300
+Occupancy_height: 220
 
 Cell_size: 0.1
 Plane_count : 285
-Grid_offset : (4,-12)
+Grid_offset_x : 3
+Grid_offset_y: -14
 Grid_Alpha : 0.5
 Grid_color : (160,160,164)
+
 Green_topic: 'GridCells' # 
-Red_topic: '/GridCells' # 25,255,0,1
+Red_topic: 'GridCells' # 25,255,0,1
 
 # Topics that RRT publishes to
 # TODO: add your own

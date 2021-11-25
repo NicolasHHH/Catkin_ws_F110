@@ -1,7 +1,6 @@
 #!/usr/bin/python
-"""
-Before you start, please read: https://arxiv.org/pdf/1105.1186.pdf
-"""
+
+
 import numpy as np
 from numpy import linalg as LA
 import math
@@ -16,12 +15,9 @@ from geometry_msgs.msg import Quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import OccupancyGrid
 from nav_msgs.msg import MapMetaData
+from nav_msgs.msg import GridCells
 
-from tf import transform_listener
-
-
-
-
+from tf2_ros import transform_listener
 
 
 # class def for tree nodes
@@ -52,48 +48,57 @@ class RRT(object):
 
         # publishers
         self.drive_pub = rospy.Publisher(drv_topic, AckermannDriveStamped, queue_size = 2)
-        self.occ_pub = rospy.Publisher('map', OccupancyGrid, latch=True)
-        self.map_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
+        self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
+        self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
+        self.cell_pub = rospy.Publisher('BlueCell',GridCells,queue_size=2)
+        self.yellow_pub = rospy.Publisher('YellowCell',GridCells,queue_size=2)
         
         #visualization
         
         # Occupancy Grid
-        self.occ_grid  = np.zeros((self.occ_l,self.occ_l))
         self.resolution = rospy.get_param('Cell_size')
-        self.grid_x = rospy.get_param('Grid_offset')[0]
-        self.grid_y = rospy.get_param('Grid_offset')[1]
+        self.grid_x = rospy.get_param('Grid_offset_x')
+        self.grid_y = rospy.get_param('Grid_offset_y')
         self.width = rospy.get_param('Occupancy_width')
-        self.height = rospy.get_param('Occipancy_height')
+        self.height = rospy.get_param('Occupancy_height')
         
-    def viz_message(self):
+        self.occ_grid  = np.zeros((self.width,self.height))
+        for i in range(self.width):
+            for j in range(self.height):
+                self.occ_grid[i][j] =1
         
-        grid_msg = OccupancyGrid()
-        grid_msg.header.stamp = rospy.Time.now()
-        grid_msg.header.frame_id = "map"
-
-        # .info is a nav_msgs/MapMetaData message. 
-        grid_msg.info.resolution = self.resolution
-        grid_msg.info.width = self.width
-        grid_msg.info.height = self.height
-        grid_msg.info.origin = Pose(Point(self.grid_x, self.grid_y, 0),Quaternion(0, 0, 0, 1))
-
-        # Flatten the numpy array into a list of integers from 0-100.
-        # This assumes that the grid entries are probalities in the
-        # range 0-1. This code will need to be modified if the grid
-        # entries are given a different interpretation (like
-        # log-odds).
-        flat_grid = self.occ_grid.reshape((self.occ_grid.size,)) * 100   #???
-        grid_msg.data = list(flat_grid) # for proba_occ list(np.round(flat_grid))
-        #scan 
-        return grid_msg
+        # Grid cell
+        self.cells = GridCells()
+        self.cells.header.frame_id="map"
+        self.cells.cell_height = self.resolution
+        self.cells.cell_width = self.resolution
+        obstacle = Point()
+        self.cells.cells.append(obstacle);
+        self.cells.cells[0].x=0
+        self.cells.cells[0].y=0
+        self.cells.cells[0].z=0
+        self.set_cell()
+        
+    def cood_grid(self,cx,cy):
+        gx = (int)((cx-self.grid_x)/self.resolution+self.width)
+        gy = (int)((cy+self.grid_y)/self.resolution+self.height)
+        return [gx,gy]
     
-    def publish_map(self):
-        grid_msg = self.to_message()
-        self.map_pub.publish(grid_msg.info)
-        self.occ_pub.publish(grid_msg)
-        return
+    def grid_cood(self,gx,gy):
+        cx = (gx-self.width)*self.resolution+self.grid_x
+        cy = (gy-self.height)*self.resolution-self.grid_y
+        return [cx,cy]
         
-
+    def set_cell(self):
+        for i in range(self.width):
+            for j in range(self.height):
+                if self.occ_grid[i][j]>0:
+                    obstacle = Point()
+                    obstacle.y,obstacle.x = self.grid_cood(i,j)
+                    obstacle.z = 0
+                    self.cells.cells.append(obstacle) 
+        
+        
     def scan_callback(self, scan_msg):
         """
         LaserScan callback, you should update your occupancy grid here
@@ -103,7 +108,9 @@ class RRT(object):
         Returns:
 
         """
-        self.publish_map()
+        #self.publish_map()
+        self.cell_pub.publish(self.cells)
+        rospy.sleep(0.1)
         return
 
     def pf_callback(self, pose_msg):
@@ -200,9 +207,40 @@ class RRT(object):
         """
         path = []
         return path
+    
 
     # ========================================================================================================
 
+    def viz_message(self):
+        
+        grid_msg = OccupancyGrid()
+        grid_msg.header.stamp = rospy.Time.now()
+        grid_msg.header.frame_id = "map"
+
+        # .info is a nav_msgs/MapMetaData message. 
+        grid_msg.info.resolution = self.resolution
+        grid_msg.info.width = self.width
+        grid_msg.info.height = self.height
+        grid_msg.info.origin = Pose(Point(-self.grid_x, self.grid_y, 0),Quaternion(0, 0, 0, 1))
+        # Flatten the numpy array into a list of integers from 0-100.
+        # This assumes that the grid entries are probalities in the
+        # range 0-1. This code will need to be modified if the grid
+        # entries are given a different interpretation (like
+        # log-odds).
+        flat_grid = self.occ_grid.reshape((self.occ_grid.size,)) * 50   #???
+        grid_msg.data = [int(x) for x in flat_grid]
+        
+        for i in range(100): 
+            grid_msg.data[i+200]=20
+        #scan 
+        return grid_msg
+    
+    def publish_map(self):
+        grid_msg = self.viz_message()
+        self.map_pub.publish(grid_msg.info)
+        self.occ_pub.publish(grid_msg)
+        return
+    
     # The following methods are needed for RRT* and not RRT
     def cost(self, tree, node):
         """
@@ -235,7 +273,7 @@ class RRT(object):
             tree ([]): current tree as a list of Nodes
             node (Node): current node we're finding neighbors for
         Returns:
-            neighborhood ([]): neighborhood of nodes as a list of Nodes
+            neighborhood ([]): neighborhod of nodes as a list of Nodes
         """
         neighborhood = []
         return neighborhood
