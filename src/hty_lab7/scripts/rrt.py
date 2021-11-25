@@ -1,9 +1,5 @@
+#!/usr/bin/python
 """
-ESE 680
-RRT assignment
-Author: Hongrui Zheng
-
-This file contains the class definition for tree nodes and RRT
 Before you start, please read: https://arxiv.org/pdf/1105.1186.pdf
 """
 import numpy as np
@@ -16,11 +12,17 @@ from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import PointStamped
 from geometry_msgs.msg import Pose
 from geometry_msgs.msg import Point
+from geometry_msgs.msg import Quaternion
 from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import OccupancyGrid
+from nav_msgs.msg import MapMetaData
+
 from tf import transform_listener
 
-# TODO: import as you need
+
+
+
+
 
 # class def for tree nodes
 # It's up to you if you want to use this
@@ -31,28 +33,66 @@ class Node(object):
         self.parent = None
         self.cost = None # only used in RRT*
         
-        self.is_root = false # ??????
+        self.is_root = False # ??
 
 # class def for RRT
 class RRT(object):
     def __init__(self):
-        # topics, not saved as attributes
-        # TODO: grab topics from param file, you'll need to change the yaml file
+        # topics
         pf_topic = rospy.get_param('pose_topic')
         scan_topic = rospy.get_param('scan_topic')
+        drv_topic = rospy.get_param('drive_topic')
+        
+        self.x = 0
+        self.y = 0
 
-        # you could add your own parameters to the rrt_params.yaml file,
-        # and get them here as class attributes as shown above.
-
-        # TODO: create subscribers
+        # subscribers
         rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback)
         rospy.Subscriber(scan_topic, LaserScan, self.scan_callback)
 
         # publishers
-        # TODO: create a drive message publisher, and other publishers that you might need
+        self.drive_pub = rospy.Publisher(drv_topic, AckermannDriveStamped, queue_size = 2)
+        self.occ_pub = rospy.Publisher('map', OccupancyGrid, latch=True)
+        self.map_pub = rospy.Publisher('map_metadata', MapMetaData, latch=True)
+        
+        #visualization
+        
+        # Occupancy Grid
+        self.occ_grid  = np.zeros((self.occ_l,self.occ_l))
+        self.resolution = rospy.get_param('Cell_size')
+        self.grid_x = rospy.get_param('Grid_offset')[0]
+        self.grid_y = rospy.get_param('Grid_offset')[1]
+        self.width = rospy.get_param('Occupancy_width')
+        self.height = rospy.get_param('Occipancy_height')
+        
+    def viz_message(self):
+        
+        grid_msg = OccupancyGrid()
+        grid_msg.header.stamp = rospy.Time.now()
+        grid_msg.header.frame_id = "map"
 
-        # class attributes
-        # TODO: maybe create your occupancy grid here
+        # .info is a nav_msgs/MapMetaData message. 
+        grid_msg.info.resolution = self.resolution
+        grid_msg.info.width = self.width
+        grid_msg.info.height = self.height
+        grid_msg.info.origin = Pose(Point(self.grid_x, self.grid_y, 0),Quaternion(0, 0, 0, 1))
+
+        # Flatten the numpy array into a list of integers from 0-100.
+        # This assumes that the grid entries are probalities in the
+        # range 0-1. This code will need to be modified if the grid
+        # entries are given a different interpretation (like
+        # log-odds).
+        flat_grid = self.occ_grid.reshape((self.occ_grid.size,)) * 100   #???
+        grid_msg.data = list(flat_grid) # for proba_occ list(np.round(flat_grid))
+        #scan 
+        return grid_msg
+    
+    def publish_map(self):
+        grid_msg = self.to_message()
+        self.map_pub.publish(grid_msg.info)
+        self.occ_pub.publish(grid_msg)
+        return
+        
 
     def scan_callback(self, scan_msg):
         """
@@ -63,6 +103,8 @@ class RRT(object):
         Returns:
 
         """
+        self.publish_map()
+        return
 
     def pf_callback(self, pose_msg):
         """
@@ -159,7 +201,7 @@ class RRT(object):
         path = []
         return path
 
-
+    # ========================================================================================================
 
     # The following methods are needed for RRT* and not RRT
     def cost(self, tree, node):
@@ -179,7 +221,7 @@ class RRT(object):
 
         Args:
             n1 (Node): node at one end of the straight line
-            n2 (Node): node at the other end of the straint line
+            n2 (Node): node at the other end of the straight line
         Returns:
             cost (float): the cost value of the line
         """
