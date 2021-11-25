@@ -25,7 +25,7 @@ class Wall_follow{
         const int ANGLE_RANGE = 270; // Hokuyo 10LX has 270 degrees scan
         const double DESIRED_DISTANCE_RIGHT = 2.1; // meters
         const double DESIRED_DISTANCE_LEFT = 2.0;
-        const double VELOCITY = 3.50; // meters per second
+        const double VELOCITY = 0.50; // meters per second
         const double CAR_LENGTH = 0.50; // Traxxas Rally is 20 inches or 0.5 meters
 
         // ROS 

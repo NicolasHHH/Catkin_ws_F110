@@ -5,6 +5,8 @@ import numpy as np
 from numpy import linalg as LA
 import math
 
+from yaml import scan
+
 import rospy
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped
@@ -18,6 +20,7 @@ from nav_msgs.msg import MapMetaData
 from nav_msgs.msg import GridCells
 
 from tf2_ros import transform_listener
+from tf.transformations import euler_from_quaternion
 
 
 # class def for tree nodes
@@ -41,31 +44,31 @@ class RRT(object):
         
         self.x = 0
         self.y = 0
+        self.oz =0
+        self.ow = 0
+        self.vision =4.0
 
         # subscribers
-        rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback)
-        rospy.Subscriber(scan_topic, LaserScan, self.scan_callback)
+        rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback,queue_size=1)
+        rospy.Subscriber(scan_topic, LaserScan, self.scan_callback,queue_size=1)
 
         # publishers
         self.drive_pub = rospy.Publisher(drv_topic, AckermannDriveStamped, queue_size = 2)
         self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
         self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
-        self.cell_pub = rospy.Publisher('BlueCell',GridCells,queue_size=2)
+        self.cell_pub = rospy.Publisher('BlueCell',GridCells,queue_size=1)
         self.yellow_pub = rospy.Publisher('YellowCell',GridCells,queue_size=2)
         
         #visualization
         
         # Occupancy Grid
-        self.resolution = rospy.get_param('Cell_size')
+        self.resolution = rospy.get_param('Cell_size')*2
         self.grid_x = rospy.get_param('Grid_offset_x')
         self.grid_y = rospy.get_param('Grid_offset_y')
-        self.width = rospy.get_param('Occupancy_width')
-        self.height = rospy.get_param('Occupancy_height')
+        self.width = rospy.get_param('Occupancy_width')//2
+        self.height = rospy.get_param('Occupancy_height')//2
         
         self.occ_grid  = np.zeros((self.width,self.height))
-        for i in range(self.width):
-            for j in range(self.height):
-                self.occ_grid[i][j] =1
         
         # Grid cell
         self.cells = GridCells()
@@ -80,51 +83,65 @@ class RRT(object):
         self.set_cell()
         
     def cood_grid(self,cx,cy):
-        gx = (int)((cx-self.grid_x)/self.resolution+self.width)
-        gy = (int)((cy+self.grid_y)/self.resolution+self.height)
+        gx = int( (cy-self.grid_x)/self.resolution+self.width)
+        gy = int((cx+self.grid_y)/self.resolution+self.height)
         return [gx,gy]
     
     def grid_cood(self,gx,gy):
-        cx = (gx-self.width)*self.resolution+self.grid_x
-        cy = (gy-self.height)*self.resolution-self.grid_y
+        cy = (gx-self.width)*self.resolution+self.grid_x
+        cx = (gy-self.height)*self.resolution-self.grid_y
         return [cx,cy]
         
     def set_cell(self):
+        self.cells.cells.clear()
         for i in range(self.width):
             for j in range(self.height):
                 if self.occ_grid[i][j]>0:
                     obstacle = Point()
-                    obstacle.y,obstacle.x = self.grid_cood(i,j)
+                    obstacle.x,obstacle.y = self.grid_cood(i,j)
                     obstacle.z = 0
                     self.cells.cells.append(obstacle) 
-        
+    
+    def update_occupancy(self,rg,angle):
+        euler = euler_from_quaternion((0,0,self.oz,self.ow))[2] 
+        euler += angle
+        cx = self.x+math.cos(euler)*rg
+        cy = self.y+math.sin(euler)*rg
+        gx,gy = self.cood_grid(cx,cy)
+        if (0<gx and gx<300 and gy>0 and gy<220):
+            self.occ_grid[gx][gy] = 1
+        return 
         
     def scan_callback(self, scan_msg):
-        """
-        LaserScan callback, you should update your occupancy grid here
-
-        Args: 
-            scan_msg (LaserScan): incoming message from subscribed topic
-        Returns:
-
-        """
+        #print(self.ranges[0])
+        length = len(scan_msg.ranges)
+        step=20
+        #for i in range(self.width):
+         #   for j in range(self.height):
+          #      self.occ_grid[i][j] = 0
+        for i in range(0,length,step):
+            rg = scan_msg.ranges[i]
+            if rg > self.vision :  
+                continue
+            angle = scan_msg.angle_min+scan_msg.angle_increment*i
+            #print(angle,rg)
+            self.update_occupancy(rg,angle)
         #self.publish_map()
-        self.cell_pub.publish(self.cells)
-        rospy.sleep(0.1)
-        return
 
     def pf_callback(self, pose_msg):
         """
         The pose callback when subscribed to particle filter's inferred pose
         Here is where the main RRT loop happens
 
-        Args: 
-            pose_msg (PoseStamped): incoming message from subscribed topic
-        Returns:
-
         """
-
-        return None
+        self.x = pose_msg.pose.position.x
+        self.y = pose_msg.pose.position.y
+        self.oz = pose_msg.pose.orientation.z
+        self.ow = pose_msg.pose.orientation.w
+        self.set_cell()
+        self.cell_pub.publish(self.cells)
+        #print(self.cood_grid(self.x,self.y))
+        return 
 
     def sample(self):
         """
