@@ -13,6 +13,10 @@ Lab 6 :  Pure Pursuit
 
 https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
 
+Occupancy Grid
+
+https://user-images.githubusercontent.com/57991090/143580321-4ed67070-22cb-4867-8cff-11c65a2d77b8.mp4
+
 
 
 Lab 5 : Scan Matching
