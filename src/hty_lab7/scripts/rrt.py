@@ -49,7 +49,7 @@ class RRT(object):
         self.oz =0
         self.ow = 0
         self.vision =6.0
-        self.dynamique = False
+        self.dynamique = True
         self.tree = []
 
         # subscribers
@@ -60,19 +60,19 @@ class RRT(object):
         self.drive_pub = rospy.Publisher(drv_topic, AckermannDriveStamped, queue_size = 2)
         self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
         self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
-        self.cell_pub = rospy.Publisher('BlueCell',GridCells,queue_size=1)
-        self.red_pub = rospy.Publisher('YellowCell',GridCells,queue_size=2)
+        self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
+        self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
         
         #visualization==============================================================
         
         # Occupancy Grid
-        self.resolution = rospy.get_param('Cell_size')*2
+        self.resolution = rospy.get_param('Cell_size')
         self.grid_x = rospy.get_param('Grid_offset_x')
         self.grid_y = rospy.get_param('Grid_offset_y')
-        self.width = rospy.get_param('Occupancy_width')//2
-        self.height = rospy.get_param('Occupancy_height')//2
+        self.width = rospy.get_param('Occupancy_width')
+        self.height = rospy.get_param('Occupancy_height')
         
-        self.occ_grid  = np.zeros((self.width,self.height))
+        self.occ_grid  = np.zeros((self.height,self.width))
         
         # Grid cell
         self.cells = GridCells()
@@ -85,30 +85,34 @@ class RRT(object):
         self.cells.cells[0].y=0
         self.cells.cells[0].z=0
         self.set_cell()
+        self.samples = None
         self.samples = GridCells()
         self.samples.header.frame_id="map"
         self.samples.cell_height = self.resolution
         self.samples.cell_width = self.resolution
         
     def cood_grid(self,cx,cy):
-        gx = int( (cy-self.grid_x)/self.resolution+self.width)
-        gy = int((cx+self.grid_y)/self.resolution+self.height)
+        gx = int((cx-self.grid_x)/self.resolution)+self.height//2
+        gy = int((cy-self.grid_y)/self.resolution)+self.width//2
         return [gx,gy]
     
     def grid_cood(self,gx,gy):
-        cy = (gx-self.width)*self.resolution+self.grid_x
-        cx = (gy-self.height)*self.resolution-self.grid_y
+        cx = gx*self.resolution+self.grid_x-self.height/20
+        cy = gy*self.resolution+self.grid_y-self.width/20
         return [cx,cy]
-        
+    
+    # transfrom grid to cells ready to visualize the occupancy grid
     def set_cell(self):
         self.cells.cells.clear()
-        for i in range(self.width):
-            for j in range(self.height):
+        for i in range(self.height):
+            for j in range(self.width):
                 if self.occ_grid[i][j]>0:
                     obstacle = Point()
                     obstacle.x,obstacle.y = self.grid_cood(i,j)
                     obstacle.z = 0
                     self.cells.cells.append(obstacle) 
+    
+    # single sample point to cell     
     def set_sample(self,x,y):
         obstacle = Point()
         obstacle.x = x
@@ -116,14 +120,15 @@ class RRT(object):
         obstacle.z = 0
         self.samples.cells.append(obstacle) 
         
-    
+    # called in sca_callback : fill a grid with 1
     def update_occupancy(self,rg,angle):
+        
         euler = euler_from_quaternion((0,0,self.oz,self.ow))[2] 
         euler += angle
         cx = self.x+math.cos(euler)*rg
         cy = self.y+math.sin(euler)*rg
         gx,gy = self.cood_grid(cx,cy)
-        if (0<gx and gx<300 and gy>0 and gy<220):
+        if (0<gx and gx<self.height and gy>0 and gy<self.width):
             self.occ_grid[gx][gy] = 1
         return 
         
@@ -131,17 +136,16 @@ class RRT(object):
         #print(self.ranges[0])
         length = len(scan_msg.ranges)
         step = 10
+        
         if (self.dynamique == True):
-            for i in range(self.width):
-                for j in range(self.height):
-                    self.occ_grid[i][j] = 0
+            self.occ_grid = np.zeros((self.height,self.width))
         for i in range(0,length,step):
             rg = scan_msg.ranges[i]
             if rg > self.vision :  
                 continue
             angle = scan_msg.angle_min+scan_msg.angle_increment*i
-            #print(angle,rg)
             self.update_occupancy(rg,angle)
+        self.set_cell()
         #self.publish_map()
 
     def pf_callback(self, pose_msg):
@@ -154,21 +158,28 @@ class RRT(object):
         self.y = pose_msg.pose.position.y
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
+        print(self.x,self.y)
+        print(self.cood_grid(self.x,self.y))
+        
+        # root 
         self.tree.append(Node(self.x,self.y,0,True))
         
+        ### test of uniform sampling
+        """
         self.samples.cells.clear()
         for i in range(30):
             sx,sy = self.sample()
             self.set_sample(sx,sy)
-            
         self.red_pub.publish(self.samples)
+        """
+        ### end of test
+    
         self.cell_pub.publish(self.cells)
-        #print(self.cood_grid(self.x,self.y))
         return 
 
     def sample(self):
-        xlim = 10
-        ylim = 10
+        xlim = 16
+        ylim = 3
         intercept = 0.5
         """
         This method should randomly sample the free space, and returns a viable point
@@ -190,7 +201,7 @@ class RRT(object):
             ylim = -ylim
             intercept = 0.75
             
-        x = self.x+(rd - intercept)*xlim
+        x = self.x+(rd-intercept)*xlim
         y = self.y+rd2*ylim*0.25
         if (self.cood_grid(x,y) == 1):
             x,y = self.sample()
@@ -234,8 +245,10 @@ class RRT(object):
         sx,sy = sampled_point[0],sampled_point[1]
         dis = np.sqrt((nx-sx)**2+(ny-sy)**2)
         new_node = None
-        if dis < 1 :
-            return None
+        if dis < ARM_LENGHT :
+            sample = self.sample()
+            print("steer again")
+            return self.steer(self.nearest(sample),sample)
         else : 
             new_x, new_y = nx+(sx-nx)/dis,ny+(sy-ny)/dis
             if (self.cood_grid(new_x,new_y) == 0) :
@@ -255,6 +268,15 @@ class RRT(object):
             collision (bool): whether the path between the two nodes are in collision
                               with the occupancy grid
         """
+        
+        amont_x,amont_y = self.cood_grid(nearest_node.x,nearest_node.y)
+        aval_x,aval_y = self.cood_grid(new_node.x,new_node.y)
+        width = 10 
+        delta_x = amont_x - aval_x
+        delta_y = amont_y - aval_y
+        if abs(delta_y)>abs(delta_x):
+            return False
+        
         return True
 
     def is_goal(self, latest_added_node, goal_x, goal_y):
@@ -354,6 +376,8 @@ class RRT(object):
         """
         neighborhood = []
         return neighborhood
+    
+###################################################""
 
 def main():
     rospy.init_node('rrt')
