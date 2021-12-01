@@ -23,16 +23,18 @@ from tf2_ros import transform_listener
 from tf.transformations import euler_from_quaternion
 
 
+ARM_LENGHT = 1;
+
 # class def for tree nodes
 # It's up to you if you want to use this
 class Node(object):
-    def __init__(self):
-        self.x = None
-        self.y = None
-        self.parent = None
+    def __init__(self,x,y,parent_index,root=False):
+        self.x = x
+        self.y = y
+        self.parent = parent_index
         self.cost = None # only used in RRT*
         
-        self.is_root = False # ??
+        self.is_root = root
 
 # class def for RRT
 class RRT(object):
@@ -46,7 +48,9 @@ class RRT(object):
         self.y = 0
         self.oz =0
         self.ow = 0
-        self.vision =4.0
+        self.vision =6.0
+        self.dynamique = False
+        self.tree = []
 
         # subscribers
         rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback,queue_size=1)
@@ -57,9 +61,9 @@ class RRT(object):
         self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
         self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
         self.cell_pub = rospy.Publisher('BlueCell',GridCells,queue_size=1)
-        self.yellow_pub = rospy.Publisher('YellowCell',GridCells,queue_size=2)
+        self.red_pub = rospy.Publisher('YellowCell',GridCells,queue_size=2)
         
-        #visualization
+        #visualization==============================================================
         
         # Occupancy Grid
         self.resolution = rospy.get_param('Cell_size')*2
@@ -81,6 +85,10 @@ class RRT(object):
         self.cells.cells[0].y=0
         self.cells.cells[0].z=0
         self.set_cell()
+        self.samples = GridCells()
+        self.samples.header.frame_id="map"
+        self.samples.cell_height = self.resolution
+        self.samples.cell_width = self.resolution
         
     def cood_grid(self,cx,cy):
         gx = int( (cy-self.grid_x)/self.resolution+self.width)
@@ -101,6 +109,13 @@ class RRT(object):
                     obstacle.x,obstacle.y = self.grid_cood(i,j)
                     obstacle.z = 0
                     self.cells.cells.append(obstacle) 
+    def set_sample(self,x,y):
+        obstacle = Point()
+        obstacle.x = x
+        obstacle.y = y
+        obstacle.z = 0
+        self.samples.cells.append(obstacle) 
+        
     
     def update_occupancy(self,rg,angle):
         euler = euler_from_quaternion((0,0,self.oz,self.ow))[2] 
@@ -115,10 +130,11 @@ class RRT(object):
     def scan_callback(self, scan_msg):
         #print(self.ranges[0])
         length = len(scan_msg.ranges)
-        step=20
-        #for i in range(self.width):
-         #   for j in range(self.height):
-          #      self.occ_grid[i][j] = 0
+        step = 10
+        if (self.dynamique == True):
+            for i in range(self.width):
+                for j in range(self.height):
+                    self.occ_grid[i][j] = 0
         for i in range(0,length,step):
             rg = scan_msg.ranges[i]
             if rg > self.vision :  
@@ -138,25 +154,49 @@ class RRT(object):
         self.y = pose_msg.pose.position.y
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
-        self.set_cell()
+        self.tree.append(Node(self.x,self.y,0,True))
+        
+        self.samples.cells.clear()
+        for i in range(30):
+            sx,sy = self.sample()
+            self.set_sample(sx,sy)
+            
+        self.red_pub.publish(self.samples)
         self.cell_pub.publish(self.cells)
         #print(self.cood_grid(self.x,self.y))
         return 
 
     def sample(self):
+        xlim = 10
+        ylim = 10
+        intercept = 0.5
         """
         This method should randomly sample the free space, and returns a viable point
-
         Args:
         Returns:
             (x, y) (float float): a tuple representing the sampled point
 
         """
-        x = None
-        y = None
+        rd = np.random.random()
+        rd2 = np.random.random()
+        if rd<0.25:
+            ylim = -ylim
+            intercept = 0
+        elif (rd>=0.25 and rd<0.5):
+            xlim = -xlim 
+            intercept = 0.25
+        elif (rd >0.75):
+            xlim = -xlim 
+            ylim = -ylim
+            intercept = 0.75
+            
+        x = self.x+(rd - intercept)*xlim
+        y = self.y+rd2*ylim*0.25
+        if (self.cood_grid(x,y) == 1):
+            x,y = self.sample()
         return (x, y)
 
-    def nearest(self, tree, sampled_point):
+    def nearest(self, sampled_point):
         """
         This method should return the nearest node on the tree to the sampled point
 
@@ -167,6 +207,15 @@ class RRT(object):
             nearest_node (int): index of neareset node on the tree
         """
         nearest_node = 0
+        dis_min = 20
+        print("Optimisation Goal: ",sampled_point)
+        for i in range(len(self.tree)):
+            dis = abs(self.tree[i].x-sampled_point[0])+abs(self.tree[i].y-sampled_point[1])
+            if (dis_min > dis):
+                dis_min = dis
+                nearest_node = i
+                print("iter: ",self.tree[i].x,self.tree[i].y)
+        print("Optimised:", nearest_node);
         return nearest_node
 
     def steer(self, nearest_node, sampled_point):
@@ -180,8 +229,19 @@ class RRT(object):
         Returns:
             new_node (Node): new node created from steering
         """
+        # ARM_LENGHT = 1;
+        nx,ny = self.tree[nearest_node].x,self.tree[nearest_node].y
+        sx,sy = sampled_point[0],sampled_point[1]
+        dis = np.sqrt((nx-sx)**2+(ny-sy)**2)
         new_node = None
-        return new_node
+        if dis < 1 :
+            return None
+        else : 
+            new_x, new_y = nx+(sx-nx)/dis,ny+(sy-ny)/dis
+            if (self.cood_grid(new_x,new_y) == 0) :
+                return None;
+            new_node = Node(new_x, new_y,nearest_node)
+            return new_node
 
     def check_collision(self, nearest_node, new_node):
         """

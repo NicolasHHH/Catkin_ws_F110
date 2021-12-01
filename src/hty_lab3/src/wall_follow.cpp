@@ -1,4 +1,3 @@
-
 #include <ros/ros.h>
 #include <nav_msgs/Odometry.h>
 #include <sensor_msgs/LaserScan.h>
@@ -8,6 +7,7 @@
 #include <ackermann_msgs/AckermannDrive.h>
 #include <vector>
 
+//double VELOCITY = 3.50; // meters per second par défaut
 
 class Wall_follow{
     private:
@@ -20,12 +20,14 @@ class Wall_follow{
         double prev_error = 0.0 ;
         double error = 0.0;
         double integral = 0.0;
-
+        double VELOCITY = 3.50;
+        int bl = ros::param::get("/vitesse", VELOCITY);
+    	
+        
         // WALL FOLLOW PARAMS
         const int ANGLE_RANGE = 270; // Hokuyo 10LX has 270 degrees scan
         const double DESIRED_DISTANCE_RIGHT = 2.1; // meters
         const double DESIRED_DISTANCE_LEFT = 2.0;
-        const double VELOCITY = 0.50; // meters per second
         const double CAR_LENGTH = 0.50; // Traxxas Rally is 20 inches or 0.5 meters
 
         // ROS 
@@ -102,12 +104,13 @@ class Wall_follow{
                 angle += angle_incre*10;
             }
 
-            ROS_INFO("angle_a: %f angle_b: %f dis_a: %f dis_b: %f", angle_a,angle_b,dis_a,dis_b);
+            //ROS_INFO("angle_a: %f angle_b: %f dis_a: %f dis_b: %f", angle_a,angle_b,dis_a,dis_b);
             double alpha = std::atan( (dis_a*std::cos(angle_a-angle_b)-dis_b)/(dis_a*std::sin(angle_a-angle_b)));
             double leftDist = getRange(dis_b,alpha);
             double error = followLeft(leftDist);// TODO: replace with error returned by followLeft
 
             ROS_INFO("alpha = %f leftDist = %f error = %f", alpha, leftDist,error);
+            ROS_INFO("VELOCITY = %f",VELOCITY);
             // send error to pid_control
             double velocity = VELOCITY;
             if (abs(alpha *180/3.14) < 10){
@@ -125,9 +128,9 @@ class Wall_follow{
 };
 
 int main(int argc, char ** argv) {
-
     ros::init(argc, argv, "Wall_follow_node");
     Wall_follow wf;
     ros::spin();
+    
     return 0;
 }
