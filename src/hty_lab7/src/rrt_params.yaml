@@ -11,7 +11,7 @@ Occupancy_height: 220
 Cell_size: 0.1
 Plane_count : 285
 Grid_offset_x : 3
-Grid_offset_y: -14
+Grid_offset_y: -12
 Grid_Alpha : 0.5
 Grid_color : (160,160,164)
 

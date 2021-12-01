@@ -1,6 +1,7 @@
 #!/usr/bin/python
 
 
+from sys import last_traceback
 import numpy as np
 from numpy import linalg as LA
 import math
@@ -66,11 +67,11 @@ class RRT(object):
         #visualization==============================================================
         
         # Occupancy Grid
-        self.resolution = rospy.get_param('Cell_size')
+        self.resolution = rospy.get_param('Cell_size')*2
         self.grid_x = rospy.get_param('Grid_offset_x')
         self.grid_y = rospy.get_param('Grid_offset_y')
-        self.width = rospy.get_param('Occupancy_width')
-        self.height = rospy.get_param('Occupancy_height')
+        self.width = rospy.get_param('Occupancy_width')//2
+        self.height = rospy.get_param('Occupancy_height')//2
         
         self.occ_grid  = np.zeros((self.height,self.width))
         
@@ -97,8 +98,8 @@ class RRT(object):
         return [gx,gy]
     
     def grid_cood(self,gx,gy):
-        cx = gx*self.resolution+self.grid_x-self.height/20
-        cy = gy*self.resolution+self.grid_y-self.width/20
+        cx = (gx-self.height/2)*self.resolution+self.grid_x
+        cy = (gy-self.width/2 )*self.resolution+self.grid_y
         return [cx,cy]
     
     # transfrom grid to cells ready to visualize the occupancy grid
@@ -136,14 +137,17 @@ class RRT(object):
         #print(self.ranges[0])
         length = len(scan_msg.ranges)
         step = 10
+        intercept = 150
+        incre_angle = scan_msg.angle_increment
+        min_angle = scan_msg.angle_min 
         
         if (self.dynamique == True):
             self.occ_grid = np.zeros((self.height,self.width))
-        for i in range(0,length,step):
+        for i in range(intercept,length-intercept,step):
             rg = scan_msg.ranges[i]
             if rg > self.vision :  
                 continue
-            angle = scan_msg.angle_min+scan_msg.angle_increment*i
+            angle = min_angle+incre_angle*i
             self.update_occupancy(rg,angle)
         self.set_cell()
         #self.publish_map()
@@ -158,28 +162,16 @@ class RRT(object):
         self.y = pose_msg.pose.position.y
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
-        print(self.x,self.y)
-        print(self.cood_grid(self.x,self.y))
         
         # root 
         self.tree.append(Node(self.x,self.y,0,True))
-        
-        ### test of uniform sampling
-        """
-        self.samples.cells.clear()
-        for i in range(30):
-            sx,sy = self.sample()
-            self.set_sample(sx,sy)
-        self.red_pub.publish(self.samples)
-        """
-        ### end of test
     
         self.cell_pub.publish(self.cells)
         return 
 
     def sample(self):
         xlim = 16
-        ylim = 3
+        ylim = 16
         intercept = 0.5
         """
         This method should randomly sample the free space, and returns a viable point
@@ -271,27 +263,34 @@ class RRT(object):
         
         amont_x,amont_y = self.cood_grid(nearest_node.x,nearest_node.y)
         aval_x,aval_y = self.cood_grid(new_node.x,new_node.y)
-        width = 10 
         delta_x = amont_x - aval_x
         delta_y = amont_y - aval_y
         if abs(delta_y)>abs(delta_x):
-            return False
-        
+            y_unit = (nearest_node.y-new_node.y)/delta_y
+            x_unit = (nearest_node.x-new_node.x)/delta_y
+            for i in range(delta_y):
+                gx,gy = self.cood_grid(amont_x,amont_y)
+                for j in range(1,3):
+                    if self.occ_grid[gx+j][gy]== 1 or self.occ_grid[gx-j][gy]== 1:
+                        return False
+                amont_x+=x_unit
+                amont_y+=y_unit
+        else :
+            y_unit = (nearest_node.y-new_node.y)/delta_x
+            x_unit = (nearest_node.x-new_node.x)/delta_x
+            for i in range(delta_y):
+                gx,gy = self.cood_grid(amont_x,amont_y)
+                for j in range(1,3):
+                    if self.occ_grid[gx][gy+j]== 1 or self.occ_grid[gx][gy-j]== 1:
+                        return False
+                amont_x+=x_unit
+                amont_y+=y_unit
+            
         return True
 
     def is_goal(self, latest_added_node, goal_x, goal_y):
-        """
-        This method should return whether the latest added node is close enough
-        to the goal.
-
-        Args:
-            latest_added_node (Node): latest added node on the tree
-            goal_x (double): x coordinate of the current goal
-            goal_y (double): y coordinate of the current goal
-        Returns:
-            close_enough (bool): true if node is close enoughg to the goal
-        """
-        return False
+        
+        return abs(latest_added_node.x-goal_x)+abs(latest_added_node.y-goal_y)<0.5
 
     def find_path(self, tree, latest_added_node):
         """
@@ -305,6 +304,10 @@ class RRT(object):
             path ([]): valid path as a list of Nodes
         """
         path = []
+        nd = latest_added_node
+        while(nd.is_root==False):
+            path.insert(0,nd)
+            nd = tree[nd.parent]
         return path
     
 
@@ -386,3 +389,14 @@ def main():
 
 if __name__ == '__main__':
     main()
+    
+    
+### test of uniform sampling
+"""
+        self.samples.cells.clear()
+        for i in range(30):
+            sx,sy = self.sample()
+            self.set_sample(sx,sy)
+        self.red_pub.publish(self.samples)
+        ### end of test
+"""
