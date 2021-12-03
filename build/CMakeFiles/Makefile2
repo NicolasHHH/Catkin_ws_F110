@@ -65,6 +65,7 @@ all: hty_lab4/all
 all: hty_lab6/all
 all: particle_filter/all
 all: hty_lab7/all
+all: hty_turtle/all
 all: hty_lab/all
 all: f1tenth_simulator/all
 all: learning_tf/all
@@ -89,6 +90,7 @@ preinstall: hty_lab4/preinstall
 preinstall: hty_lab6/preinstall
 preinstall: particle_filter/preinstall
 preinstall: hty_lab7/preinstall
+preinstall: hty_turtle/preinstall
 preinstall: hty_lab/preinstall
 preinstall: f1tenth_simulator/preinstall
 preinstall: learning_tf/preinstall
@@ -118,6 +120,7 @@ clean: hty_lab4/clean
 clean: hty_lab6/clean
 clean: particle_filter/clean
 clean: hty_lab7/clean
+clean: hty_turtle/clean
 clean: hty_lab/clean
 clean: f1tenth_simulator/clean
 clean: learning_tf/clean
@@ -460,6 +463,24 @@ hty_lab7/preinstall:
 hty_lab7/clean: hty_lab7/CMakeFiles/rrt_node.dir/clean
 
 .PHONY : hty_lab7/clean
+
+#=============================================================================
+# Directory level rules for directory hty_turtle
+
+# Recursive "all" directory target.
+hty_turtle/all:
+
+.PHONY : hty_turtle/all
+
+# Recursive "preinstall" directory target.
+hty_turtle/preinstall:
+
+.PHONY : hty_turtle/preinstall
+
+# Recursive "clean" directory target.
+hty_turtle/clean:
+
+.PHONY : hty_turtle/clean
 
 #=============================================================================
 # Directory level rules for directory learning_tf

@@ -214,6 +214,13 @@
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/test.dir
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/install/local.dir
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/rrt_node.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/install/strip.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/install/local.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/install.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/list_install_components.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/rebuild_cache.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/edit_cache.dir
+/home/parallels/catkin_ws/build/hty_turtle/CMakeFiles/test.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/install/local.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/install.dir
 /home/parallels/catkin_ws/build/hty_lab/CMakeFiles/list_install_components.dir

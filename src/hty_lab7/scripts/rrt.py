@@ -1,7 +1,5 @@
 #!/usr/bin/python
 
-
-from sys import last_traceback
 import numpy as np
 from numpy import linalg as LA
 import math
@@ -19,6 +17,7 @@ from ackermann_msgs.msg import AckermannDriveStamped
 from nav_msgs.msg import OccupancyGrid
 from nav_msgs.msg import MapMetaData
 from nav_msgs.msg import GridCells
+from visualization_msgs.msg import Marker
 
 from tf2_ros import transform_listener
 from tf.transformations import euler_from_quaternion
@@ -52,6 +51,8 @@ class RRT(object):
         self.vision =6.0
         self.dynamique = True
         self.tree = []
+        self.goal_x =0
+        self.goal_y =0
 
         # subscribers
         rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback,queue_size=1)
@@ -63,15 +64,15 @@ class RRT(object):
         self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
         self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
         self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
-        
+        self.iti_pub = rospy.Publisher("visualization_marker", Marker, queue_size=20)
         #visualization==============================================================
         
         # Occupancy Grid
-        self.resolution = rospy.get_param('Cell_size')*2
+        self.resolution = rospy.get_param('Cell_size')
         self.grid_x = rospy.get_param('Grid_offset_x')
         self.grid_y = rospy.get_param('Grid_offset_y')
-        self.width = rospy.get_param('Occupancy_width')//2
-        self.height = rospy.get_param('Occupancy_height')//2
+        self.width = rospy.get_param('Occupancy_width')
+        self.height = rospy.get_param('Occupancy_height')
         
         self.occ_grid  = np.zeros((self.height,self.width))
         
@@ -149,8 +150,21 @@ class RRT(object):
                 continue
             angle = min_angle+incre_angle*i
             self.update_occupancy(rg,angle)
-        self.set_cell()
-        #self.publish_map()
+        # root 
+        self.tree.append(Node(self.x,self.y,0,True))
+        latest_node = self.tree[0]
+        i=0
+        while self.is_goal(latest_node) == False:
+            i+=1
+            sample_point = self.sample()
+            nearest_node_index = self.nearest(sample_point)
+            new_node = self.steer(nearest_node_index,sample_point)
+            if self.check_collision(self.tree[nearest_node_index],new_node):
+                latest_node = new_node
+                self.tree.append(new_node)
+            print("iteration",i)
+        path = self.find_path(latest_node)  
+          
 
     def pf_callback(self, pose_msg):
         """
@@ -163,9 +177,8 @@ class RRT(object):
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
         
-        # root 
-        self.tree.append(Node(self.x,self.y,0,True))
-    
+        
+        self.set_cell()
         self.cell_pub.publish(self.cells)
         return 
 
@@ -280,6 +293,7 @@ class RRT(object):
             x_unit = (nearest_node.x-new_node.x)/delta_x
             for i in range(delta_y):
                 gx,gy = self.cood_grid(amont_x,amont_y)
+                print("diagonos:",amont_x,amont_y,gx,gy)
                 for j in range(1,3):
                     if self.occ_grid[gx][gy+j]== 1 or self.occ_grid[gx][gy-j]== 1:
                         return False
@@ -288,11 +302,11 @@ class RRT(object):
             
         return True
 
-    def is_goal(self, latest_added_node, goal_x, goal_y):
+    def is_goal(self, latest_added_node):
         
-        return abs(latest_added_node.x-goal_x)+abs(latest_added_node.y-goal_y)<0.5
+        return abs(latest_added_node.x-self.goal_x)+abs(latest_added_node.y-self.goal_y)<0.5
 
-    def find_path(self, tree, latest_added_node):
+    def find_path(self, latest_added_node):
         """
         This method returns a path as a list of Nodes connecting the starting point to
         the goal once the latest added node is close enough to the goal
@@ -305,9 +319,27 @@ class RRT(object):
         """
         path = []
         nd = latest_added_node
+        
+        m = Marker()
+        m.header.frame_id = 'map'
+        m.header.stamp = rospy.Time.now()
+        m.ns = 'points_and_lines'
+        m.pose.orientation.w = 1.0
+        m.action = Marker.ADD
+        m.id = 1
+        m.type = Marker.LINE_STRIP
+        m.color.a = 1.0
+        m.scale.x = 0.2
+        m.color.g = 1.0
+        
         while(nd.is_root==False):
             path.insert(0,nd)
-            nd = tree[nd.parent]
+            nd = self.tree[nd.parent]
+        
+        for pt in path: 
+            p = Point(pt.x,pt.y,0)
+            m.points.append(p)
+        self.iti_pub.publish(m)
         return path
     
 
