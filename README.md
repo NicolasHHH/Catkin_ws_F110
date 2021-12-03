@@ -29,3 +29,14 @@ Lab 4 : Gap follow
 
 https://user-images.githubusercontent.com/57991090/143314487-2c1119ae-832c-4e69-89e0-3080c8b5ce0e.mp4
 
+
+Turtlebot3 Navigation
+
+https://user-images.githubusercontent.com/57991090/144667026-d02580a6-1520-42c8-875c-eda40cd15aa5.mp4
+
+
+Turtlebot3 SLAM + Random Walk
+
+https://user-images.githubusercontent.com/57991090/144667100-c815c7c6-3710-4f7e-98a2-852090395f0b.mp4
+
+
