@@ -18,12 +18,13 @@ from nav_msgs.msg import OccupancyGrid
 from nav_msgs.msg import MapMetaData
 from nav_msgs.msg import GridCells
 from visualization_msgs.msg import Marker
+from visualization_msgs.msg import MarkerArray
 
 from tf2_ros import transform_listener
 from tf.transformations import euler_from_quaternion
 
 
-ARM_LENGHT = 1;
+ARM_LENGHT = 0.6;
 
 # class def for tree nodes
 # It's up to you if you want to use this
@@ -64,7 +65,8 @@ class RRT(object):
         self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
         self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
         self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
-        self.iti_pub = rospy.Publisher("visualization_marker", Marker, queue_size=20)
+        self.iti_pub = rospy.Publisher("itin_marker", Marker, queue_size=20)
+        self.tree_pub = rospy.Publisher("tree_marker", MarkerArray, queue_size=20)
         #visualization==============================================================
         
         # Occupancy Grid
@@ -137,20 +139,22 @@ class RRT(object):
     def scan_callback(self, scan_msg):
         #print(self.ranges[0])
         length = len(scan_msg.ranges)
-        step = 10
+        step = 3
         intercept = 150
         incre_angle = scan_msg.angle_increment
         min_angle = scan_msg.angle_min 
         
         if (self.dynamique == True):
-            self.occ_grid = np.zeros((self.height,self.width))
+            self.occ_grid = np.zeros((self.height+20,self.width+20))
         for i in range(intercept,length-intercept,step):
             rg = scan_msg.ranges[i]
             if rg > self.vision :  
                 continue
             angle = min_angle+incre_angle*i
             self.update_occupancy(rg,angle)
+            
         # root 
+        self.tree = []
         self.tree.append(Node(self.x,self.y,0,True))
         latest_node = self.tree[0]
         i=0
@@ -162,9 +166,9 @@ class RRT(object):
             if self.check_collision(self.tree[nearest_node_index],new_node):
                 latest_node = new_node
                 self.tree.append(new_node)
-            print("iteration",i)
-        path = self.find_path(latest_node)  
-          
+            print("iteration: ",i)
+        #self.draw_tree()
+        path = self.find_path(latest_node)     
 
     def pf_callback(self, pose_msg):
         """
@@ -172,19 +176,22 @@ class RRT(object):
         Here is where the main RRT loop happens
 
         """
+        
         self.x = pose_msg.pose.position.x
         self.y = pose_msg.pose.position.y
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
+        #print("== pf callback:",self.x,self.y)
         
-        
-        self.set_cell()
-        self.cell_pub.publish(self.cells)
+        self.red_pub.publish(self.samples)
+        self.samples.cells.clear()
+        #self.set_cell() # occupancy grid
+        #self.cell_pub.publish(self.cells)
         return 
 
     def sample(self):
-        xlim = 16
-        ylim = 16
+        xlim = 20
+        ylim = 20
         intercept = 0.5
         """
         This method should randomly sample the free space, and returns a viable point
@@ -210,6 +217,7 @@ class RRT(object):
         y = self.y+rd2*ylim*0.25
         if (self.cood_grid(x,y) == 1):
             x,y = self.sample()
+        print("sample: ",x,y)
         return (x, y)
 
     def nearest(self, sampled_point):
@@ -222,6 +230,7 @@ class RRT(object):
         Returns:
             nearest_node (int): index of neareset node on the tree
         """
+        print("nearest:")
         nearest_node = 0
         dis_min = 20
         print("Optimisation Goal: ",sampled_point)
@@ -231,10 +240,12 @@ class RRT(object):
                 dis_min = dis
                 nearest_node = i
                 print("iter: ",self.tree[i].x,self.tree[i].y)
-        print("Optimised:", nearest_node);
+        print("Nearest found:", nearest_node)
+        
         return nearest_node
 
     def steer(self, nearest_node, sampled_point):
+        
         """
         This method should return a point in the viable set such that it is closer 
         to the nearest_node than sampled_point is.
@@ -245,6 +256,7 @@ class RRT(object):
         Returns:
             new_node (Node): new node created from steering
         """
+        print("steering")
         # ARM_LENGHT = 1;
         nx,ny = self.tree[nearest_node].x,self.tree[nearest_node].y
         sx,sy = sampled_point[0],sampled_point[1]
@@ -274,37 +286,46 @@ class RRT(object):
                               with the occupancy grid
         """
         
+        print("check collision")
         amont_x,amont_y = self.cood_grid(nearest_node.x,nearest_node.y)
         aval_x,aval_y = self.cood_grid(new_node.x,new_node.y)
+        current_x,current_y = nearest_node.x,nearest_node.y
         delta_x = amont_x - aval_x
         delta_y = amont_y - aval_y
         if abs(delta_y)>abs(delta_x):
             y_unit = (nearest_node.y-new_node.y)/delta_y
             x_unit = (nearest_node.x-new_node.x)/delta_y
             for i in range(delta_y):
-                gx,gy = self.cood_grid(amont_x,amont_y)
-                for j in range(1,3):
+                
+                gx,gy = self.cood_grid(current_x,current_y)
+                for j in range(5):
+                    #cx,cy=self.grid_cood(gx,gy+j)
+                    #self.set_sample(cx,cy)
                     if self.occ_grid[gx+j][gy]== 1 or self.occ_grid[gx-j][gy]== 1:
+                        new_node.parent = 0
                         return False
-                amont_x+=x_unit
-                amont_y+=y_unit
+                current_x+=x_unit
+                current_y+=y_unit
         else :
             y_unit = (nearest_node.y-new_node.y)/delta_x
             x_unit = (nearest_node.x-new_node.x)/delta_x
-            for i in range(delta_y):
-                gx,gy = self.cood_grid(amont_x,amont_y)
-                print("diagonos:",amont_x,amont_y,gx,gy)
-                for j in range(1,3):
+            for i in range(delta_x):
+                gx,gy = self.cood_grid(current_x,current_y)
+                print("diagonos:",current_x,current_y,gx,gy)
+                for j in range(5):
+                    #cx,cy=self.grid_cood(gx,gy+j)
+                    #self.set_sample(cx,cy)
                     if self.occ_grid[gx][gy+j]== 1 or self.occ_grid[gx][gy-j]== 1:
+                        new_node.parent = 0
                         return False
-                amont_x+=x_unit
-                amont_y+=y_unit
-            
+                current_x+=x_unit
+                current_y+=y_unit
+        #self.red_pub.publish(self.samples)
         return True
 
     def is_goal(self, latest_added_node):
-        
-        return abs(latest_added_node.x-self.goal_x)+abs(latest_added_node.y-self.goal_y)<0.5
+        print("check goal")
+        return abs(latest_added_node.x-self.goal_x)+abs(latest_added_node.y-self.goal_y)<ARM_LENGHT
 
     def find_path(self, latest_added_node):
         """
@@ -317,6 +338,7 @@ class RRT(object):
         Returns:
             path ([]): valid path as a list of Nodes
         """
+        print("finding path")
         path = []
         nd = latest_added_node
         
@@ -329,8 +351,8 @@ class RRT(object):
         m.id = 1
         m.type = Marker.LINE_STRIP
         m.color.a = 1.0
-        m.scale.x = 0.2
-        m.color.g = 1.0
+        m.scale.x = 0.03
+        m.color.g = 0.8
         
         while(nd.is_root==False):
             path.insert(0,nd)
@@ -342,7 +364,36 @@ class RRT(object):
         self.iti_pub.publish(m)
         return path
     
-
+    def draw_tree(self):
+        M = MarkerArray()
+        id = 0;
+        for nd in self.tree:
+            branch = []
+            m = Marker()
+            m.header.frame_id = 'map'
+            m.header.stamp = rospy.Time.now()
+            m.ns = 'points_and_lines'
+            m.pose.orientation.w = 1.0
+            m.action = Marker.ADD
+            m.id = id
+            id +=1
+            m.type = Marker.LINE_STRIP
+            m.color.a = 1.0
+            m.scale.x = 0.03
+            m.color.b = 0.5
+            while(nd.is_root==False):
+                branch.insert(0,nd)
+                print("insert:",nd.x,nd.y,nd.parent)
+                nd = self.tree[nd.parent]
+            for pt in branch: 
+                p = Point(pt.x,pt.y,0)
+                m.points.append(p)
+            M.markers.append(m)
+        self.tree_pub.publish(M)
+        print("finish draw tree")
+        return
+            
+            
     # ========================================================================================================
 
     def viz_message(self):
