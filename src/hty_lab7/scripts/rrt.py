@@ -5,8 +5,10 @@ from numpy import linalg as LA
 import math
 
 from yaml import scan
+import csv
 
 import rospy
+from nav_msgs.msg import Odometry
 from sensor_msgs.msg import LaserScan
 from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import PointStamped
@@ -22,9 +24,18 @@ from visualization_msgs.msg import MarkerArray
 
 from tf2_ros import transform_listener
 from tf.transformations import euler_from_quaternion
+import tf
 
 
-ARM_LENGHT = 0.6;
+ARM_LENGHT = 0.6
+
+# pure pursuit
+CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
+VELOCITY = 0.5 # meters per second
+HEADER_DIS = 4*CAR_LENGTH 
+global way_points 
+way_points= []
+
 
 # class def for tree nodes
 # It's up to you if you want to use this
@@ -54,20 +65,29 @@ class RRT(object):
         self.tree = []
         self.goal_x =0
         self.goal_y =0
-
+        
+        # pure pursuit
+        self.waypoints = way_points
+        self.carA = 0
+        self.speed = 0
+        self.path = []
+        self.tf_listener = tf.TransformListener()
+        
         # subscribers
         rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback,queue_size=1)
+        rospy.Subscriber(pf_topic, PoseStamped, self.path_callback,queue_size=1)
         rospy.Subscriber(scan_topic, LaserScan, self.scan_callback,queue_size=1)
 
         # publishers
         self.drive_pub = rospy.Publisher(drv_topic, AckermannDriveStamped, queue_size = 2)
-        self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
-        self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
-        self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
-        self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
+        #self.occ_pub = rospy.Publisher('map', OccupancyGrid, queue_size = 2,latch=False)
+        #self.map_pub = rospy.Publisher('map_metadata', MapMetaData, queue_size = 2,latch=False)
+        #self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
+        #self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
         self.iti_pub = rospy.Publisher("itin_marker", Marker, queue_size=20)
         self.tree_pub = rospy.Publisher("tree_marker", MarkerArray, queue_size=20)
-        #visualization==============================================================
+        self.waypoint_pub = rospy.Publisher('/waypoint_vis',Marker,queue_size = 2)
+        
         
         # Occupancy Grid
         self.resolution = rospy.get_param('Cell_size')
@@ -105,6 +125,9 @@ class RRT(object):
         cy = (gy-self.width/2 )*self.resolution+self.grid_y
         return [cx,cy]
     
+    def dist_euclid(self,x1,y1,x2,y2):
+        return (x1-x2)**2 +(y1-y2)**2
+    
     # transfrom grid to cells ready to visualize the occupancy grid
     def set_cell(self):
         self.cells.cells.clear()
@@ -139,7 +162,7 @@ class RRT(object):
     def scan_callback(self, scan_msg):
         #print(self.ranges[0])
         length = len(scan_msg.ranges)
-        step = 3
+        step = 8
         intercept = 150
         incre_angle = scan_msg.angle_increment
         min_angle = scan_msg.angle_min 
@@ -168,7 +191,9 @@ class RRT(object):
                 self.tree.append(new_node)
             print("iteration: ",i)
         #self.draw_tree()
-        path = self.find_path(latest_node)     
+        self.path = self.find_path(latest_node)  
+        #self.follow_path(self.path)
+        
 
     def pf_callback(self, pose_msg):
         """
@@ -176,12 +201,28 @@ class RRT(object):
         Here is where the main RRT loop happens
 
         """
-        
         self.x = pose_msg.pose.position.x
         self.y = pose_msg.pose.position.y
         self.oz = pose_msg.pose.orientation.z
         self.ow = pose_msg.pose.orientation.w
-        #print("== pf callback:",self.x,self.y)
+        euler = euler_from_quaternion([0,0,self.oz,self.ow])
+        self.carA  = euler[2]
+        
+        targetX = self.x + math.cos(self.carA)*HEADER_DIS
+        targetY = self.y + math.sin(self.carA)*HEADER_DIS
+        NearX  = targetX
+        NearY = targetY
+        dis_Near_target = 100
+        for waypoint in way_points:
+            dist = self.dist_euclid(waypoint[0],waypoint[1],targetX,targetY)
+            if dist < dis_Near_target:
+                dis_Near_target = dist
+                NearX = waypoint[0]
+                NearY = waypoint[1]
+                
+        #self.mark_point(NearX,NearY,0,0) #rotationZ,rotationW)
+        self.goal_x =NearX
+        self.goal_y =NearY
         
         self.red_pub.publish(self.samples)
         self.samples.cells.clear()
@@ -189,9 +230,50 @@ class RRT(object):
         #self.cell_pub.publish(self.cells)
         return 
 
+    def path_callback(self,pose_msg):
+        print("==============",len(self.path))
+        targetX = self.x + math.cos(self.carA)
+        targetY = self.y + math.sin(self.carA)
+        NearX  = targetX
+        NearY = targetY
+        dis_Near_target = 100
+        for nd in self.path:
+            dist = self.dist_euclid(nd.x,nd.y,targetX,targetY)
+            if dist < dis_Near_target:
+                dis_Near_target = dist
+                NearX = nd.x
+                NearY = nd.y
+        print(self.x,self.y,NearX,NearY)
+                
+        self.mark_point(NearX,NearY,0,0) #rotationZ,rotationW)
+
+        aheadPoint = PointStamped()
+        aheadPoint.header.frame_id = "map"
+        aheadPoint.point.x = NearX
+        aheadPoint.point.y = NearY
+        aheadPoint.point.z = 0
+        
+        transformed_point = pose_msg
+        transformed_point = self.tf_listener.transformPoint("base_link",aheadPoint)
+        
+        curve = 2*(transformed_point.point.y)/0.9**2
+        angle = curve*0.4 #+3.14/4
+        drive_msg = AckermannDriveStamped()
+        drive_msg.header.stamp = rospy.Time.now()
+        drive_msg.header.frame_id = "pure" #"laser"
+        drive_msg.drive.steering_angle = angle
+        drive_msg.drive.speed = VELOCITY
+
+        if abs(angle) > 0.418:
+            angle = angle/abs(angle)*0.418
+
+        self.drive_pub.publish(drive_msg)
+        
+        return 
+
     def sample(self):
-        xlim = 20
-        ylim = 20
+        xlim = 15
+        ylim = 15
         intercept = 0.5
         """
         This method should randomly sample the free space, and returns a viable point
@@ -217,7 +299,7 @@ class RRT(object):
         y = self.y+rd2*ylim*0.25
         if (self.cood_grid(x,y) == 1):
             x,y = self.sample()
-        print("sample: ",x,y)
+        #print("sample: ",x,y)
         return (x, y)
 
     def nearest(self, sampled_point):
@@ -230,16 +312,16 @@ class RRT(object):
         Returns:
             nearest_node (int): index of neareset node on the tree
         """
-        print("nearest:")
+        #print("nearest:")
         nearest_node = 0
         dis_min = 20
-        print("Optimisation Goal: ",sampled_point)
+        #print("Optimisation Goal: ",sampled_point)
         for i in range(len(self.tree)):
             dis = abs(self.tree[i].x-sampled_point[0])+abs(self.tree[i].y-sampled_point[1])
             if (dis_min > dis):
                 dis_min = dis
                 nearest_node = i
-                print("iter: ",self.tree[i].x,self.tree[i].y)
+                #print("iter: ",self.tree[i].x,self.tree[i].y)
         print("Nearest found:", nearest_node)
         
         return nearest_node
@@ -285,7 +367,6 @@ class RRT(object):
             collision (bool): whether the path between the two nodes are in collision
                               with the occupancy grid
         """
-        
         print("check collision")
         amont_x,amont_y = self.cood_grid(nearest_node.x,nearest_node.y)
         aval_x,aval_y = self.cood_grid(new_node.x,new_node.y)
@@ -357,13 +438,38 @@ class RRT(object):
         while(nd.is_root==False):
             path.insert(0,nd)
             nd = self.tree[nd.parent]
-        
+        """
         for pt in path: 
             p = Point(pt.x,pt.y,0)
             m.points.append(p)
         self.iti_pub.publish(m)
+        """
         return path
     
+    def follow_path(self,path):
+        if(len(path)>1):
+            path.pop(0)
+            loc = path.pop(0)
+            if abs(self.x-loc.x)<0.1:
+                angle = 0
+            else:
+                angle = math.atan((loc.y-self.y)/(loc.x-self.x)-self.carA)
+            
+            print(angle," angle,carA ",self.carA)
+            drive_msg = AckermannDriveStamped()
+            drive_msg.header.stamp = rospy.Time.now()
+            drive_msg.header.frame_id = "pure" #"laser"
+            drive_msg.drive.steering_angle = angle
+            drive_msg.drive.speed = VELOCITY
+
+            if abs(angle) > 0.418:
+                angle = angle/abs(angle)*0.418
+
+            #self.drive_pub.publish(drive_msg)
+        return
+        
+        
+# ==========================================================================================
     def draw_tree(self):
         M = MarkerArray()
         id = 0;
@@ -393,8 +499,31 @@ class RRT(object):
         print("finish draw tree")
         return
             
-            
-    # ========================================================================================================
+    def mark_point(self,aheadX,aheadY,aheadZ,aheadW):
+            """
+            Create slightly transparent disks for way-points.
+            :param color: disk RGBA value
+            """
+            id = 0
+            marker = Marker()
+            marker.header.seq = 100
+            marker.id = id
+            marker.header.frame_id = "map"
+            marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
+            marker.action = Marker.ADD
+            marker.header.stamp = rospy.Time.now()
+            marker.pose.position.x = aheadX
+            marker.pose.position.y = aheadY
+            marker.pose.orientation.z = aheadZ
+            marker.pose.orientation.w = aheadW
+            marker.scale.x = 0.3
+            marker.scale.y = 0.3
+            marker.scale.z = 0.3
+            marker.color.a = 0.9
+            marker.color.r = 1.0
+            self.waypoint_pub.publish(marker);
+            return
+# ========================================================================================================
 
     def viz_message(self):
         
@@ -466,7 +595,17 @@ class RRT(object):
 ###################################################""
 
 def main():
+    with open("waypoint6_100.csv" ,'r') as f: 
+        cr = csv.reader(f)
+        for row in cr:
+                array =[]
+                for col in row:
+                    array.append(eval(col))
+                way_points.append(array)
+    print(way_points[0])
+    
     rospy.init_node('rrt')
+    rospy.Rate(10)
     rrt = RRT()
     rospy.spin()
 

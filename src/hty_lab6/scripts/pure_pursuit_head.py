@@ -3,12 +3,9 @@ import rospy
 from rospy.core import rospyinfo 
 import tf
 from tf.transformations import euler_from_quaternion
-import tf2_py
-import tf2_ros
 import math
 import numpy as np
 import csv
-import atexit # file 
 
 # ROS msg types and libraries
 from nav_msgs.msg import Odometry
@@ -16,14 +13,9 @@ import geometry_msgs.msg
 from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import PointStamped
 from ackermann_msgs.msg import AckermannDriveStamped
-import std_msgs.msg as std_msgs
-from sensor_msgs.msg import LaserScan
 
 
-import rviz
 import visualization_msgs.msg as viz_msgs
-from std_msgs.msg import Float32, ColorRGBA
-from geometry_msgs.msg import Vector3
 from visualization_msgs.msg import Marker
 
 # static parameters
@@ -39,7 +31,6 @@ class PurePursuit(object):
     def __init__(self):
    
         self.tf_listener = tf.TransformListener()
-        self.waypoints = way_points
         
         # recieve odom and pose msg
         self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
@@ -53,6 +44,7 @@ class PurePursuit(object):
         #self.frame = "."
         # self.time = 0.0
         #self.velocity = 0.0
+        self.waypoints = way_points
         self.carX = 0 
         self.carY = 0
         self.carA = 0
