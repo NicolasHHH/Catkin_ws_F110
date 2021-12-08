@@ -8,6 +8,9 @@ Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic
 
 Author : Tianyang HUANG
 
+Lab 7: RRT
+
+https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
 Lab 6 :  Pure Pursuit
 
