@@ -663,8 +663,8 @@ def load_params_from_yaml(fp):
     with open(fp, 'r') as infile:
         yaml_data = load(infile)
         for param in yaml_data:
-            print("param:", param, ":", yaml_data[param]
-            rospy.set_param("~"+param, yaml_data[param]))
+            print("param:", param, ":", yaml_data[param])
+            rospy.set_param("~"+param, yaml_data[param])
 
 # this function can be used to generate flame graphs easily
 def make_flamegraph(filterx=None):
