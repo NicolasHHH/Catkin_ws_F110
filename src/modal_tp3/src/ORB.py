@@ -40,7 +40,7 @@ def main(args):
     ic = image_converter()
     rospy.init_node('image_converter', anonymous=True)
     try:
-    	rospy.spin()
+        rospy.spin()
     except KeyboardInterrupt:
         print("Shutting down")
     cv2.destroyAllWindows()
