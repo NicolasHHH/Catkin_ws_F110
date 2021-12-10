@@ -117,7 +117,9 @@ class WallFollow:
         #send error to pid_control
         self.pid_control(error, VELOCITY)
 def main(args):
+    
     for i in range(10):
+        
         shut = 0
         rospy.init_node("WallFollow_node", anonymous=True)
         now = rospy.get_rostime()

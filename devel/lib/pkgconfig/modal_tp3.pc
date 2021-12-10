@@ -1,0 +1,8 @@
+prefix=/home/parallels/catkin_ws/devel
+
+Name: modal_tp3
+Description: Description of modal_tp3
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
