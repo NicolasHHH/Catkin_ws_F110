@@ -8,7 +8,12 @@ Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic
 
 Author : Tianyang HUANG
 
-Lab 7: RRT
+Lab 7 DFS:
+
+https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-a195-5547195d206d.mp4
+
+
+Lab 7 RRT:
 
 https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
@@ -19,7 +24,6 @@ https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-
 Occupancy Grid
 
 https://user-images.githubusercontent.com/57991090/143580321-4ed67070-22cb-4867-8cff-11c65a2d77b8.mp4
-
 
 
 Lab 5 : Scan Matching
