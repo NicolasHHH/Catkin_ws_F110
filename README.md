@@ -8,31 +8,29 @@ Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic
 
 Author : Tianyang HUANG
 
-Lab 7 DFS:
+Pure Pursuit
+
+https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
+
+DFS:
 
 https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-a195-5547195d206d.mp4
 
 
-Lab 7 RRT:
+RRT:
 
 https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
-Lab 6 :  Pure Pursuit
-
-https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
 
 Occupancy Grid
 
 https://user-images.githubusercontent.com/57991090/143580321-4ed67070-22cb-4867-8cff-11c65a2d77b8.mp4
 
-
-Lab 5 : Scan Matching
+Scan Matching
 
 https://user-images.githubusercontent.com/57991090/143314509-1f561a2b-a9e6-47b8-983f-9a1ecc386bc5.mp4
 
-
-
-Lab 4 : Gap follow
+Gap follow
 
 https://user-images.githubusercontent.com/57991090/143314487-2c1119ae-832c-4e69-89e0-3080c8b5ce0e.mp4
 
