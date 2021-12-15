@@ -20,9 +20,8 @@ class Wall_follow{
         double prev_error = 0.0 ;
         double error = 0.0;
         double integral = 0.0;
-        double VELOCITY = 3.50;
         int bl = ros::param::get("/vitesse", VELOCITY);
-    	
+    	double VELOCITY = 3.50;
         
         // WALL FOLLOW PARAMS
         const int ANGLE_RANGE = 270; // Hokuyo 10LX has 270 degrees scan
@@ -114,13 +113,13 @@ class Wall_follow{
             // send error to pid_control
             double velocity = VELOCITY;
             if (abs(alpha *180/3.14) < 10){
-                velocity = 0.75*VELOCITY;
+                velocity = 0.95*VELOCITY;
             }
             else if (abs(alpha *180/3.14) < 20){
-                velocity = 0.6*VELOCITY;
+                velocity = 0.65*VELOCITY;
             }
             else{
-                velocity = 0.45*VELOCITY;
+                velocity = 0.5*VELOCITY;
             }
 
             pid_control(error, velocity);
