@@ -61,7 +61,6 @@ class PurePursuit(object):
         # the virtual point that is ahead of the car for a distance of header_dis;
         
         #rospy.loginfo("euler: %f",euler[2])
-        
         #rotationZ = self.waypoints[0][2]
         #rotationW = self.waypoints[0][3]
         #euler = euler_from_quaternion([0,0,z,w])
