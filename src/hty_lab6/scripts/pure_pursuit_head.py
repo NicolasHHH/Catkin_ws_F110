@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import rospy
 from rospy.core import rospyinfo 
 import tf
@@ -21,7 +21,7 @@ from visualization_msgs.msg import Marker
 # static parameters
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
 VELOCITY = 3.5 # meters per second
-HEADER_DIS = 1.5*CAR_LENGTH
+HEADER_DIS = 1.0*CAR_LENGTH
 global way_points 
 way_points= []
 
