@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Rviz -->
+    <include file="$(find f1tenth_gym_ros)/launch/gym_bridge_host.launch"/>
+
+    <!-- Launch keyboard control algo -->
+    <node pkg="f1tenth_controller_example" type="keyboard_control_node.py" name="keyboard_control" output="screen"/>
+
+</launch>
