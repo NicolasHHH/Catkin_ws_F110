@@ -86,23 +86,23 @@ class Agent(object):
             self.ego_angular_vel  = 0.0
             print(vels(self.ego_linear_vel, self.ego_angular_vel))
 
-        elif (key==KeyCode.from_char('w')):
+        elif (key==KeyCode.from_char('y')):
             self.opp_linear_vel = constrain(self.opp_linear_vel + LIN_VEL_STEP_SIZE, -MAX_LIN_VEL, MAX_LIN_VEL)
             print(vels(self.opp_linear_vel, self.opp_angular_vel))
-        elif (key==KeyCode.from_char('s')):
+        elif (key==KeyCode.from_char('h')):
             self.opp_linear_vel = constrain(self.opp_linear_vel - LIN_VEL_STEP_SIZE, -MAX_LIN_VEL, MAX_LIN_VEL)
             print(vels(self.opp_linear_vel, self.opp_angular_vel))
-        elif (key==KeyCode.from_char('a')):
+        elif (key==KeyCode.from_char('g')):
             self.opp_angular_vel = 0.51
-        elif (key==KeyCode.from_char('d')):
+        elif (key==KeyCode.from_char('j')):
             self.opp_angular_vel = -0.51
         elif (key==Key.shift):
             self.opp_linear_vel   = 0.0
             self.opp_angular_vel  = 0.0
             print(vels(self.opp_linear_vel, self.opp_angular_vel))
 
-    def on_press_action(key):
-        self.on_press(self, key)
+    def on_press_action(self,key):
+        self.on_press(key)
 
     def keep_listenning(self, event=None):
         # Collect events until released
@@ -114,7 +114,6 @@ if __name__ == '__main__':
     print(msg)
 
     agent = Agent()
-    # ref: https://roboticsbackend.com/how-to-use-a-ros-timer-in-python-to-publish-data-at-a-fixed-rate/
     rospy.Timer(rospy.Duration(1.0/100.0), agent.keep_listenning)
     rospy.Timer(rospy.Duration(1.0/100.0), agent.publish_cmd_ego)
     rospy.Timer(rospy.Duration(1.0/100.0), agent.publish_cmd_opp)

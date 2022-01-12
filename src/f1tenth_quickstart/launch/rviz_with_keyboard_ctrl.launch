@@ -6,4 +6,7 @@
     <!-- Launch keyboard control algo -->
     <node pkg="quickstart" type="keyboard_control_node.py" name="keyboard_control" output="screen"/>
 
+    <!-- Launch itinqry visualisation -->
+    <node pkg="quickstart" type="itinary.py" name="itinary" output="screen"/>
+
 </launch>
