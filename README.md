@@ -5,8 +5,13 @@ We are a group of students from Ecole Polytechnique working on a collective scie
 More on f1tenth here : https://f1tenth.org/. 
 
 Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic 
+Environment Gym : catkin_ws on Ubuntu 18.04.6 amd64 with ROS melodic
 
 Author : Tianyang HUANG
+
+Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)
+
+![Screenshot from 2022-01-12 18-20-49](https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png)
 
 Pure Pursuit
 
