@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Rviz -->
+    <include file="$(find f1tenth_simulator)/launch/simulator.launch"/>
+
+    <!-- controllor -->
+    <node pkg="hty_lab3" type="wall_follow" name="wall_follow" output="screen"/>
+
+    <!-- draw itinary -->
+    <node pkg="modal_astar" type="rapport.py" name="report" output="screen"/>
+
+
+</launch>

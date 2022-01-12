@@ -1,287 +1,161 @@
 #!/usr/bin/env python
+
 import rospy
-import tf
-from tf.transformations import euler_from_quaternion
-import tf2_py
-
-import tf2_ros
-
-
 import math
 import numpy as np
+from numpy import linalg as la
+from tf.transformations import euler_from_quaternion, quaternion_from_euler
 import csv
-
-# traitement du fichier
-import atexit
-
-# TODO: import ROS msg types and libraries
-from nav_msgs.msg import Odometry
-import geometry_msgs.msg
-from geometry_msgs.msg import PoseStamped
+import os
+import rospkg 
 from ackermann_msgs.msg import AckermannDriveStamped
-import rviz
-import std_msgs.msg as std_msgs
-
-import visualization_msgs.msg as viz_msgs
-from std_msgs.msg import Float32, ColorRGBA
-from geometry_msgs.msg import Vector3
-from visualization_msgs.msg import Marker
-
-from sensor_msgs.msg import LaserScan
+from geometry_msgs.msg import PoseStamped
 from geometry_msgs.msg import PointStamped
-CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
-#from tf.transformations import euler_from_quaternion
+import tf
 
-VELOCITY = 3.0 # meters per second
-LOOK_AHEAD_DIST = 0.9
-global way_points 
-way_points= []
+path_point = []
 
+class pure_pursuit:
 
-
-class PurePursuit(object):
-    """
-    The class that handles pure pursuit.
-    """
     def __init__(self):
+
+        self.LOOKAHEAD_DISTANCE = 1.70#1.70 # meters
+        self.VELOCITY = 5 # m/s
+        #self.goal = 0
+        self.goal_idx = 0
+        self.velocity = 2.5#1.5
         self.tf_listener = tf.TransformListener()
-        self.waypoints = way_points
-        self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
-        self.pose_sub = rospy.Subscriber('/gt_pose', PoseStamped, self.pose_callback)
-        self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 20)
-        self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 100)
-        self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 20)
-        self.frame = ""
-        self.time = 0.0
-        self.velocity = 0.0
-        self.x = 0 
-        self.y = 0
-        self.mindistL = 5;
-        # TODO: create ROS subscribers and publishers.
-        return
-    def dist_euclid(self,x1,y1,x2,y2):
-        #print( "voiture at: "+str(x2)+" "+str(y2))
-        return (x1-x2)**2 +(y1-y2)**2
-
-    def pose_callback(self, pose_msg):
         
-        # TODO: find the current waypoint to track using methods mentioned in lecture
-        self.frame = pose_msg.header.frame_id
-        self.time = pose_msg.header.stamp
-        x = pose_msg.pose.position.x;
-        y = pose_msg.pose.position.y;
-        z = pose_msg.pose.orientation.z;
-        w = pose_msg.pose.orientation.w;
-        #+" orient: "+str(z)+" "+str(w))
+        self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 10)
+        rospy.Subscriber("/gt_pose", PoseStamped, self.callback, queue_size=1)
+        
+        self.read_waypoints()
 
-        rotationZ = self.waypoints[0][2]
-        rotationW = self.waypoints[0][3]
-        euler = euler_from_quaternion([0,0,z,w])
-        self.mindistL = 10;
+    # Import waypoints.csv into a list (path_points)
+    def read_waypoints(self):
+        #rospack = rospkg.RosPack()
+        #package_path=rospack.get_path('a_stars_pure_pursuit')
+        #filename=package_path+'/waypoints/waypoints_1.csv'
+        self.path_points_x   = [float(point[0]) for point in path_points]
+        self.path_points_y   = [float(point[1]) for point in path_points]
+        self.path_points_w   = [float(point[2]) for point in path_points]
+        #Initialize array of zeros with the same number of entries as the waypoint markers
+        self.dist_arr= np.zeros(len(self.path_points_y))
 
-        for waypoint in way_points:
-            dist = self.dist_euclid(waypoint[0],waypoint[1],x,y)
-            
-            if (dist<LOOK_AHEAD_DIST+self.mindistL and dist >LOOK_AHEAD_DIST-self.mindistL ):
-                #print(self.x,self.y,"dist: ",dist,self.mindistL)
-                alpha = math.atan((waypoint[1]-y)/(waypoint[0]-x+0.0001))
-                delta = euler[2] - alpha 
-                if(delta>3.14):
-                    delta -= 3.14
-                if(delta<-3.14):
-                    delta += 3.14
-                if (np.abs(delta)<3):
-                    self.mindistL = dist;
-                    self.x = waypoint[0]
-                    self.y = waypoint[1]
-                    rotationZ = waypoint[2]
-                    rotationW = waypoint[3]
-                #self.speed = waypoint[4]
-            
+    # Computes the Euclidean distance between two 2D points p1 and p2.
+    def dist(self, p1, p2):
+        return np.sqrt((p1[0] - p2[0]) ** 2 + (p1[1] - p2[1]) ** 2)
 
-        #print("aheadXY: ",self.x,self.y)
-        self.mark_point(self.x,self.y,rotationZ,rotationW)
+    # Input data is PoseStamped message from topic /pf/viz/inferred_pose.
+    # Runs pure pursuit and publishes velocity and steering angle.
+    def callback(self,data):
+        qx=data.pose.orientation.x
+        qy=data.pose.orientation.y
+        qz=data.pose.orientation.z
+        qw=data.pose.orientation.w
 
+        quaternion = (qx,qy,qz,qw)
+        euler   = euler_from_quaternion(quaternion)
+        yaw     = euler[2] 
+        x = data.pose.position.x # self.x
+        y = data.pose.position.y # self.y
+
+        self.path_points_x = np.array(self.path_points_x)
+        self.path_points_y = np.array(self.path_points_y)
+
+        ## finding the distance of each way point from the current position 
+        for i in range(len(self.path_points_x)):
+            self.dist_arr[i] = self.dist((self.path_points_x[i],self.path_points_y[i]),(x,y))
+
+        ##finding those points which are less than the look ahead distance (will be behind and ahead of the vehicle)
+        goal_arr = np.where((self.dist_arr < self.LOOKAHEAD_DISTANCE+0.3)&(self.dist_arr > self.LOOKAHEAD_DISTANCE-0.3))[0]
+        # goal_arr : goal indexes
+        
+        # find those are ahead
+        for idx in goal_arr:
+            #line from the point position to the car position
+            v1 = [self.path_points_x[idx]-x , self.path_points_y[idx]-y]
+            #since the euler was specified in the order x,y,z the angle is wrt to x axis
+            v2 = [np.cos(yaw), np.sin(yaw)]
+            #find the angle between these two vectors NOTE:These are in world coordinates
+            temp_angle = self.find_angle(v1,v2)
+            if abs(temp_angle) < np.pi/2:
+                self.goal_idx = idx
+                break
+
+        ##finding the distance of the goal point from the vehicle coordinator
+        L = self.dist_arr[self.goal_idx]
+        
         aheadPoint = PointStamped()
         aheadPoint.header.frame_id = "map"
-        aheadPoint.point.x = self.x
-        aheadPoint.point.y = self.y
+        aheadPoint.point.x = self.path_points_x[self.goal_idx]
+        aheadPoint.point.y = self.path_points_y[self.goal_idx]
         aheadPoint.point.z = 0
-        
-
         # TODO: transform goal point to vehicle frame of refercence
-        transformed_point = pose_msg
+        transformed_point = data
         transformed_point = self.tf_listener.transformPoint("base_link",aheadPoint)
-            
         
         # TODO: calculate curvature/steering angle
-        curve = 2*(transformed_point.point.y)/LOOK_AHEAD_DIST**2
+        curve = 2*(transformed_point.point.y)/0.9**2
         angle = curve*0.4 #+3.14/4
-        #print(transformed_point.point.x,transformed_point.point.y,"angle",angle)
-
+        self.set_speed(angle)
+        #self.const_speed(angle)
         
-        # TODO: publish drive message, don't forget to limit the steering angle between -0.4189 and 0.4189 radians
-
         drive_msg = AckermannDriveStamped()
         drive_msg.header.stamp = rospy.Time.now()
         drive_msg.header.frame_id = "pure" #"laser"
-        drive_msg.drive.steering_angle = angle
-        drive_msg.drive.speed = VELOCITY
-
-        if abs(angle) > 0.518:
-            angle = angle/abs(angle)*0.518
+        drive_msg.drive.steering_angle = self.angle
+        drive_msg.drive.speed = self.velocity
 
         self.drive_pub.publish(drive_msg)
-        return
 
-    def odom_callback(self, odom_msg):
-        print("===odom_callback")
-        self.mark_way_points()
-        self.speed = odom_msg.twist.twist.linear.x;
-        #rospy.sleep(0.1)
-        return
-        
-        
-    def mark_way_points(self):
-        """
-        Create slightly transparent disks for way-points.
-        :param color: disk RGBA value
-        """
-        marker_array = []
-        id = 0
-        for wp in self.waypoints: 
-            marker = Marker()
-            marker.header.seq = 1
-            id+=1
-            marker.id = id
-            marker.header.frame_id = "map"
-            marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
-            marker.action = Marker.ADD
-            marker.header.stamp = rospy.Time.now()
-            marker.pose.position.x = wp[0];
-            marker.pose.position.y = wp[1];
-            marker.pose.position.z = 0;
-            marker.pose.orientation.x = 0.0;
-            marker.pose.orientation.y = 0.0;
-            marker.pose.orientation.z = wp[2];
-            marker.pose.orientation.w = wp[3];
-            marker.scale.x = 0.2;
-            marker.scale.y = 0.1;
-            marker.scale.z = 0.1;
-            marker.color.a = 0.3; 
-            marker.color.r = 0.0;
-            marker.color.g = 1.0;
-            marker.color.b = 0.0;
-            marker_array.append(marker)
-        self.rviz_pub.publish( viz_msgs.MarkerArray(marker_array) );
-        
-    def mark_point(self,aheadX,aheadY,aheadZ,aheadW):
-        """
-        Create slightly transparent disks for way-points.
-        :param color: disk RGBA value
-        """
-        id = 0
-        marker = Marker()
-        marker.header.seq = 100
-        marker.id = id
-        marker.header.frame_id = "map"
-        marker.type = Marker.SPHERE  # NOTE: color must be set here, not in rviz
-        marker.action = Marker.ADD
-        marker.header.stamp = rospy.Time.now()
-        marker.pose.position.x = aheadX;
-        marker.pose.position.y = aheadY;
-        marker.pose.position.z = 0;
-        marker.pose.orientation.x = 0.0;
-        marker.pose.orientation.y = 0.0;
-        marker.pose.orientation.z = aheadZ;
-        marker.pose.orientation.w = aheadW;
-        marker.scale.x = 0.3;
-        marker.scale.y = 0.1;
-        marker.scale.z = 0.1;
-        marker.color.a = 0.5; 
-        marker.color.r = 1.0;
-        marker.color.g = 0.0;
-        marker.color.b = 0.0;
-        self.rviz_pub_point.publish( marker );
-        return
+    # USE THIS FUNCTION IF CHANGEABLE SPEED IS NEEDED
+    def set_speed(self,angle):
+        if (abs(angle)>0.2018):
+            self.LOOKAHEAD_DISTANCE = 1.2
+            # self.velocity = 1.5
+            self.angle = angle
 
+            if self.velocity - 1.5 >= 0.5:
+                self.velocity -= 0.5#0.7
 
-
-
-def main():
-
-    with open("waypoint2.csv" ,'r') as f: 
-        cr = csv.reader(f)
-        for row in cr:
-                array =[]
-                for col in row:
-                    array.append(eval(col))
-                way_points.append(array)
-    print(way_points[0])
-    
-    #tf.listener()
-    rospy.init_node('pure_pursuit_node')
-    rospy.Rate(100)
-    pp = PurePursuit()
-    rospy.spin()
-if __name__ == '__main__':
-    main()
-
-
-"""
- br = tf2_ros.TransformBroadcaster()
-        t = geometry_msgs.msg.TransformStamped()
-
-        t.header.stamp = rospy.Time.now()
-        t.header.frame_id = "map"
-        t.child_frame_id = "base_link"
-        if (stateclose):
-            t.transform.translation.x = closeX
-            t.transform.translation.y = closeY
         else:
-            t.transform.translation.x = aheadX
-            t.transform.translation.y = aheadY
-        t.transform.translation.z = 0.0
-        print(rotationZ)
-        quaternion = tf.transformations.quaternion_from_euler(0,0,rotationZ)
-        #type(pose) = geometry_msgs.msg.Pose
-        t.transform.rotation.x = quaternion[0]
-        t.transform.rotation.y = quaternion[1]
-        t.transform.rotation.z = quaternion[2]
-        t.transform.rotation.w = quaternion[3]
-        
-        
-        t.transform.rotation = tf.transformations.quaternion_from_euler(0,0,rotationZ,0)
-        br.sendTransform(t)
-        trans = self.tf_buffer.lookup_transform(target_frame="map", source_frame="base_link", time=rospy.Time(0))
-        br = tf2_ros.TransformBroadcaster()
-        t = geometry_msgs.msg.TransformStamped()
+            self.LOOKAHEAD_DISTANCE = 1.2
+            # self.velocity = 3.0
+            self.angle = angle
 
-        t.header.stamp = rospy.Time.now()
-        t.header.frame_id = "map"
-        t.child_frame_id = "base_link"
-        
-        t.transform.translation.x = aheadX
-        t.transform.translation.y = aheadY
-        t.transform.translation.z = 0.0
-        #type(pose) = geometry_msgs.msg.Pose
-        t.transform.rotation.x = 0
-        t.transform.rotation.y = 0
-        t.transform.rotation.z = rotationZ
-        t.transform.rotation.w = rotationW
-        
-        br.sendTransform(t)
-        trans = self.tf_buffer.lookup_transform(target_frame="map", source_frame="base_link", time=rospy.Time(0))
+            if self.VELOCITY - self.velocity > 0.2:
+                self.velocity += 0.2
+        print(angle,self.velocity)
 
-        #self.tf_publish = rospy.Publisher('/self_tf' , geometry_msgs.msg.Twist, queue_size=1)
-        
-        #self.tf_buffer = tf2_ros.Buffer()
-        #self.tf_listener = tf2_ros.TransformListener(self.tf_buffer)
+    # USE THIS FUNCTION IF CONSTANT SPEED IS NEEDED
+    def const_speed(self,angle):
+        #self.LOOKAHEAD_DISTANCE = 2
+        self.angle = angle
+        self.velocity = 1.5#self.VELOCITY
+
+    # find the angle bewtween two vectors    
+    def find_angle(self, v1, v2):
+        cosang = np.dot(v1, v2)
+        sinang = la.norm(np.cross(v1, v2))
+        return np.arctan2(sinang, cosang)
 
 
-            if(dist<mindistCar and stateclose):
-                mindistCar = dist
-                closeX = waypoint[0]
-                closeY = waypoint[1]
-                rotationZ = waypoint[2]
-"""
+if __name__ == '__main__':
+    with open("waypoint6_100.csv" ,'r') as f: 
+        cr = csv.reader(f)
+        path_points = [tuple(line) for line in csv.reader(f)]
+    print(path_points[0])
+
+    rospy.init_node('pure_pursuit')
+    C = pure_pursuit()  
+    
+    rospy.spin()
+    
+    """
+    while not rospy.is_shutdown():
+        #print(C.msg.angle," ",C.msg.velocity)
+        C.send_command()
+        r.sleep()
+        r = rospy.Rate(40)
+    """

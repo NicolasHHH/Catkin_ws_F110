@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 import sys
 import math
@@ -8,9 +8,9 @@ from sensor_msgs.msg import LaserScan
 from ackermann_msgs.msg import AckermannDriveStamped
 
 #PID CONTROL PARAMS
-kp = 1.0
-kd = 0.5
-ki = 0.0
+kp = 1.0 # berlin 1.0 vegas s0.8
+kd = 0.4 # berlin 0.5 vegas 0.3
+ki = 0.00
 
 servo_offset = 0.0
 prev_error = 0.0 
@@ -83,16 +83,24 @@ class Ant_Balance:
         #print(alpha,beta)
         leftDist = self.getRange(dis_b,-alpha)
         rightDist = self.getRange(dis_d,beta)
-        print(leftDist,rightDist)
+        #print(leftDist,rightDist)
         self.left.append(leftDist)
         self.left.pop(0)
         self.right.append(rightDist)
         self.right.pop(0)
         
+        """
+        limit = 8
+        if(dis_b>limit and dis_d<limit):error = -2
+        elif (dis_b<limit and dis_d>limit): error = 2
+        else : error = np.mean(self.right)-np.mean(self.left)
+        """  
+        #"""berlin.yaml
         if(dis_b>4 and dis_d<4):error = -2
         elif (dis_b<4 and dis_d>4): error = 2
         else : error = np.mean(self.right)-np.mean(self.left)
-            
+        #"""
+
         self.pid_control(error)
         return 
             

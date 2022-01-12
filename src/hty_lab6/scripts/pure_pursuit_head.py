@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 import rospy
 from rospy.core import rospyinfo 
 import tf
@@ -101,11 +101,11 @@ class PurePursuit(object):
         drive_msg.drive.steering_angle = angle
         drive_msg.drive.speed = VELOCITY
 
-        if abs(angle) > 0.418:
-            angle = angle/abs(angle)*0.418
+        if abs(angle) > 0.518:
+            angle = angle/abs(angle)*0.518
 
         self.drive_pub.publish(drive_msg)
-        #self.mark_way_points()
+        self.mark_way_points()
         rospy.sleep(0.01)
         return
 
@@ -145,13 +145,13 @@ class PurePursuit(object):
             marker.pose.orientation.y = 0.0
             marker.pose.orientation.z = wp[2];
             marker.pose.orientation.w = wp[3];
-            marker.scale.x = 0.2;
+            marker.scale.x = 0.15;
             marker.scale.y = 0.1;
             marker.scale.z = 0.1;
-            marker.color.a = 0.8; 
+            marker.color.a = 0.3; 
             marker.color.r = 0.0;
-            marker.color.g = 1.0;
-            marker.color.b = 0.0;
+            marker.color.g = 0.0;
+            marker.color.b = 1;
             marker_array.append(marker)
         self.rviz_pub.publish( viz_msgs.MarkerArray(marker_array) );
         
@@ -190,7 +190,7 @@ class PurePursuit(object):
 
 def main():
 
-    with open("waypoint6_100.csv" ,'r') as f: 
+    with open("/home/tianyang/catkin_ws/waypoint6_100.csv" ,'r') as f: 
         cr = csv.reader(f)
         for row in cr:
                 array =[]

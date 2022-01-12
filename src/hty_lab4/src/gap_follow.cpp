@@ -17,17 +17,17 @@ class Gap_follow{
         const int window = 20;  
         // un petit window est plus sensible aux petits obstactles 
 
-        const int plafond = 4.6; //4
+        const int plafond = 3.6; //4
         // plafond grand: moins de turbulence
         // plafond petit: sensible aux petits obstactles( moins moyenné par les grandes distances)
 
         const int rayon = 90; //90
         // rayon of bubble;
 
-        const double seuil = 0.8;
+        const double seuil = 1.0;
         // rue étroite
 
-        const double VELOCITY = 1.0;
+        const double VELOCITY = 2.5;
 
     public:
         Gap_follow(){

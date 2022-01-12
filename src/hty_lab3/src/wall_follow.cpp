@@ -21,7 +21,7 @@ class Wall_follow{
         double error = 0.0;
         double integral = 0.0;
         int bl = ros::param::get("/vitesse", VELOCITY);
-    	double VELOCITY = 3.50;
+    	double VELOCITY = 3.00;
         
         // WALL FOLLOW PARAMS
         const int ANGLE_RANGE = 270; // Hokuyo 10LX has 270 degrees scan
