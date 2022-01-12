@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>f1tenth_controller_example</name>
+  <name>quickstart</name>
   <version>0.0.0</version>
   <description>The example of f1tenth controller</description>
 

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Rviz -->
+    <include file="$(find f1tenth_gym_ros)/launch/gym_bridge_host.launch"/>
+
+    <!-- Launch information panel -->
+    <node pkg="quickstart" type="race_info.py" name="info_agent" output="screen"/>
+
+    <!-- Launch ego controller -->
+    <node pkg="quickstart" type="racer5.py" name="alterego" output="screen"/>
+
+    <!-- Launch opp controller -->
+    <node pkg="quickstart" type="racer4.py" name="opponent" output="screen"/>
+
+
+</launch>
