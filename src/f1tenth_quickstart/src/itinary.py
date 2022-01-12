@@ -62,7 +62,7 @@ class Itinary(object):
             p = Point(self.ego_x,self.ego_y,0)
             self.LineStrip.points.append(p)
             if len(self.LineStrip.points)>20000:
-                self.LineStrip.pop(0)
+                self.LineStrip.points.pop(0)
             self.iti_pub.publish(self.LineStrip)
         return
 
@@ -77,7 +77,7 @@ class Itinary(object):
             p = Point(self.opp_x,self.opp_y,0)
             self.LineStrip2.points.append(p)
             if len(self.LineStrip2.points)>20000:
-                self.LineStrip2.pop(0)
+                self.LineStrip2.points.pop(0)
             self.iti_pub.publish(self.LineStrip2)
         return
 
