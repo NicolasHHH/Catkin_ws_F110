@@ -19,7 +19,7 @@ servo_offset = 0.0
 prev_error = 0.0 
 error = 0.0
 integral = 0.0
-VELOCITY = 2.50
+VELOCITY = 1.50
 
 
 ANGLE_RANGE = 270

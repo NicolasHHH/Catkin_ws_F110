@@ -7,7 +7,7 @@
 #include <ackermann_msgs/AckermannDrive.h>
 #include <vector>
 
-//double VELOCITY = 3.50; // meters per second par défaut
+//double VELOCITY = 1.50; // meters per second par défaut
 
 class Wall_follow{
     private:

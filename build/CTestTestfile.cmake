@@ -5,6 +5,7 @@
 # This file includes the relevant testing commands required for 
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
+subdirs("cartographer_config/f110_description")
 subdirs("turtlebot3_simulations/turtlebot3_simulations")
 subdirs("waypoint-develop/waypoint_meta")
 subdirs("beginner_tutorials")
@@ -17,6 +18,7 @@ subdirs("hty_lab6")
 subdirs("modal_astar")
 subdirs("modal_tp3")
 subdirs("particle_filter")
+subdirs("f1tenth_quickstart")
 subdirs("hty_lab7")
 subdirs("hty_turtle")
 subdirs("hty_lab")
