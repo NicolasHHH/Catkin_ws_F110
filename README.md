@@ -31,6 +31,14 @@ https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-
 
 https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
+- Cartographer Mapping: 
+  
+https://user-images.githubusercontent.com/57991090/149562722-cf9809b6-cd23-4d33-83c4-7de7ddcc727c.mp4
+
+- Pure Localization: 
+
+https://user-images.githubusercontent.com/57991090/149562825-0bf85e47-1546-4b40-ae24-98e737a39235.mp4
+
 
 - Occupancy Grid
 
