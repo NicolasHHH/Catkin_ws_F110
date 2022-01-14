@@ -1,0 +1,27 @@
+<launch>
+
+
+  <param name="robot_description" command="$(find xacro)/xacro '/home/parallels/catkin_ws_lixiang/cartographer_detailed_comments_ws/f110_description/urdf/F110.xacro'" />
+  
+  <param name="/use_sim_time" value="true" /> 
+  
+  <node name="robot_state_publisher" pkg="robot_state_publisher"
+    type="robot_state_publisher" />
+
+  <node name="cartographer_node" pkg="cartographer_ros"
+      type="cartographer_node" args="
+          -configuration_directory /home/parallels/catkin_ws_lixiang/cartographer_detailed_comments_ws/src/cartographer_ros/cartographer_ros/configuration_files
+          -configuration_basename f110_2d.lua">
+      <remap from="odom" to="/odom" />
+      <remap from="imu" to="/imu" />
+  </node>
+  <!--$(find f110_description)-->
+  <node name="cartographer_occupancy_grid_node" pkg="cartographer_ros"
+      type="cartographer_occupancy_grid_node" args="-resolution 0.05" />
+      
+  <node name="rviz" pkg="rviz" type="rviz" required="true"
+      args="-d /home/parallels/catkin_ws_lixiang/cartographer_detailed_commments_ws/src/cartographer_ros/cartographer_ros/configuration_files/demo_2d.rviz" />
+
+
+
+</launch>
