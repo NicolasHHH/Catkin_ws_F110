@@ -11,12 +11,8 @@ Author : Tianyang HUANG
 
 - Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)
 
-![Screenshot from 2022-01-12 18-20-49](https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png)
-
-
-![race with laser 4](https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png)
-
-
+<img src="https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png" width="500">
+<img src="https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png" width="500">
 
 - Pure Pursuit
 
@@ -31,6 +27,17 @@ https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-
 
 https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
+- Cartographer Mapping: 
+  
+https://user-images.githubusercontent.com/57991090/149562722-cf9809b6-cd23-4d33-83c4-7de7ddcc727c.mp4
+
+- Pure Localization: 
+
+https://user-images.githubusercontent.com/57991090/149562825-0bf85e47-1546-4b40-ae24-98e737a39235.mp4
+
+- Localization with amcl:
+
+https://user-images.githubusercontent.com/57991090/150185599-335dd249-5710-4106-9d0d-5e2b3bdb37b3.mov
 
 - Occupancy Grid
 
