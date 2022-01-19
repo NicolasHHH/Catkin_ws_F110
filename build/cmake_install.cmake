@@ -132,6 +132,7 @@ if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for each subdirectory.
   include("/home/parallels/catkin_ws/build/gtest/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/cartographer_config/f110_description/cmake_install.cmake")
+  include("/home/parallels/catkin_ws/build/teb_local_planner_tutorials/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/turtlebot3_simulations/turtlebot3_simulations/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/waypoint-develop/waypoint_meta/cmake_install.cmake")
   include("/home/parallels/catkin_ws/build/beginner_tutorials/cmake_install.cmake")

@@ -6,6 +6,7 @@
 # testing this directory and lists subdirectories to be tested as well.
 subdirs("gtest")
 subdirs("cartographer_config/f110_description")
+subdirs("teb_local_planner_tutorials")
 subdirs("turtlebot3_simulations/turtlebot3_simulations")
 subdirs("waypoint-develop/waypoint_meta")
 subdirs("beginner_tutorials")

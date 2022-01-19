@@ -55,6 +55,7 @@ CMAKE_BINARY_DIR = /home/parallels/catkin_ws/build
 # The main recursive "all" target.
 all: gtest/all
 all: cartographer_config/f110_description/all
+all: teb_local_planner_tutorials/all
 all: turtlebot3_simulations/turtlebot3_simulations/all
 all: waypoint-develop/waypoint_meta/all
 all: beginner_tutorials/all
@@ -84,6 +85,7 @@ all: waypoint-develop/waypoint_touring/all
 # The main recursive "preinstall" target.
 preinstall: gtest/preinstall
 preinstall: cartographer_config/f110_description/preinstall
+preinstall: teb_local_planner_tutorials/preinstall
 preinstall: turtlebot3_simulations/turtlebot3_simulations/preinstall
 preinstall: waypoint-develop/waypoint_meta/preinstall
 preinstall: beginner_tutorials/preinstall
@@ -118,6 +120,7 @@ clean: CMakeFiles/tests.dir/clean
 clean: CMakeFiles/download_extra_data.dir/clean
 clean: gtest/clean
 clean: cartographer_config/f110_description/clean
+clean: teb_local_planner_tutorials/clean
 clean: turtlebot3_simulations/turtlebot3_simulations/clean
 clean: waypoint-develop/waypoint_meta/clean
 clean: beginner_tutorials/clean
@@ -660,6 +663,24 @@ racecar/ackermann_cmd_mux/clean: racecar/ackermann_cmd_mux/CMakeFiles/ackermann_
 racecar/ackermann_cmd_mux/clean: racecar/ackermann_cmd_mux/CMakeFiles/ackermann_msgs_generate_messages_py.dir/clean
 
 .PHONY : racecar/ackermann_cmd_mux/clean
+
+#=============================================================================
+# Directory level rules for directory teb_local_planner_tutorials
+
+# Recursive "all" directory target.
+teb_local_planner_tutorials/all:
+
+.PHONY : teb_local_planner_tutorials/all
+
+# Recursive "preinstall" directory target.
+teb_local_planner_tutorials/preinstall:
+
+.PHONY : teb_local_planner_tutorials/preinstall
+
+# Recursive "clean" directory target.
+teb_local_planner_tutorials/clean:
+
+.PHONY : teb_local_planner_tutorials/clean
 
 #=============================================================================
 # Directory level rules for directory turtlebot3_simulations/turtlebot3_fake
