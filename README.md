@@ -11,11 +11,9 @@ Author : Tianyang HUANG
 
 - Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)
 
-![Screenshot from 2022-01-12 18-20-49](https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png)
-
+<img src="https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png" width="400">
 
 ![race with laser 4](https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png)
-
 
 
 - Pure Pursuit
@@ -39,6 +37,9 @@ https://user-images.githubusercontent.com/57991090/149562722-cf9809b6-cd23-4d33-
 
 https://user-images.githubusercontent.com/57991090/149562825-0bf85e47-1546-4b40-ae24-98e737a39235.mp4
 
+- Localization with amcl:
+
+https://user-images.githubusercontent.com/57991090/150185599-335dd249-5710-4106-9d0d-5e2b3bdb37b3.mov
 
 - Occupancy Grid
 
