@@ -12,6 +12,7 @@ Author : Tianyang HUANG
 - Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)
 
 <img src="https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png" width="400">
+<img src="https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png" width="400">
 
 ![race with laser 4](https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png)
 
