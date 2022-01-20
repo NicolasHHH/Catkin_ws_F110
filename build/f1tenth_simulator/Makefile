@@ -68,40 +68,6 @@ install/strip/fast: preinstall/fast
 	/usr/bin/cmake -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
 .PHONY : install/strip/fast
 
-# Special rule for the target install
-install: preinstall
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install
-
-# Special rule for the target install
-install/fast: preinstall/fast
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
-	/usr/bin/cmake -P cmake_install.cmake
-.PHONY : install/fast
-
-# Special rule for the target rebuild_cache
-rebuild_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
-	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
-.PHONY : rebuild_cache
-
-# Special rule for the target rebuild_cache
-rebuild_cache/fast: rebuild_cache
-
-.PHONY : rebuild_cache/fast
-
-# Special rule for the target edit_cache
-edit_cache:
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
-	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
-.PHONY : edit_cache
-
-# Special rule for the target edit_cache
-edit_cache/fast: edit_cache
-
-.PHONY : edit_cache/fast
-
 # Special rule for the target test
 test:
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running tests..."
@@ -134,6 +100,40 @@ install/local/fast: preinstall/fast
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Installing only the local directory..."
 	/usr/bin/cmake -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
 .PHONY : install/local/fast
+
+# Special rule for the target edit_cache
+edit_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "No interactive CMake dialog available..."
+	/usr/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+.PHONY : edit_cache
+
+# Special rule for the target edit_cache
+edit_cache/fast: edit_cache
+
+.PHONY : edit_cache/fast
+
+# Special rule for the target rebuild_cache
+rebuild_cache:
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Running CMake to regenerate build system..."
+	/usr/bin/cmake -S$(CMAKE_SOURCE_DIR) -B$(CMAKE_BINARY_DIR)
+.PHONY : rebuild_cache
+
+# Special rule for the target rebuild_cache
+rebuild_cache/fast: rebuild_cache
+
+.PHONY : rebuild_cache/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --cyan "Install the project..."
+	/usr/bin/cmake -P cmake_install.cmake
+.PHONY : install/fast
 
 # The main all target
 all: cmake_check_build_system
@@ -168,124 +168,34 @@ depend:
 .PHONY : depend
 
 # Convenience name for target.
-f1tenth_simulator/CMakeFiles/random_walk.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/random_walk.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/random_walk.dir/rule
+f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
 
 # Convenience name for target.
-random_walk: f1tenth_simulator/CMakeFiles/random_walk.dir/rule
+move_base_msgs_generate_messages_nodejs: f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/rule
 
-.PHONY : random_walk
+.PHONY : move_base_msgs_generate_messages_nodejs
 
 # fast build rule for target.
-random_walk/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/random_walk.dir/build.make f1tenth_simulator/CMakeFiles/random_walk.dir/build
-.PHONY : random_walk/fast
+move_base_msgs_generate_messages_nodejs/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build.make f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_nodejs.dir/build
+.PHONY : move_base_msgs_generate_messages_nodejs/fast
 
 # Convenience name for target.
-f1tenth_simulator/CMakeFiles/mux.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/mux.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/mux.dir/rule
+f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
 
 # Convenience name for target.
-mux: f1tenth_simulator/CMakeFiles/mux.dir/rule
+behavior_controller: f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
 
-.PHONY : mux
+.PHONY : behavior_controller
 
 # fast build rule for target.
-mux/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/mux.dir/build.make f1tenth_simulator/CMakeFiles/mux.dir/build
-.PHONY : mux/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
-
-# Convenience name for target.
-f1tenth_simulator: f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
-
-.PHONY : f1tenth_simulator
-
-# fast build rule for target.
-f1tenth_simulator/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/build
-.PHONY : f1tenth_simulator/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
-
-# Convenience name for target.
-f1tenth_simulator_generate_messages: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
-
-.PHONY : f1tenth_simulator_generate_messages
-
-# fast build rule for target.
-f1tenth_simulator_generate_messages/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/build
-.PHONY : f1tenth_simulator_generate_messages/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
-
-# Convenience name for target.
-f1tenth_simulator_generate_messages_cpp: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
-
-.PHONY : f1tenth_simulator_generate_messages_cpp
-
-# fast build rule for target.
-f1tenth_simulator_generate_messages_cpp/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/build
-.PHONY : f1tenth_simulator_generate_messages_cpp/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
-
-# Convenience name for target.
-f1tenth_simulator_generate_messages_nodejs: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
-
-.PHONY : f1tenth_simulator_generate_messages_nodejs
-
-# fast build rule for target.
-f1tenth_simulator_generate_messages_nodejs/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/build
-.PHONY : f1tenth_simulator_generate_messages_nodejs/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/simulator.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/simulator.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/simulator.dir/rule
-
-# Convenience name for target.
-simulator: f1tenth_simulator/CMakeFiles/simulator.dir/rule
-
-.PHONY : simulator
-
-# fast build rule for target.
-simulator/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/simulator.dir/build.make f1tenth_simulator/CMakeFiles/simulator.dir/build
-.PHONY : simulator/fast
-
-# Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
-
-# Convenience name for target.
-f1tenth_simulator_generate_messages_eus: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
-
-.PHONY : f1tenth_simulator_generate_messages_eus
-
-# fast build rule for target.
-f1tenth_simulator_generate_messages_eus/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/build
-.PHONY : f1tenth_simulator_generate_messages_eus/fast
+behavior_controller/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/behavior_controller.dir/build.make f1tenth_simulator/CMakeFiles/behavior_controller.dir/build
+.PHONY : behavior_controller/fast
 
 # Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_geneus.dir/rule:
@@ -303,6 +213,36 @@ f1tenth_simulator_geneus/fast:
 .PHONY : f1tenth_simulator_geneus/fast
 
 # Convenience name for target.
+f1tenth_simulator/CMakeFiles/simulator.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/simulator.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/simulator.dir/rule
+
+# Convenience name for target.
+simulator: f1tenth_simulator/CMakeFiles/simulator.dir/rule
+
+.PHONY : simulator
+
+# fast build rule for target.
+simulator/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/simulator.dir/build.make f1tenth_simulator/CMakeFiles/simulator.dir/build
+.PHONY : simulator/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_eus: f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_eus
+
+# fast build rule for target.
+move_base_msgs_generate_messages_eus/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build.make f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_eus.dir/build
+.PHONY : move_base_msgs_generate_messages_eus/fast
+
+# Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.dir/rule:
 	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.dir/rule
 .PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.dir/rule
@@ -316,6 +256,81 @@ f1tenth_simulator_gencpp: f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.
 f1tenth_simulator_gencpp/fast:
 	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_gencpp.dir/build
 .PHONY : f1tenth_simulator_gencpp/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
+
+# Convenience name for target.
+f1tenth_simulator_generate_messages: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/rule
+
+.PHONY : f1tenth_simulator_generate_messages
+
+# fast build rule for target.
+f1tenth_simulator_generate_messages/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages.dir/build
+.PHONY : f1tenth_simulator_generate_messages/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_cpp: f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_cpp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_cpp/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build.make f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_cpp.dir/build
+.PHONY : move_base_msgs_generate_messages_cpp/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
+
+# Convenience name for target.
+f1tenth_simulator_generate_messages_cpp: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/rule
+
+.PHONY : f1tenth_simulator_generate_messages_cpp
+
+# fast build rule for target.
+f1tenth_simulator_generate_messages_cpp/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_cpp.dir/build
+.PHONY : f1tenth_simulator_generate_messages_cpp/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_py: f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_py
+
+# fast build rule for target.
+move_base_msgs_generate_messages_py/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/build.make f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_py.dir/build
+.PHONY : move_base_msgs_generate_messages_py/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/rule
+
+# Convenience name for target.
+move_base_gencfg: f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/rule
+
+.PHONY : move_base_gencfg
+
+# fast build rule for target.
+move_base_gencfg/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/build.make f1tenth_simulator/CMakeFiles/move_base_gencfg.dir/build
+.PHONY : move_base_gencfg/fast
 
 # Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_py.dir/rule:
@@ -333,19 +348,34 @@ f1tenth_simulator_generate_messages_py/fast:
 .PHONY : f1tenth_simulator_generate_messages_py/fast
 
 # Convenience name for target.
-f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
+f1tenth_simulator/CMakeFiles/mux.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/mux.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/mux.dir/rule
 
 # Convenience name for target.
-f1tenth_simulator_genlisp: f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
+mux: f1tenth_simulator/CMakeFiles/mux.dir/rule
 
-.PHONY : f1tenth_simulator_genlisp
+.PHONY : mux
 
 # fast build rule for target.
-f1tenth_simulator_genlisp/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/build
-.PHONY : f1tenth_simulator_genlisp/fast
+mux/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/mux.dir/build.make f1tenth_simulator/CMakeFiles/mux.dir/build
+.PHONY : mux/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/random_walk.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/random_walk.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/random_walk.dir/rule
+
+# Convenience name for target.
+random_walk: f1tenth_simulator/CMakeFiles/random_walk.dir/rule
+
+.PHONY : random_walk
+
+# fast build rule for target.
+random_walk/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/random_walk.dir/build.make f1tenth_simulator/CMakeFiles/random_walk.dir/build
+.PHONY : random_walk/fast
 
 # Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_lisp.dir/rule:
@@ -363,6 +393,21 @@ f1tenth_simulator_generate_messages_lisp/fast:
 .PHONY : f1tenth_simulator_generate_messages_lisp/fast
 
 # Convenience name for target.
+f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+
+# Convenience name for target.
+move_base_msgs_generate_messages_lisp: f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/rule
+
+.PHONY : move_base_msgs_generate_messages_lisp
+
+# fast build rule for target.
+move_base_msgs_generate_messages_lisp/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build.make f1tenth_simulator/CMakeFiles/move_base_msgs_generate_messages_lisp.dir/build
+.PHONY : move_base_msgs_generate_messages_lisp/fast
+
+# Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_gennodejs.dir/rule:
 	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_gennodejs.dir/rule
 .PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_gennodejs.dir/rule
@@ -378,19 +423,64 @@ f1tenth_simulator_gennodejs/fast:
 .PHONY : f1tenth_simulator_gennodejs/fast
 
 # Convenience name for target.
-f1tenth_simulator/CMakeFiles/keyboard.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/keyboard.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/keyboard.dir/rule
+f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
 
 # Convenience name for target.
-keyboard: f1tenth_simulator/CMakeFiles/keyboard.dir/rule
+f1tenth_simulator: f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/rule
 
-.PHONY : keyboard
+.PHONY : f1tenth_simulator
 
 # fast build rule for target.
-keyboard/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/keyboard.dir/build.make f1tenth_simulator/CMakeFiles/keyboard.dir/build
-.PHONY : keyboard/fast
+f1tenth_simulator/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator.dir/build
+.PHONY : f1tenth_simulator/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
+
+# Convenience name for target.
+f1tenth_simulator_generate_messages_eus: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/rule
+
+.PHONY : f1tenth_simulator_generate_messages_eus
+
+# fast build rule for target.
+f1tenth_simulator_generate_messages_eus/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_eus.dir/build
+.PHONY : f1tenth_simulator_generate_messages_eus/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
+
+# Convenience name for target.
+f1tenth_simulator_genlisp: f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/rule
+
+.PHONY : f1tenth_simulator_genlisp
+
+# fast build rule for target.
+f1tenth_simulator_genlisp/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_genlisp.dir/build
+.PHONY : f1tenth_simulator_genlisp/fast
+
+# Convenience name for target.
+f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
+
+# Convenience name for target.
+f1tenth_simulator_generate_messages_nodejs: f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/rule
+
+.PHONY : f1tenth_simulator_generate_messages_nodejs
+
+# fast build rule for target.
+f1tenth_simulator_generate_messages_nodejs/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/build.make f1tenth_simulator/CMakeFiles/f1tenth_simulator_generate_messages_nodejs.dir/build
+.PHONY : f1tenth_simulator_generate_messages_nodejs/fast
 
 # Convenience name for target.
 f1tenth_simulator/CMakeFiles/f1tenth_simulator_genpy.dir/rule:
@@ -408,19 +498,19 @@ f1tenth_simulator_genpy/fast:
 .PHONY : f1tenth_simulator_genpy/fast
 
 # Convenience name for target.
-f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
-.PHONY : f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
+f1tenth_simulator/CMakeFiles/keyboard.dir/rule:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f CMakeFiles/Makefile2 f1tenth_simulator/CMakeFiles/keyboard.dir/rule
+.PHONY : f1tenth_simulator/CMakeFiles/keyboard.dir/rule
 
 # Convenience name for target.
-behavior_controller: f1tenth_simulator/CMakeFiles/behavior_controller.dir/rule
+keyboard: f1tenth_simulator/CMakeFiles/keyboard.dir/rule
 
-.PHONY : behavior_controller
+.PHONY : keyboard
 
 # fast build rule for target.
-behavior_controller/fast:
-	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/behavior_controller.dir/build.make f1tenth_simulator/CMakeFiles/behavior_controller.dir/build
-.PHONY : behavior_controller/fast
+keyboard/fast:
+	cd /home/parallels/catkin_ws/build && $(MAKE) -f f1tenth_simulator/CMakeFiles/keyboard.dir/build.make f1tenth_simulator/CMakeFiles/keyboard.dir/build
+.PHONY : keyboard/fast
 
 node/behavior_controller.o: node/behavior_controller.cpp.o
 
@@ -699,29 +789,35 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... install/strip"
-	@echo "... install"
-	@echo "... rebuild_cache"
-	@echo "... edit_cache"
-	@echo "... test"
-	@echo "... random_walk"
-	@echo "... mux"
-	@echo "... f1tenth_simulator"
-	@echo "... f1tenth_simulator_generate_messages"
-	@echo "... f1tenth_simulator_generate_messages_cpp"
-	@echo "... f1tenth_simulator_generate_messages_nodejs"
-	@echo "... simulator"
-	@echo "... f1tenth_simulator_generate_messages_eus"
-	@echo "... list_install_components"
-	@echo "... f1tenth_simulator_geneus"
-	@echo "... f1tenth_simulator_gencpp"
-	@echo "... f1tenth_simulator_generate_messages_py"
-	@echo "... install/local"
-	@echo "... f1tenth_simulator_genlisp"
-	@echo "... f1tenth_simulator_generate_messages_lisp"
-	@echo "... f1tenth_simulator_gennodejs"
-	@echo "... keyboard"
-	@echo "... f1tenth_simulator_genpy"
+	@echo "... move_base_msgs_generate_messages_nodejs"
 	@echo "... behavior_controller"
+	@echo "... f1tenth_simulator_geneus"
+	@echo "... test"
+	@echo "... list_install_components"
+	@echo "... simulator"
+	@echo "... move_base_msgs_generate_messages_eus"
+	@echo "... f1tenth_simulator_gencpp"
+	@echo "... f1tenth_simulator_generate_messages"
+	@echo "... move_base_msgs_generate_messages_cpp"
+	@echo "... f1tenth_simulator_generate_messages_cpp"
+	@echo "... move_base_msgs_generate_messages_py"
+	@echo "... move_base_gencfg"
+	@echo "... f1tenth_simulator_generate_messages_py"
+	@echo "... mux"
+	@echo "... random_walk"
+	@echo "... f1tenth_simulator_generate_messages_lisp"
+	@echo "... move_base_msgs_generate_messages_lisp"
+	@echo "... f1tenth_simulator_gennodejs"
+	@echo "... f1tenth_simulator"
+	@echo "... f1tenth_simulator_generate_messages_eus"
+	@echo "... f1tenth_simulator_genlisp"
+	@echo "... install/local"
+	@echo "... f1tenth_simulator_generate_messages_nodejs"
+	@echo "... f1tenth_simulator_genpy"
+	@echo "... keyboard"
+	@echo "... edit_cache"
+	@echo "... rebuild_cache"
+	@echo "... install"
 	@echo "... node/behavior_controller.o"
 	@echo "... node/behavior_controller.i"
 	@echo "... node/behavior_controller.s"
