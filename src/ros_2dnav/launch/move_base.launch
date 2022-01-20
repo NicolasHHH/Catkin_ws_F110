@@ -3,17 +3,19 @@
 
    <master auto="start"/>
  <!-- Run the map server --> 
-    <node name="map_server" pkg="map_server" type="map_server" args="$(find ros_2dnav) /map/berlin.pgm 0.05"/>
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(find f1tenth_simulator)/maps/berlin.yaml"/-->
+    
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster2" args="0 0 0 0 0 0 /map /odom  10" />
 
- <!--- Run AMCL --> 
-    <include file="$(find ros_2dnav) /launch/amcl.launch" />
+ <!--- Run AMCL-->
+    <include file="$(find f1tenth_simulator)/launch/amcl_move.launch" /> 
 
    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
-    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap" />
-    <rosparam file="$(find ros_2dnav)/local_costmap_params.yaml" command="load" />
-    <rosparam file="$(find ros_2dnav)/global_costmap_params.yaml" command="load" /> 
-    <rosparam file="$(find ros_2dnav)/base_local_planner_params.yaml" command="load" />
+    <rosparam file="$(find f1tenth_simulator)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find f1tenth_simulator)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find f1tenth_simulator)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find f1tenth_simulator)/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find f1tenth_simulator)/base_local_planner_params.yaml" command="load" />
  </node>
 
 </launch> 

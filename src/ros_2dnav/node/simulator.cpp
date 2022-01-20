@@ -569,7 +569,7 @@ public:
     void cmd_callback(const geometry_msgs::Twist & msg) {
         desired_speed = msg.linear.x;
         desired_steer_ang = msg.angular.z;
-    } // add by HTY
+    }  // add by HTY
 
 
     // button callbacks
@@ -622,7 +622,7 @@ public:
         }
 
         /// ---------------------- PUBLISHING HELPER FUNCTIONS ----------------------
-
+	
         void pub_pose_transform(ros::Time timestamp) {
             // Convert the pose into a transformation
             geometry_msgs::Transform t;
@@ -690,11 +690,11 @@ public:
             scan_ts.child_frame_id = scan_frame;
             br.sendTransform(scan_ts);
         }
-
+        
         void pub_odom(ros::Time timestamp) {
             // Make an odom message and publish it
             nav_msgs::Odometry odom;
-            odom.header.stamp = timestamp;
+            odom.header.stamp = timestamp; // +ros::Duration(1.0)
             odom.header.frame_id = map_frame;
             odom.child_frame_id = base_frame;
             odom.pose.pose.position.x = state.x;
