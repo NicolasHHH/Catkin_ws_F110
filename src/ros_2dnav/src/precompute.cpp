@@ -2,7 +2,7 @@
 #include <cmath>
 #include <vector>
 
-#include "f1tenth_simulator/precompute.hpp"
+#include "ros_2dnav/precompute.hpp"
 
 using namespace racecar_simulator;
 

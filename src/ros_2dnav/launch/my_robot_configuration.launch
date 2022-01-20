@@ -1,19 +1,9 @@
 <?xml version="1.0"?>
 <launch>
 
-<!--
-   <node pkg="sensor_node_pkg" type="sensor_node_type" name="sensor_node_name" output="screen">
-    <param name="sensor_param" value="param_value" />
- </node>
- <node pkg="odom_node_pkg" type="odom_node_type" name="odom_node" output="screen">
-    <param name="odom_param" value="param_value" />
- </node>
- <node pkg="transform_configuration_pkg" type="transform_configuration_type" name="transform_configuration_name" output="screen">
- -->
  
   <!-- Launch the racecar model -->
   <include file="$(find ros_2dnav)/launch/racecar_model.launch"/>
-
 
 
   <!-- Begin the simulator with the parameters from params.yaml -->
@@ -34,8 +24,6 @@
  <!-- Launch RVIZ -->
     <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ros_2dnav)/launch/simulator.rviz" output="screen"/>
  
-
-    <!--param name="transform_configuration_param" value="param_value" /-->
  </node>
 
 </launch> 

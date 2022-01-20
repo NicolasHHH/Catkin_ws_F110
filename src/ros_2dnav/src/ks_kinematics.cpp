@@ -1,7 +1,7 @@
 #include <cmath>
 
-#include "f1tenth_simulator/car_state.hpp"
-#include "f1tenth_simulator/ks_kinematics.hpp"
+#include "ros_2dnav/car_state.hpp"
+#include "ros_2dnav/ks_kinematics.hpp"
 
 using namespace racecar_simulator;
 

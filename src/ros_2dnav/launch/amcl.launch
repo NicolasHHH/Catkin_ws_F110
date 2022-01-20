@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <launch>
 
-
-
     <!-- 使用bag的时间戳 
     <arg name="bag_filename" default="/home/parallels/2022-01-14-15-45-05.bag"/>
     <arg name="map_file" default="/home/parallels/bagfiles/map/f110.yaml" output="screen"/>
@@ -10,8 +8,7 @@
   
     <param name="use_sim_time" value="true" />-->
     
-    
-    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster2" args="0 0 0 0 0 0 /odom /base_link 100" />
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster2" args="0 0 0 0 0 0 /map /odom  10" />
 
   
   <node pkg="amcl" type="amcl" name="amcl" respawn="false" output="screen">
