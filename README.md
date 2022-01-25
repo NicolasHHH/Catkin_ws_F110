@@ -19,11 +19,20 @@ Some overviews:
 ## Implementations : 
 
 ### Navigation
-- [Pure Pursuit----⭐️⭐️](#jump5)  --> High speed path following 
-- [RRT------------⭐️⭐️⭐️](#jump3)   --> Dynamic Obstacle Avoidance + Randomized path planning
-- [RRT+BFS-------⭐️⭐️⭐️⭐️](#jump3)    --> Dynamic Obstacle Avoidance + Rapide path planning
-- [TEB------------⭐️⭐️⭐️⭐️⭐️](#jump16)  -->  Backward Enabled + Dynamic Obstacle Avoidance + Time Optimal path planning
-- [Gap Follow-----⭐️⭐️](#jump12) --> Dynamic Obstacle Avoidance
+- [Pure Pursuit----⭐️⭐️](#jump5)  
+  --> High speed path following 
+  
+- [RRT------------⭐️⭐️⭐️](#jump3)   
+  --> Dynamic Obstacle Avoidance + Randomized path planning
+  
+- [RRT+BFS-------⭐️⭐️⭐️⭐️](#jump3)  
+  --> Dynamic Obstacle Avoidance + Rapide path planning
+  
+- [TEB------------⭐️⭐️⭐️⭐️⭐️](#jump16)  
+  --> Dynamic Obstacle Avoidance + Time Optimal path planning + Backward Enabled
+  
+- [Gap Follow-----⭐️⭐️](#jump12)   
+  --> Dynamic Obstacle Avoidance
 
 ### SLAM
 - [Cartographer - SLAM](#jump6)
