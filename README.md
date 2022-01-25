@@ -19,10 +19,11 @@ Some overviews:
 ## Implementations : 
 
 ### Navigation
-- [RRT+BFS](#jump3)
-- [RRT](#jump4)
-- [Pure Pursuit](#jump5)
-- [Gap Follow](#jump12)
+- [Pure Pursuit----⭐️⭐️](#jump5)  --> High speed path following 
+- [RRT------------⭐️⭐️⭐️](#jump3)   --> Dynamic Obstacle Avoidance + Randomized path planning
+- [RRT+BFS-------⭐️⭐️⭐️⭐️](#jump3)    --> Dynamic Obstacle Avoidance + Rapide path planning
+- [TEB------------⭐️⭐️⭐️⭐️⭐️](#jump16)  -->  Backward Enabled + Dynamic Obstacle Avoidance + Time Optimal path planning
+- [Gap Follow-----⭐️⭐️](#jump12) --> Dynamic Obstacle Avoidance
 
 ### SLAM
 - [Cartographer - SLAM](#jump6)
@@ -47,17 +48,18 @@ Some overviews:
 
 ## Navigation
 
-- <span id="jump3"> RRT+BFS: </span>
+- <span id="jump5"> Pure Pursuit: High speed path following </span>
+
+https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
+
+- <span id="jump3"> RRT+BFS: Dynamic Obstacle Avoidance + Rapide path planning </span>
 
 https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-a195-5547195d206d.mp4
 
-- <span id="jump4"> RRT: </span>
+- <span id="jump16"> TEB planner：Backward planning Enabled + Dynamic Obstacle Avoidance + Time Optimal path planning  </span>
 
-https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
+https://user-images.githubusercontent.com/57991090/150957168-7f51dea4-ab0d-456c-bfc7-58612290fa2d.mp4
 
-- <span id="jump5"> Pure Pursuit: </span>
-
-https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
 
 ## SLAM (simultaneous localization and mapping)
 
