@@ -1,16 +1,16 @@
-## Project description 
+## F110 Workspace Description 
 We are a group of students from Ecole Polytechnique working on a collective scientific project:
 [PSC f1tenth (Tianyang HUANG, Maroun Rami, El Mallah Rim, Bouillé Aude)]. 
 
-More on f1tenth here : https://f1tenth.org/. 
+More on *f1tenth* here : https://f1tenth.org/. 
 
-Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic 
+Environment : catkin_ws on `Ubuntu 20.04 arm64` with `ROS noetic` 
 
-Environment Gym : catkin_ws on Ubuntu 18.04.6 amd64 with ROS melodic
+Environment Gym : catkin_ws on `Ubuntu 18.04.6 amd64` with `ROS melodic`
 
 Author of source code & ReadMe : **Tianyang HUANG**
 
-## Project Overview :
+Some overviews:
 
 - [1:10 racing car (Nvidia, Hkuyo Lidar, RGBD camera)](#jump)
 
