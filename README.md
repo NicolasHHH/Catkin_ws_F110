@@ -1,37 +1,49 @@
-
+## Project description 
 We are a group of students from Ecole Polytechnique working on a collective scientific project:
-[PSC f1tenth (Tianyang HUANG, Maroun Rami, El Mallah Rim, Tianyang Huang, Bouillé Aude)]. 
+[PSC f1tenth (Tianyang HUANG, Maroun Rami, El Mallah Rim, Bouillé Aude)]. 
 
 More on f1tenth here : https://f1tenth.org/. 
 
 Environment : catkin_ws on Ubuntu 20.04 arm64 with ROS noetic 
+
 Environment Gym : catkin_ws on Ubuntu 18.04.6 amd64 with ROS melodic
 
-Author of source code & readme : Tianyang HUANG
+Author of source code & ReadMe : **Tianyang HUANG**
 
-- 1:10 racing car (Nvidia, Hkuyo Lidar, RGBD camera)
+- [1:10 racing car (Nvidia, Hkuyo Lidar, RGBD camera)](#jump)
+
+- [Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)](#jump2)
+
+## Implementations : 
+
+- [RRT+BFS](#jump3)
+- [RRT](#jump4)
+- [Pure Pursuit](#jump5)
+- [Cartographer Mapping](#jump6)
+
+****
+
+- <span id="jump"> 1:10 racing car (Nvidia, Hkuyo Lidar, RGBD camera)</span>
 <img width="500" alt="截屏2022-01-25 09 26 38" src="https://user-images.githubusercontent.com/57991090/150939766-7dea024a-10d0-48da-9d79-92e76d8f93d5.png">
 
-- Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)
-
+- <span id="jump2"> Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart) </span>
 <img src="https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png" width="500">
 <img src="https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png" width="500">
 
-- RRT+BFS:
+- <span id="jump3"> RRT+BFS: </span>
 
 https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-a195-5547195d206d.mp4
 
-- RRT:
+- <span id="jump4"> RRT: </span>
 
 https://user-images.githubusercontent.com/57991090/144923651-cb26aae4-1881-45f4-9c2c-d032b3e8934f.mp4
 
-
-- Pure Pursuit
+- <span id="jump5"> Pure Pursuit: </span>
 
 https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-8e66-a9be53fd4848.mp4
 
-- Cartographer Mapping: 
-  
+- <span id="jump6"> Cartographer Mapping:  </span>
+
 https://user-images.githubusercontent.com/57991090/149562722-cf9809b6-cd23-4d33-83c4-7de7ddcc727c.mp4
 
 - Cartographer Mapping adatation to real environment
