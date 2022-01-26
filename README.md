@@ -12,7 +12,7 @@ Author of source code & ReadMe : **Tianyang HUANG**
 
 Some overviews:
 
-- [1:10 racing car (Nvidia, Hkuyo Lidar, RGBD camera)](#jump)
+- [1:10 racing car (Nvidia Jetson, Hkuyo Lidar, RGBD camera)](#jump)
 
 - [Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)](#jump2)
 
@@ -28,7 +28,7 @@ Some overviews:
 - [RRT+BFS-------⭐️⭐️⭐️⭐️](#jump3)  
   --> Dynamic Obstacle Avoidance + Rapide path planning
   
-- [TEB------------⭐️⭐️⭐️⭐️⭐️](#jump16)  
+- [TEB------------⭐️⭐️⭐️⭐️⭐️](#jump16)
   --> Dynamic Obstacle Avoidance + Time Optimal path planning + Backward Enabled
   
 - [Gap Follow-----⭐️⭐️](#jump12)   
@@ -66,6 +66,10 @@ https://user-images.githubusercontent.com/57991090/143314357-4c70dbf4-5b17-4286-
 https://user-images.githubusercontent.com/57991090/146034581-74e46914-e8d1-4864-a195-5547195d206d.mp4
 
 - <span id="jump16"> TEB planner：Backward planning Enabled + Dynamic Obstacle Avoidance + Time Optimal path planning  </span>
+
+
+https://user-images.githubusercontent.com/57991090/151223147-1c30c54f-6cd2-4c04-8fd8-6eb6de403c5b.mp4
+
 
 https://user-images.githubusercontent.com/57991090/150957168-7f51dea4-ab0d-456c-bfc7-58612290fa2d.mp4
 
