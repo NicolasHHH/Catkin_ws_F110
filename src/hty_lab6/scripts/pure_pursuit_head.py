@@ -20,8 +20,8 @@ from visualization_msgs.msg import Marker
 
 # static parameters
 CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
-VELOCITY = 3.5 # meters per second
-HEADER_DIS = 1.0*CAR_LENGTH
+VELOCITY = 7.0 # meters per second
+HEADER_DIS = 1.5*CAR_LENGTH
 global way_points 
 way_points= []
 
@@ -48,6 +48,8 @@ class PurePursuit(object):
         self.carX = 0 
         self.carY = 0
         self.carA = 0
+        self.start_time = rospy.get_time()
+        self.detect_end = False
         return
         
     def dist_euclid(self,x1,y1,x2,y2):
@@ -101,8 +103,13 @@ class PurePursuit(object):
         drive_msg.drive.steering_angle = angle
         drive_msg.drive.speed = VELOCITY
 
-        if abs(angle) > 0.518:
-            angle = angle/abs(angle)*0.518
+        if abs(angle) > 0.418:
+            angle = angle/abs(angle)*0.418
+            drive_msg.drive.speed = VELOCITY*0.6
+        
+        elif abs(angle) > 0.218:
+            drive_msg.drive.speed = VELOCITY*0.8
+            
 
         self.drive_pub.publish(drive_msg)
         self.mark_way_points()
@@ -116,6 +123,13 @@ class PurePursuit(object):
         self.carY = odom_msg.pose.pose.position.y
         z = odom_msg.pose.pose.orientation.z
         w = odom_msg.pose.pose.orientation.w
+        
+        if self.detect_end and self.carX**2+self.carY**2<1:
+            print("laptime: ",rospy.get_time()-self.start_time)
+            self.start_time = rospy.get_time()
+            self.detect_end = False
+        if self.detect_end == False and self.carX**2+self.carY**2 >2:
+            self.detect_end = True
         euler = euler_from_quaternion([0,0,z,w])
         self.carA  = euler[2]
         #rospy.sleep(0.1)
@@ -190,7 +204,7 @@ class PurePursuit(object):
 
 def main():
 
-    with open("/home/tianyang/catkin_ws/waypoint6_100.csv" ,'r') as f: 
+    with open("waypoints_berlin_teb_8_2_2_1_08.csv" ,'r') as f:  #/home/parallels/catkin_ws/waypoints_berlin_teb_8_2_2_1_08.csv
         cr = csv.reader(f)
         for row in cr:
                 array =[]

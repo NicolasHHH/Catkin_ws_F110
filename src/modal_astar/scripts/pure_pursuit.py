@@ -20,16 +20,17 @@ class pure_pursuit:
 
     def __init__(self):
 
-        self.LOOKAHEAD_DISTANCE = 1.70#1.70 # meters
-        self.VELOCITY = 5 # m/s
+        self.LOOKAHEAD_DISTANCE = 1.50#1.70 # meters
+        self.VELOCITY = 7 # m/s
         #self.goal = 0
         self.goal_idx = 0
-        self.velocity = 2.5#1.5
+        self.velocity = 1.5#1.5
         self.tf_listener = tf.TransformListener()
         
         self.drive_pub = rospy.Publisher('/drive', AckermannDriveStamped, queue_size = 10)
         rospy.Subscriber("/gt_pose", PoseStamped, self.callback, queue_size=1)
-        
+        self.start_time = rospy.get_time()
+        self.detect_end = False
         self.read_waypoints()
 
     # Import waypoints.csv into a list (path_points)
@@ -54,7 +55,13 @@ class pure_pursuit:
         qy=data.pose.orientation.y
         qz=data.pose.orientation.z
         qw=data.pose.orientation.w
-
+        
+        if self.detect_end and qx**2+qy**2<=1:
+            print("laptime: ",rospy.get_time-self.start_time)
+            self.detect_end = False
+        if self.detect_end == False and qx**2+qy**2 >2:
+            self.detect_end = True
+        
         quaternion = (qx,qy,qz,qw)
         euler   = euler_from_quaternion(quaternion)
         yaw     = euler[2] 
@@ -112,17 +119,22 @@ class pure_pursuit:
 
     # USE THIS FUNCTION IF CHANGEABLE SPEED IS NEEDED
     def set_speed(self,angle):
-        if (abs(angle)>0.2018):
-            self.LOOKAHEAD_DISTANCE = 1.2
-            # self.velocity = 1.5
+        if (abs(angle)>0.4018):
+            self.LOOKAHEAD_DISTANCE = 0.6
             self.angle = angle
 
-            if self.velocity - 1.5 >= 0.5:
+            if self.velocity >= 1.5:
+                self.velocity -= 0.5#0.7
+        
+        elif (abs(angle)>0.2018):
+            self.LOOKAHEAD_DISTANCE = 1.0
+            self.angle = angle
+
+            if self.velocity - 1.5 >= 1.0:
                 self.velocity -= 0.5#0.7
 
         else:
-            self.LOOKAHEAD_DISTANCE = 1.2
-            # self.velocity = 3.0
+            self.LOOKAHEAD_DISTANCE = 1.5
             self.angle = angle
 
             if self.VELOCITY - self.velocity > 0.2:
@@ -143,15 +155,16 @@ class pure_pursuit:
 
 
 if __name__ == '__main__':
-    with open("waypoint6_100.csv" ,'r') as f: 
+    with open("waypoints_global.csv" ,'r') as f: 
         cr = csv.reader(f)
         path_points = [tuple(line) for line in csv.reader(f)]
     print(path_points[0])
-
     rospy.init_node('pure_pursuit')
+    start_time = rospy.get_time()
     C = pure_pursuit()  
     
     rospy.spin()
+    print("program time : ",rospy.get_time()-start_time)
     
     """
     while not rospy.is_shutdown():

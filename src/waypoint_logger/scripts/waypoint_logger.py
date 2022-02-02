@@ -27,9 +27,9 @@ def pose_save_waypoint(data):
     global count
     count += 1
     if(count>= 100):
-    	count =0
-    	print ("pose: ", data.pose.position.x,data.pose.position.y,euler[2])
-    	file_pose.write('%f, %f, %f, %f\n' % (data.pose.position.x,data.pose.position.y,data.pose.orientation.z, data.pose.orientation.w))
+        count =0
+        print("pose: ", data.pose.position.x,data.pose.position.y,euler[2])
+        file_pose.write('%f, %f, %f, %f\n' % (data.pose.position.x,data.pose.position.y,data.pose.orientation.z, data.pose.orientation.w))
     return 
 def odom_save_waypoint(data):
     quaternion = np.array([data.pose.pose.orientation.x, 
@@ -45,9 +45,9 @@ def odom_save_waypoint(data):
     global count2
     count2+=1
     if (count2 >= 100):
-    	count2=0
-    	print ("odom:",data.pose.pose.position.x,data.pose.pose.position.y,euler[2])
-    	file_odom.write('%f, %f, %f, %f, %f\n' % (data.pose.pose.position.x,data.pose.pose.position.y,data.pose.pose.orientation.z,data.pose.pose.orientation.w,speed))
+        count2=0
+        print ("odom:",data.pose.pose.position.x,data.pose.pose.position.y,euler[2])
+        file_odom.write('%f, %f, %f, %f, %f\n' % (data.pose.pose.position.x,data.pose.pose.position.y,data.pose.pose.orientation.z,data.pose.pose.orientation.w,speed))
 
 
    #speed
