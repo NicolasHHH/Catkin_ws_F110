@@ -69,6 +69,7 @@ all: modal_astar/all
 all: modal_tp3/all
 all: particle_filter/all
 all: f1tenth_quickstart/all
+all: OpenAi/all
 all: hty_lab7/all
 all: hty_turtle/all
 all: hty_lab/all
@@ -100,6 +101,7 @@ preinstall: modal_astar/preinstall
 preinstall: modal_tp3/preinstall
 preinstall: particle_filter/preinstall
 preinstall: f1tenth_quickstart/preinstall
+preinstall: OpenAi/preinstall
 preinstall: hty_lab7/preinstall
 preinstall: hty_turtle/preinstall
 preinstall: hty_lab/preinstall
@@ -136,6 +138,7 @@ clean: modal_astar/clean
 clean: modal_tp3/clean
 clean: particle_filter/clean
 clean: f1tenth_quickstart/clean
+clean: OpenAi/clean
 clean: hty_lab7/clean
 clean: hty_turtle/clean
 clean: hty_lab/clean
@@ -149,6 +152,24 @@ clean: waypoint_logger/clean
 clean: waypoint-develop/waypoint_touring/clean
 
 .PHONY : clean
+
+#=============================================================================
+# Directory level rules for directory OpenAi
+
+# Recursive "all" directory target.
+OpenAi/all:
+
+.PHONY : OpenAi/all
+
+# Recursive "preinstall" directory target.
+OpenAi/preinstall:
+
+.PHONY : OpenAi/preinstall
+
+# Recursive "clean" directory target.
+OpenAi/clean:
+
+.PHONY : OpenAi/clean
 
 #=============================================================================
 # Directory level rules for directory beginner_tutorials

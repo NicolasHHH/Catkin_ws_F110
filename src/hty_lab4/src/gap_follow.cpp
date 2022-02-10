@@ -34,7 +34,8 @@ class Gap_follow{
             n = ros::NodeHandle();
             // publisher and subscriber
             sub_scan = n.subscribe("scan", 600 , &Gap_follow::scan_callback,this); //1000
-            pub_drive = n.advertise<ackermann_msgs::AckermannDriveStamped>("/vesc/low_level/ackermann_cmd_mux/input/navigation", 2); // 2 // drive 
+            pub_drive = n.advertise<ackermann_msgs::AckermannDriveStamped>("drive", 2); // 2 
+            // drive ///vesc/low_level/ackermann_cmd_mux/input/navigation
 
         }
         std::vector<float> preprocess_lidar(std::vector<float>& ranges){

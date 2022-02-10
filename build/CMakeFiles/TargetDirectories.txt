@@ -241,6 +241,13 @@
 /home/parallels/catkin_ws/build/f1tenth_quickstart/CMakeFiles/rebuild_cache.dir
 /home/parallels/catkin_ws/build/f1tenth_quickstart/CMakeFiles/edit_cache.dir
 /home/parallels/catkin_ws/build/f1tenth_quickstart/CMakeFiles/test.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/install/strip.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/install/local.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/install.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/list_install_components.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/rebuild_cache.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/edit_cache.dir
+/home/parallels/catkin_ws/build/OpenAi/CMakeFiles/test.dir
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/install/strip.dir
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/install.dir
 /home/parallels/catkin_ws/build/hty_lab7/CMakeFiles/list_install_components.dir

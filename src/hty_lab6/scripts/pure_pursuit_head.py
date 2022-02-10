@@ -34,6 +34,13 @@ class PurePursuit(object):
         
         # recieve odom and pose msg
         self.odom_sub = rospy.Subscriber('/odom',Odometry,self.odom_callback)
+        self.carX = 0 
+        self.carY = 0
+        self.carA = 0
+        self.start_time = rospy.get_time()
+        self.detect_end = False
+        
+        
         self.pose_sub = rospy.Subscriber('/gt_pose', PoseStamped, self.pose_callback)
         
         # publish drive msg
@@ -41,15 +48,7 @@ class PurePursuit(object):
        
         self.rviz_pub = rospy.Publisher('/waypoint_vis_array',viz_msgs.MarkerArray,queue_size = 2)
         self.rviz_pub_point = rospy.Publisher('/waypoint_vis',viz_msgs.Marker,queue_size = 2)
-        #self.frame = "."
-        # self.time = 0.0
-        #self.velocity = 0.0
         self.waypoints = way_points
-        self.carX = 0 
-        self.carY = 0
-        self.carA = 0
-        self.start_time = rospy.get_time()
-        self.detect_end = False
         return
         
     def dist_euclid(self,x1,y1,x2,y2):
@@ -203,8 +202,9 @@ class PurePursuit(object):
 
 
 def main():
-
-    with open("waypoints_berlin_teb_8_2_2_1_08.csv" ,'r') as f:  #/home/parallels/catkin_ws/waypoints_berlin_teb_8_2_2_1_08.csv
+    
+    #waypoints_berlin_teb_8_2_2_1_08.csv
+    with open("waypoint6_100.csv" ,'r') as f:  #/home/parallels/catkin_ws/waypoints_berlin_teb_8_2_2_1_08.csv
         cr = csv.reader(f)
         for row in cr:
                 array =[]

@@ -4,7 +4,7 @@
     <include file="$(find f1tenth_simulator)/launch/simulator.launch"/>
 
     <!-- controllor -->
-    <node pkg="hty_lab7" type="dfs.py" name="pph" output="screen"/>
+    <node pkg="hty_lab7" type="bfs.py" name="pph" output="screen"/>
 
     <!-- draw itinary -->
     <node pkg="modal_astar" type="rapport.py" name="report" output="screen"/>
