@@ -17,9 +17,7 @@ from tf.transformations import euler_from_quaternion
 import tf
 
 # pure pursuit
-CAR_LENGTH = 1.0 # Traxxas Rally is 20 inches or 0.5 meters
-#VELOCITY = 1.5 # meters per second
-#HEADER_DIS = 2.5*CAR_LENGTH 
+CAR_LENGTH = 1.0  
 global way_points 
 way_points= []
 DURATION = 20 # ten times laser scan
@@ -54,14 +52,11 @@ class BFS(object):
         scan_topic = "/scan"
         self.resolution = 0.2 # 0.2
         
-        self.x,self.y = 0,0
-        self.oz,self.ow = 0,0
+        self.x,self.y,self.oz,self.ow = 0,0,0,0
         self.vision =6.0
-        self.goal_x =0
-        self.goal_y =0
-        self.bfs_time = 0 # modulo DURATION 
-        self.speed = 0.5
-        self.bfs_ok = False
+        self.goal_x,self.goal_y = 0,0
+        self.speed = 2
+        self.header_dis = 3
         
         # Occupancy Grid
         self.award, self.expand = 60,60
@@ -70,22 +65,16 @@ class BFS(object):
         
         # pure pursuit
         self.waypoints = way_points
-        self.carA = 0
+        self.carA = 0 # rotation 
         self.path = []
-        self.gx,self.gy = self.cood_grid(0,0)
+        self.next = 0,0
+        
+        self.gx,self.gy = self.cood_grid(0,0) 
+        # position in the occupancy grid supposed to be fixed
+        
+        self.bfs_ok = False
         self.queue = [Node(self.gx,self.gy,None,True)]
         #self.tf_listener = tf.TransformListener()
-        
-        # Grid cell
-        self.cells = GridCells()
-        self.cells.header.frame_id="map"
-        self.cells.cell_height = self.resolution
-        self.cells.cell_width = self.resolution
-        
-        self.samples = GridCells()
-        self.samples.header.frame_id="map"
-        self.samples.cell_height = self.resolution
-        self.samples.cell_width = self.resolution
         
         # subscribers
         rospy.Subscriber(pf_topic, PoseStamped, self.pf_callback,queue_size=1)
@@ -94,8 +83,6 @@ class BFS(object):
 
         # publishers
         self.drive_pub = rospy.Publisher("/drive", AckermannDriveStamped, queue_size = 2)
-        #self.cell_pub = rospy.Publisher('OccCell',GridCells,queue_size=1)
-        self.red_pub = rospy.Publisher('TreeCell',GridCells,queue_size=2)
         self.iti_pub = rospy.Publisher("itin_marker", Marker, queue_size=2)
         self.waypoint_pub = rospy.Publisher('waypoint_vis',Marker,queue_size = 2)
         
@@ -147,18 +134,6 @@ class BFS(object):
                         self.occ_grid[v.gx+i][v.gy+j] = 0.2
         print("iter:",iter)   
         return 
-    
-    def set_cell(self):
-        self.cells.cells = []
-        for i in range(self.award+self.extra):
-            for j in range(self.expand+self.extra):
-                if self.occ_grid[i][j]==1:
-                    cx,cy = self.grid_cood(i,j)
-                    obstacle = Point()
-                    obstacle.x,obstacle.y = self.car_map(cx,cy)
-                    obstacle.z = 0
-                    self.cells.cells.append(obstacle) 
-        self.cell_pub.publish(self.cells)
         
     # called in sca_callback : fill a grid with 1
     def update_occupancy(self,rg,angle):
@@ -178,12 +153,11 @@ class BFS(object):
         return 
         
     def scan_callback(self, scan_msg):
-        self.cells.cells= [] # refresh 
         self.occ_grid = np.zeros((self.award+self.extra,self.expand+self.extra))
 
         length = len(scan_msg.ranges)
-        step = 5
-        intercept = 200
+        step = 6
+        intercept = 100
         incre_angle = scan_msg.angle_increment
         min_angle = scan_msg.angle_min 
         for i in range(intercept,length-intercept,step):
@@ -193,36 +167,9 @@ class BFS(object):
             angle = min_angle+incre_angle*i
             self.update_occupancy(rg,angle)
         
-        if (self.bfs_time <= DURATION//2):
-            # obstacle detection 
-            for yy in range(-2,3):
-                for xx in range(1,10):
-                    if self.occ_grid[xx][yy+self.expand//2]==1:
-                        self.bfs_time = DURATION
-                        break
-                
-        ggx,ggy = self.cood_grid(self.goal_x,self.goal_y)
-        self.speed = 3.5
-        if ggx <=3+self.extra//2 or abs(ggy-self.expand//2-self.extra//2)>8:
-            self.bfs_time = 0
-            self.speed = 1.3
-            
-        print("bfs_time:", self.bfs_time)
-        if (self.bfs_time >0):
-            print("bfs------")
-            self.speed = 2
-            self.header_dis = 3.5*CAR_LENGTH 
-            self.bfs()
-            if(self.bfs_ok==False):
-                self.path =[self.cood_grid(self.goal_x,self.goal_y)]
-            self.bfs_time -=1
-        else :
-            print("waypoint follow------")
-            self.header_dis = 1.5*CAR_LENGTH 
-            self.path =[self.cood_grid(self.goal_x,self.goal_y)]
-        print("header_dis", self.header_dis)
-        #print(self.path)
+        self.bfs()
         self.show_path()
+        self.path =[self.cood_grid(self.goal_x,self.goal_y)]
         #rospy.sleep(0.1)
         return
         
@@ -236,21 +183,12 @@ class BFS(object):
         self.carA  = euler[2]
         #print("pose:",self.x,self.y,self.carA)
         
-        targetX = self.x + math.cos(self.carA)*self.header_dis
-        targetY = self.y + math.sin(self.carA)*self.header_dis
-        NearX  = targetX
-        NearY = targetY
-        dis_Near_target = 20
-        """
+        self.targetX = self.x + math.cos(self.carA)*self.header_dis
+        self.targetY = self.y + math.sin(self.carA)*self.header_dis
+        NearX  = self.targetX
+        NearY = self.targetY
         
-        for waypoint in way_points:
-            dist = self.dist_euclid(waypoint[0],waypoint[1],targetX,targetY)
-            if dist < dis_Near_target:
-                dis_Near_target = dist
-                NearX = waypoint[0]
-                NearY = waypoint[1]
-        """
-                
+        dis_Near_target = 20
         for waypoint in way_points:
             dist = self.dist_euclid(waypoint[0],waypoint[1],self.x,self.y)-self.header_dis
             ax,ay = self.map_car(waypoint[0],waypoint[1])
@@ -260,39 +198,28 @@ class BFS(object):
                 NearY = waypoint[1]
         
         self.goal_x,self.goal_y =self.map_car(NearX,NearY)
-        self.mark_point(NearX,NearY,0,0,1.0,0.1,0.1) #rotationZ,rotationW)
-        # self.set_cell() # occupancy grid
+        self.mark_point(NearX,NearY,0,0,1.0,0.1,0.1) 
         
         return 
 
     def path_callback(self,pose_msg):
-        #print("==============",len(self.path))
-        targetX = 1 #self.header_dis
-        targetY = 0
-        NearX  = targetX
-        NearY = targetY
-        dis_Near_target = 10
-        for nd in self.path:
-            ndx,ndy = self.grid_cood(nd[0],nd[1])
-            dist = self.dist_euclid(ndx,ndy,targetX,targetY)
-            if dist < dis_Near_target:
-                dis_Near_target = dist
-                NearX = ndx
-                NearY = ndy
+        
+        NearX, NearY = self.goal_x,self.goal_y
+        if self.bfs_ok :
+            NearX,NearY = self.grid_cood(self.path[-5][0],self.path[-5][1])
         mx,my = self.car_map(NearX,NearY)
         self.mark_point(mx,my,0,0,0.2,1.0,0.5) #rotationZ,rotationW)
         
-        curve = 2*(NearY)/0.9**2
-        angle = curve*0.5 #+3.14/4
+        curve = 2*(NearY)/1
+        angle = curve*0.6 #+3.14/4
         drive_msg = AckermannDriveStamped()
         drive_msg.header.stamp = rospy.Time.now()
         drive_msg.header.frame_id = "pure" #"laser"
         drive_msg.drive.steering_angle = angle
-        drive_msg.drive.speed = self.speed-abs(angle)
-
-        if abs(angle) > 0.618:
-            angle = angle/abs(angle)*0.<618
-            drive_msg.drive.speed = self.speed-abs(angle)
+        if abs(angle) > 0.418:
+            angle = angle/abs(angle)*0.418
+        
+        drive_msg.drive.speed = self.speed-abs(angle)*2
         self.drive_pub.publish(drive_msg)
         #rospy.sleep(0.1)
         

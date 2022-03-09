@@ -48,18 +48,18 @@ TebLocalPlannerROS:
     
  xy_goal_tolerance: 0.3
  yaw_goal_tolerance: 0.8
- free_goal_vel: False
+ free_goal_vel: True
  complete_global_plan: True
     
  # Obstacles
     
- min_obstacle_dist: 1.1
- include_costmap_obstacles: True 
+ min_obstacle_dist: 1
+ include_costmap_obstacles: True
  costmap_obstacles_behind_robot_dist: 2.0
  obstacle_poses_affected: 10
 
  dynamic_obstacle_inflation_dist: 0.6
- include_dynamic_obstacles: True 
+ include_dynamic_obstacles: True
 
  costmap_converter_plugin: ""
  costmap_converter_spin_thread: True
@@ -78,8 +78,8 @@ TebLocalPlannerROS:
  weight_acc_lim_x: 1
  weight_acc_lim_theta: 1
  weight_kinematics_nh: 1000
- weight_kinematics_forward_drive: 5
- weight_kinematics_turning_radius: 3
+ weight_kinematics_forward_drive: 6
+ weight_kinematics_turning_radius: 4
  weight_optimaltime: 20 # must be > 0
  weight_shortest_path: 0
  weight_obstacle: 200
