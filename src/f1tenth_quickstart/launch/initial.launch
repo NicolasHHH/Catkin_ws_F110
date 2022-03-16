@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Rviz -->
+    <include file="$(find f1tenth_gym_ros)/launch/gym_bridge_host.launch"/>
+
+
+    <node pkg="quickstart" type="pure_pursuit.py" name="opponent" output="screen"/>
+
+
+    <!-- Launch itinary visualisation -->
+    <!--node pkg="quickstart" type="itinary.py" name="itinary" output="screen"/-->
+
+</launch>

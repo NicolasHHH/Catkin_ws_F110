@@ -17,7 +17,7 @@ prev_error = 0.0
 error = 0.0
 integral = 0.0
 
-VELOCITY = 2.5
+VELOCITY = 2
 ANGLE_RANGE = 270
 DESIRED_DISTANCE_RIGHT = 1.9
 DESIRED_DISTANCE_LEFT = 1.9
@@ -28,8 +28,8 @@ class Ant_Balance:
     def __init__(self):
         global prev_time
         #Topics & Subs, Pubs
-        lidarscan_topic = '/ego_id/scan'
-        drive_topic = '/ego_id/drive'
+        lidarscan_topic = '/opp_id/scan'
+        drive_topic = '/opp_id/drive'
         prev_time = rospy.get_time()
         
         self.speed = VELOCITY
