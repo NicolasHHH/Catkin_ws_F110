@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- Listen to messages from joysicks 
+  <node pkg="joy" name="joy_node" type="joy_node"/>-->
+
+  <!-- Launch a map from the maps folder -->
+  <arg name="map" default="$(find ros_2dnav)/maps/berlin.yaml"/>
+  <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)"/> 
+
+  <!-- Launch the racecar model -->
+  <include file="$(find ros_2dnav)/launch/racecar_model.launch"/>
+
+  <!-- Begin the simulator with the parameters from params.yaml -->
+  <node pkg="ros_2dnav" name="ros_2dnav" type="simulator2" output="screen">
+    <rosparam command="load" file="$(find ros_2dnav)/params.yaml"/>
+  </node>
+
+  <!-- Launch the mux node with the parameters from params.yaml -->
+  <node pkg="ros_2dnav" name="mux_controller2" type="mux2" output="screen">
+    <rosparam command="load" file="$(find ros_2dnav)/params.yaml"/>
+  </node>
+
+  <!-- Launch the behavior controller node with the parameters from params.yaml -->
+  <node pkg="ros_2dnav" name="behavior_controller2" type="behavior_controller2" output="screen">
+    <rosparam command="load" file="$(find ros_2dnav)/params.yaml"/>
+  </node>
+
+  <!-- Launch the Random Walker Node -->
+  <node pkg="ros_2dnav" name="random_walker2" type="random_walk2" output="screen">
+    <rosparam command="load" file="$(find ros_2dnav)/params.yaml"/>
+  </node>
+
+  <!-- Launch the Keyboard Node -->
+  <node pkg="ros_2dnav" name="keyboard2" type="keyboard2" output="screen">
+    <rosparam command="load" file="$(find ros_2dnav)/params.yaml"/>
+  </node>
+
+  
+  <!-- Launch RVIZ -->
+    <node pkg="rviz" type="rviz" name="rviz" args="-d $(find ros_2dnav)/launch/simulator.rviz" output="screen"/>
+</launch>
