@@ -1,4 +1,0 @@
-<launch>
-    <arg name="map" default="$(find particle_filter)/maps/levine_blocked.yaml"/>
-    <node pkg="map_server" name="map_server" type="map_server" args="$(arg map)" />
-</launch>
