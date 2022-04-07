@@ -699,6 +699,18 @@ Protobuf_PROTOC_LIBRARY_DEBUG:FILEPATH=/usr/lib/aarch64-linux-gnu/libprotoc.so
 //Path to a library.
 Protobuf_PROTOC_LIBRARY_RELEASE:FILEPATH=/usr/lib/aarch64-linux-gnu/libprotoc.so
 
+//The directory containing a CMake configuration file for Qt5Core.
+Qt5Core_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5Core
+
+//The directory containing a CMake configuration file for Qt5Gui.
+Qt5Gui_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5Gui
+
+//The directory containing a CMake configuration file for Qt5Widgets.
+Qt5Widgets_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5Widgets
+
+//The directory containing a CMake configuration file for Qt5.
+Qt5_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/Qt5
+
 //Path to a library.
 RT_LIBRARY:FILEPATH=/usr/lib/aarch64-linux-gnu/librt.so
 
@@ -879,6 +891,9 @@ genpy_DIR:PATH=/opt/ros/noetic/share/genpy/cmake
 //The directory containing a CMake configuration file for geometry_msgs.
 geometry_msgs_DIR:PATH=/opt/ros/noetic/share/geometry_msgs/cmake
 
+//Dependencies for the target
+geotiff_writer_LIB_DEPENDS:STATIC=general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/aarch64-linux-gnu/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython3.8.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;general;Qt5::Widgets;
+
 //Value Computed by CMake
 gmock_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/gtest/googlemock
 
@@ -924,6 +939,105 @@ gtest_hide_internal_symbols:BOOL=OFF
 
 //Dependencies for the target
 gtest_main_LIB_DEPENDS:STATIC=general;gtest;
+
+//Value Computed by CMake
+hector_compressed_map_transport_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_compressed_map_transport
+
+//Value Computed by CMake
+hector_compressed_map_transport_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_compressed_map_transport
+
+//Value Computed by CMake
+hector_geotiff_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_geotiff
+
+//The directory containing a CMake configuration file for hector_geotiff.
+hector_geotiff_DIR:PATH=/home/parallels/catkin_ws/devel/share/hector_geotiff/cmake
+
+//Value Computed by CMake
+hector_geotiff_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_geotiff
+
+//Value Computed by CMake
+hector_geotiff_launch_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_geotiff_launch
+
+//Value Computed by CMake
+hector_geotiff_launch_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_geotiff_launch
+
+//Value Computed by CMake
+hector_geotiff_plugins_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_geotiff_plugins
+
+//Dependencies for the target
+hector_geotiff_plugins_LIB_DEPENDS:STATIC=general;geotiff_writer;general;/usr/lib/aarch64-linux-gnu/libQt5Widgets.so.5.12.8;general;/opt/ros/noetic/lib/libclass_loader.so;general;/usr/lib/aarch64-linux-gnu/libPocoFoundation.so;general;/usr/lib/aarch64-linux-gnu/libdl.so;general;/opt/ros/noetic/lib/libroslib.so;general;/opt/ros/noetic/lib/librospack.so;general;/usr/lib/aarch64-linux-gnu/libpython3.8.so;general;/usr/lib/aarch64-linux-gnu/libboost_program_options.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libtinyxml2.so;general;/opt/ros/noetic/lib/libroscpp.so;general;/usr/lib/aarch64-linux-gnu/libpthread.so;general;/usr/lib/aarch64-linux-gnu/libboost_chrono.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_filesystem.so.1.71.0;general;/opt/ros/noetic/lib/librosconsole.so;general;/opt/ros/noetic/lib/librosconsole_log4cxx.so;general;/opt/ros/noetic/lib/librosconsole_backend_interface.so;general;/usr/lib/aarch64-linux-gnu/liblog4cxx.so;general;/usr/lib/aarch64-linux-gnu/libboost_regex.so.1.71.0;general;/opt/ros/noetic/lib/libxmlrpcpp.so;general;/opt/ros/noetic/lib/libroscpp_serialization.so;general;/opt/ros/noetic/lib/librostime.so;general;/usr/lib/aarch64-linux-gnu/libboost_date_time.so.1.71.0;general;/opt/ros/noetic/lib/libcpp_common.so;general;/usr/lib/aarch64-linux-gnu/libboost_system.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libboost_thread.so.1.71.0;general;/usr/lib/aarch64-linux-gnu/libconsole_bridge.so.0.4;
+
+//Value Computed by CMake
+hector_geotiff_plugins_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_geotiff_plugins
+
+//Value Computed by CMake
+hector_imu_attitude_to_tf_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_imu_attitude_to_tf
+
+//Value Computed by CMake
+hector_imu_attitude_to_tf_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_imu_attitude_to_tf
+
+//Value Computed by CMake
+hector_imu_tools_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_imu_tools
+
+//Value Computed by CMake
+hector_imu_tools_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_imu_tools
+
+//Value Computed by CMake
+hector_map_server_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_map_server
+
+//Value Computed by CMake
+hector_map_server_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_map_server
+
+//Value Computed by CMake
+hector_map_tools_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_map_tools
+
+//The directory containing a CMake configuration file for hector_map_tools.
+hector_map_tools_DIR:PATH=/home/parallels/catkin_ws/devel/share/hector_map_tools/cmake
+
+//Value Computed by CMake
+hector_map_tools_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_map_tools
+
+//Value Computed by CMake
+hector_mapping_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_mapping
+
+//Value Computed by CMake
+hector_mapping_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_mapping
+
+//Value Computed by CMake
+hector_marker_drawing_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_marker_drawing
+
+//The directory containing a CMake configuration file for hector_marker_drawing.
+hector_marker_drawing_DIR:PATH=/home/parallels/catkin_ws/devel/share/hector_marker_drawing/cmake
+
+//Value Computed by CMake
+hector_marker_drawing_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_marker_drawing
+
+//Value Computed by CMake
+hector_nav_msgs_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_nav_msgs
+
+//The directory containing a CMake configuration file for hector_nav_msgs.
+hector_nav_msgs_DIR:PATH=/home/parallels/catkin_ws/devel/share/hector_nav_msgs/cmake
+
+//Value Computed by CMake
+hector_nav_msgs_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_nav_msgs
+
+//Value Computed by CMake
+hector_slam_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_slam
+
+//Value Computed by CMake
+hector_slam_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_slam
+
+//Value Computed by CMake
+hector_slam_launch_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_slam_launch
+
+//Value Computed by CMake
+hector_slam_launch_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_slam_launch
+
+//Value Computed by CMake
+hector_trajectory_server_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hector_slam/hector_trajectory_server
+
+//Value Computed by CMake
+hector_trajectory_server_SOURCE_DIR:STATIC=/home/parallels/catkin_ws/src/hector_slam/hector_trajectory_server
 
 //Value Computed by CMake
 hty_lab2_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/hty_lab2
@@ -1008,6 +1122,9 @@ interactive_markers_DIR:PATH=/opt/ros/noetic/share/interactive_markers/cmake
 
 //The directory containing a CMake configuration file for jsoncpp.
 jsoncpp_DIR:PATH=/usr/lib/aarch64-linux-gnu/cmake/jsoncpp
+
+//The directory containing a CMake configuration file for laser_geometry.
+laser_geometry_DIR:PATH=/opt/ros/noetic/share/laser_geometry/cmake
 
 //Value Computed by CMake
 learning_tf_BINARY_DIR:STATIC=/home/parallels/catkin_ws/build/learning_tf
@@ -1461,7 +1578,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=31
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=45
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
@@ -1514,7 +1631,7 @@ CURL_LIBRARY_DEBUG-ADVANCED:INTERNAL=1
 CURL_LIBRARY_RELEASE-ADVANCED:INTERNAL=1
 DART_DEFINITIONS:INTERNAL=
 DART_INCLUDE_DIRS:INTERNAL=/usr/include
-DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart
+DART_LIBRARIES:INTERNAL=dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart
 //Boost min version requirement
 DART_MIN_BOOST_VERSION:INTERNAL=1.58.0
 DART_dart_DEFINITIONS:INTERNAL=
@@ -1531,7 +1648,7 @@ FIND_PACKAGE_MESSAGE_DETAILS_Boost:INTERNAL=[/usr/lib/aarch64-linux-gnu/cmake/Bo
 //Details about finding CURL
 FIND_PACKAGE_MESSAGE_DETAILS_CURL:INTERNAL=[/usr/lib/aarch64-linux-gnu/libcurl.so][/usr/include/aarch64-linux-gnu][c ][v7.68.0()]
 //Details about finding DART
-FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
+FIND_PACKAGE_MESSAGE_DETAILS_DART:INTERNAL=[/usr/include][dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart;dart][cfound components: dart ][v(6.6)]
 //Details about finding DL
 FIND_PACKAGE_MESSAGE_DETAILS_DL:INTERNAL=[true][v()]
 //Details about finding JSONCPP

@@ -17,7 +17,7 @@ prev_error = 0.0
 error = 0.0
 integral = 0.0
 
-VELOCITY = 2.5
+VELOCITY = 1
 ANGLE_RANGE = 270
 DESIRED_DISTANCE_RIGHT = 1.9
 DESIRED_DISTANCE_LEFT = 1.9
@@ -29,7 +29,7 @@ class Ant_Balance:
         global prev_time
         #Topics & Subs, Pubs
         lidarscan_topic = '/scan'
-        drive_topic = '/drive'
+        drive_topic = '/vesc/high_level/ackermann_cmd_mux/input/default' # /drive
         prev_time = rospy.get_time()
         
         self.speed = VELOCITY

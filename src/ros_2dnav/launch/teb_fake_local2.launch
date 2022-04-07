@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<launch>
+
+   <master auto="start"/>
+ <!-- Run the map server --> 
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(find ros_2dnav)/maps/berlin.yaml"/-->
+    
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster2" args="0 0 0 0 0 0 /map /htyodom  10" />
+    
+
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ros_2dnav)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ros_2dnav)/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find ros_2dnav)/base_local_planner_params.yaml" command="load" />
+    
+    <!--teb-local-planner-->
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <param name="controller_frequency" value="10.0" />
+  </node>
+
+</launch> 

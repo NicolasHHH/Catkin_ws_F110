@@ -1,0 +1,151 @@
+{
+	"backtrace" : 4,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_custom_target",
+			"include",
+			"generate_messages",
+			"add_dependencies"
+		],
+		"files" : 
+		[
+			"/home/parallels/catkin_ws/build/hector_slam/hector_mapping/cmake/hector_mapping-genmsg.cmake",
+			"/opt/ros/noetic/share/genmsg/cmake/genmsg-extras.cmake",
+			"hector_slam/hector_mapping/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 2
+			},
+			{
+				"command" : 2,
+				"file" : 2,
+				"line" : 35,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 1,
+				"line" : 307,
+				"parent" : 1
+			},
+			{
+				"file" : 0,
+				"parent" : 2
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 215,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 327,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 224,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 222,
+				"parent" : 3
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 226,
+				"parent" : 3
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 5,
+			"id" : "geometry_msgs_generate_messages_nodejs::@6279da2933987141ad04"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "_hector_mapping_generate_messages_check_deps_HectorIterData::@821e385419db90244412"
+		},
+		{
+			"backtrace" : 7,
+			"id" : "_hector_mapping_generate_messages_check_deps_HectorDebugInfo::@821e385419db90244412"
+		},
+		{
+			"backtrace" : 8,
+			"id" : "_hector_mapping_generate_messages_check_deps_ResetMapping::@821e385419db90244412"
+		}
+	],
+	"id" : "hector_mapping_generate_messages_nodejs::@821e385419db90244412",
+	"name" : "hector_mapping_generate_messages_nodejs",
+	"paths" : 
+	{
+		"build" : "hector_slam/hector_mapping",
+		"source" : "hector_slam/hector_mapping"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		},
+		{
+			"name" : "CMake Rules",
+			"sourceIndexes" : 
+			[
+				1,
+				2,
+				3,
+				4
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 4,
+			"isGenerated" : true,
+			"path" : "/home/parallels/catkin_ws/build/hector_slam/hector_mapping/CMakeFiles/hector_mapping_generate_messages_nodejs",
+			"sourceGroupIndex" : 0
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/parallels/catkin_ws/build/hector_slam/hector_mapping/CMakeFiles/hector_mapping_generate_messages_nodejs.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/parallels/catkin_ws/devel/share/gennodejs/ros/hector_mapping/msg/HectorDebugInfo.js.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/parallels/catkin_ws/devel/share/gennodejs/ros/hector_mapping/msg/HectorIterData.js.rule",
+			"sourceGroupIndex" : 1
+		},
+		{
+			"backtrace" : 0,
+			"isGenerated" : true,
+			"path" : "/home/parallels/catkin_ws/devel/share/gennodejs/ros/hector_mapping/srv/ResetMapping.js.rule",
+			"sourceGroupIndex" : 1
+		}
+	],
+	"type" : "UTILITY"
+}
