@@ -3,10 +3,31 @@
 # TODO: change this to the pose topic published particle filter
 pose_topic: "/gt_pose"
 scan_topic: "/scan"
+map_topic: '/map'
 drive_topic: '/drive'
+odom_topic: '/odom'
+occ_topic: '/occupe'
+occ_frame: 'map'
+goal_topic: '/move_base_simple/goal'
 
-Occupancy_width: 300
-Occupancy_height: 220
+
+width: 600
+height: 600
+
+Occupancy_width: 100
+Occupancy_height: 100
+
+resolution: 0.1
+
+header_dis: 1
+speed: 1.5
+
+penalty: 50
+rayon: 3
+
+odom_rate: 200
+path_rate: 10
+scan_rate: 1000
 
 Cell_size: 0.1
 Plane_count : 285
@@ -18,8 +39,10 @@ Grid_color : (160,160,164)
 Green_topic: 'GridCells' # 
 Red_topic: 'GridCells' # 25,255,0,1
 
-# Topics that RRT publishes to
-# TODO: add your own
-# visualization
-
-# TODO: add Parameters for RRT
+# 59,59   0,59
+#
+#    29,29 /2-1
+#
+#59,0      0,0
+#
+#

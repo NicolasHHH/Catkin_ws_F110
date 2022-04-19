@@ -291,7 +291,7 @@ class BFS(object):
         drive_msg.drive.speed = self.speed-abs(angle)
 
         if abs(angle) > 0.618:
-            angle = angle/abs(angle)*0.<618
+            angle = angle/abs(angle)*0.618
             drive_msg.drive.speed = self.speed-abs(angle)
         self.drive_pub.publish(drive_msg)
         #rospy.sleep(0.1)
