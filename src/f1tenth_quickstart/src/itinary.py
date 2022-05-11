@@ -61,7 +61,7 @@ class Itinary(object):
         if self.initialize_opp and self.initialize_ego:
             p = Point(self.ego_x,self.ego_y,0)
             self.LineStrip.points.append(p)
-            if len(self.LineStrip.points)>20000:
+            if len(self.LineStrip.points)>2000:
                 self.LineStrip.points.pop(0)
             self.iti_pub.publish(self.LineStrip)
         return
@@ -72,11 +72,11 @@ class Itinary(object):
         return 
     
     def opp_publish(self, event=None):
-        print("opp")
+        # print("opp")
         if self.initialize_opp and self.initialize_ego:
             p = Point(self.opp_x,self.opp_y,0)
             self.LineStrip2.points.append(p)
-            if len(self.LineStrip2.points)>20000:
+            if len(self.LineStrip2.points)>2000:
                 self.LineStrip2.points.pop(0)
             self.iti_pub.publish(self.LineStrip2)
         return
