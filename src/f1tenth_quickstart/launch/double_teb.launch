@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Launch Rviz -->
+    <include file="$(find f1tenth_gym_ros)/launch/gym_bridge_host.launch"/>
+
+    <!-- Launch information panel -->
+    <node pkg="quickstart" type="race_info.py" name="info_agent" output="screen"/>
+
+    <!-- Launch ego controller -->
+
+    <!-- Launch opp controller -->
+
+    <!-- Launch itinqry visualisation -->
+    <node pkg="quickstart" type="itinary.py" name="itinary" output="screen"/>
+
+
+</launch>
