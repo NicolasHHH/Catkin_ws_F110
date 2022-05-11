@@ -1,15 +1,26 @@
 ## F110 Workspace Description 
 We are a group of students from Ecole Polytechnique working on a collective scientific project:
+
 [PSC f1tenth (Tianyang HUANG, Maroun Rami, El Mallah Rim, Bouillé Aude) X20]. 
 
 More on *f1tenth* here : https://f1tenth.org/. 
+
+
+\
+
 
 Environment (single racecar) : `Ubuntu 20.04 arm64` with `ROS noetic` 
 
 Gym Environment (multiple racecars): `Ubuntu 18.04.6 amd64` with `ROS melodic`
 
+\
+
+
 Author of source code & ReadMe : **Tianyang HUANG(NicolasHHH)** 
+
 Feel free to contact tianyang.huang@polytechnique.edu
+
+\
 
 To compile :
 
