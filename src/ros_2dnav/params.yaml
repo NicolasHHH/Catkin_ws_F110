@@ -90,14 +90,14 @@ obstacle_size: 2
 
 # The names of topics to listen and publish to
 joy_topic: "/joy"
-drive_topic: "/drive"
+drive_topic: "/ego_id/drive"
 map_topic: "/map"
 distance_transform_topic: "/dt"
-scan_topic: "/scan"
+scan_topic: "/ego_id/scan"
 pose_topic: "/pose"
-ground_truth_pose_topic: "/gt_pose"
-odom_topic: "/odom"
-imu_topic: "/imu"
+# ground_truth_pose_topic: "/gt_pose"
+odom_topic: "/ego_id/odom"
+#imu_topic: "/imu"
 pose_rviz_topic: "/initialpose"
 keyboard_topic: "/key"
 brake_bool_topic: "/brake_bool"
@@ -118,8 +118,8 @@ collision_file: "collision_file"
 
 # The names of the transformation frames published to
 map_frame: "map"
-base_frame: "base_link"
-scan_frame: "laser"
+base_frame: "ego_racecar/base_link"
+scan_frame: "ego_racecar/laser_model"
 
 broadcast_transform: true
 publish_ground_truth_pose: true

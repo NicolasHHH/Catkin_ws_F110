@@ -23,10 +23,10 @@ def scan_callback(data):
       global status
       global car_x,car_y
       r = rospy.Rate(1) 
-      fleshes = [(1.271, 0.083, 0.098, 0.995),
-             (8.362, -9.274, -0.828, 0.560),
-             (2.207, -17.944, 0.776, 0.630)]
-      if dist(car_x,car_y,fleshes[status][0],fleshes[status][1],3) :
+      fleshes = [(-0.771, -0.283, 0.098, 0.995),
+             (7.962, -9.274, -0.828, 0.560),
+             (2.207, -18.244, 0.776, 0.630)]
+      if dist(car_x,car_y,fleshes[status][0],fleshes[status][1],4) :
           print(status)
           status = (status+1)%3;
           print(status)
@@ -54,15 +54,15 @@ def scan_callback(data):
 if __name__ == '__main__': 
   
   try:
-    rospy.init_node('nav_goals_publisher_ego')
-    rospy.Subscriber("ego_id/odom", Odometry, odom_callback, queue_size=1)
-    rospy.Subscriber("ego_id/scan", LaserScan, scan_callback, queue_size=1)
+    rospy.init_node('nav_goals_publisher_oppp')
+    rospy.Subscriber("opp_id/odom", Odometry, odom_callback, queue_size=1)
+    rospy.Subscriber("opp_id/scan", LaserScan, scan_callback, queue_size=1)
     # amcl_pose 
     # geometry_msgs/PoseWithCovariance pose 
     # geometry_msgs/Pose pose
     # position
     #rospy.Subscriber("/amcl_pose", PoseWithCovariance, amcl_callback, queue_size=1)
-    pub = rospy.Publisher("/ego_id/move_base_simple/goal", PoseStamped, queue_size=1)
+    pub = rospy.Publisher("/opp_id/move_base_simple/goal", PoseStamped, queue_size=1)
     
     rospy.spin()
     

@@ -1,0 +1,84 @@
+<?xml version="1.0"?>
+<launch>
+
+   <master auto="start"/>
+ <!-- Run the map server --> 
+    <!--node name="map_server" pkg="map_server" type="map_server" args="$(find ros_2dnav)/maps/berlin.yaml"/-->
+    
+    <node pkg="tf" type="static_transform_publisher" name="map_odom_broadcaster_ego" args="0 0 0 0 0 0 /map /ego_id/odom  10" />
+
+
+   <node pkg="fake_localization" type="fake_localization" name="fake_local" output="screen"/>
+   <node pkg="ros_2dnav" type="fake_local.py" name="fake_local_py"/>
+
+   <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="global_costmap" /> 
+    <rosparam file="$(find ros_2dnav)/costmap_common_params.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find ros_2dnav)/local_costmap_params.yaml" command="load" />
+    <rosparam file="$(find ros_2dnav)/global_costmap_params.yaml" command="load" /> 
+    <rosparam file="$(find ros_2dnav)/base_local_planner_params.yaml" command="load" />
+    
+    <!--teb-local-planner-->
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
+    <remap from = "/cmd_vel" to = "/ego_id/cmd_vel"/>
+    <remap from = "/move_base/TebLocalPlannerROS/global_plan" to = "/ego_id/move_base/TebLocalPlannerROS/global_plan"/>
+    <remap from = "/move_base/TebLocalPlannerROS/local_plan" to = "/ego_id/move_base/TebLocalPlannerROS/local_plan"/>
+    <remap from = "/move_base/TebLocalPlannerROS/teb_markers" to = "/ego_id/move_base/TebLocalPlannerROS/teb_markers"/>
+    <remap from = "/move_base/TebLocalPlannerROS/teb_markers_array" to = "/ego_id/move_base/TebLocalPlannerROS/teb_markers_array"/>
+    <remap from = "/move_base/TebLocalPlannerROS/teb_poses" to = "/ego_id/move_base/TebLocalPlannerROS/teb_poses"/>
+    <remap from = "/move_base/TebLocalPlannerROS/obstacles" to = "/ego_id/move_base/TebLocalPlannerROS/obstacles"/>
+    <remap from = "/move_base/TebLocalPlannerROS/parameter_descriptions" to = "/ego_id/move_base/TebLocalPlannerROS/parameter_descriptions"/>
+    <remap from = "/move_base/TebLocalPlannerROS/parameter_updates" to = "/ego_id/move_base/TebLocalPlannerROS/parameter_updates"/>
+
+    <remap from = "/move_base/global_costmap/costmap" to = "/ego_id/move_base/global_costmap/costmap"/>
+    <remap from = "/move_base/global_costmap/costmap_updates" to = "/ego_id/move_base/global_costmap/costmap_updates"/>
+    <remap from = "/move_base/global_costmap/footprint" to = "/ego_id/move_base/global_costmap/footprint"/>
+    <remap from = "/move_base/global_costmap/parameter_descriptions" to = "/ego_id/move_base/global_costmap/parameter_descriptions"/>
+    <remap from = "/move_base/global_costmap/parameter_updates" to = "/ego_id/move_base/global_costmap/parameter_updates"/>
+
+    <remap from = "/move_base/global_costmap/inflation_layer/parameter_descriptions" to = "/ego_id/move_base/global_costmap/inflation_layer/parameter_descriptions"/>
+    <remap from = "/move_base/global_costmap/inflation_layer/parameter_updates" to = "/ego_id/move_base/global_costmap/inflation_layer/parameter_updates"/>
+    <remap from = "/move_base/global_costmap/static_layer/parameter_descriptions" to = "/ego_id/move_base/global_costmap/static_layer/parameter_descriptions"/>
+    <remap from = "/move_base/global_costmap/static_layer/parameter_updates" to = "/ego_id/move_base/global_costmap/static_layer/parameter_updates"/>
+
+
+    <remap from = "/move_base/global_costmap/obstacle_layer/parameter_descriptions" to = "/ego_id/move_base/global_costmap/obstacle_layer/parameter_descriptions"/>
+    <remap from = "/move_base/global_costmap/obstacle_layer/parameter_updates" to = "/ego_id/move_base/global_costmap/obstacle_layer/parameter_updates"/>
+    <remap from = "/move_base/global_costmap/obstacle_layer/clearing_endpoints" to = "/ego_id/move_base/global_costmap/obstacle_layer/clearing_endpoints"/>
+
+
+    <remap from = "/move_base/local_costmap/costmap" to = "/ego_id/move_base/local_costmap/costmap"/>
+    <remap from = "/move_base/local_costmap/costmap_updates" to = "/ego_id/move_base/local_costmap/costmap_updates"/>
+    <remap from = "/move_base/local_costmap/footprint" to = "/ego_id/move_base/local_costmap/footprint"/>
+    <remap from = "/move_base/local_costmap/parameter_descriptions" to = "/ego_id/move_base/local_costmap/parameter_descriptions"/>
+    <remap from = "/move_base/local_costmap/parameter_updates" to = "/ego_id/move_base/local_costmap/parameter_updates"/>
+   <remap from = "/move_base/local_costmap/static_layer/parameter_descriptions" to = "/ego_id/move_base/local_costmap/static_layer/parameter_descriptions"/>
+    <remap from = "/move_base/local_costmap/static_layer/parameter_updates" to = "/ego_id/move_base/local_costmap/static_layer/parameter_updates"/>
+
+
+    <remap from = "/move_base/local_costmap/obstacle_layer/parameter_descriptions" to = "/ego_id/move_base/local_costmap/obstacle_layer/parameter_descriptions"/>
+    <remap from = "/move_base/local_costmap/obstacle_layer/parameter_updates" to = "/ego_id/move_base/local_costmap/obstacle_layer/parameter_updates"/>
+
+    <remap from = "/move_base/GlobalPlanner/parameter_descriptions" to = "/ego_id/move_base/GlobalPlanner/parameter_descriptions"/>
+    <remap from = "/move_base/GlobalPlanner/parameter_updates" to = "/ego_id/move_base/GlobalPlanner/parameter_updates"/>
+    <remap from = "/move_base/GlobalPlanner/plan" to = "/ego_id/move_base/GlobalPlanner/plan"/>
+    <remap from = "/move_base/GlobalPlanner/potential" to = "/ego_id/move_base/GlobalPlanner/potential"/>
+    
+    <remap from = "/move_base/cancel" to = "/ego_id/move_base/cancel"/>
+    <remap from = "/move_base/status" to = "/ego_id/move_base/status"/>
+    <remap from = "/move_base/result" to = "/ego_id/move_base/result"/>
+    <remap from = "/move_base/goal" to = "/ego_id/move_base/goal"/>
+    <remap from = "/move_base/parameter_descriptions" to = "/ego_id/move_base/parameter_descriptions"/>
+    <remap from = "/move_base/parameter_updates" to = "/ego_id/move_base/parameter_updates"/>
+    <remap from = "/move_base/current_goal" to = "/ego_id/move_base/current_goal"/>
+    <remap from = "/move_base/feedback" to = "/ego_id/move_base/feedback"/>
+
+    <remap from = "/move_base_simple/goal" to = "/ego_id/move_base_simple/goal"/>
+    <param name="controller_frequency" value="10.0" />
+  </node>
+
+  <node pkg = "ros_2dnav" type ="cmd_vel_to_ackermann_drive.py" name="cmd_2_drive_ego"/>
+
+  <node pkg="ros_2dnav" type="nav_goals.py" name="nav_goals"/>
+
+</launch> 
