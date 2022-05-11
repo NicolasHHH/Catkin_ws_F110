@@ -4,11 +4,12 @@ We are a group of students from Ecole Polytechnique working on a collective scie
 
 More on *f1tenth* here : https://f1tenth.org/. 
 
-Environment : `Ubuntu 20.04 arm64` with `ROS noetic` 
+Environment (single racecar) : `Ubuntu 20.04 arm64` with `ROS noetic` 
 
-Environment Gym : `Ubuntu 18.04.6 amd64` with `ROS melodic`
+Gym Environment (multiple racecars): `Ubuntu 18.04.6 amd64` with `ROS melodic`
 
-Author of source code & ReadMe : **Tianyang HUANG**
+Author of source code & ReadMe : **Tianyang HUANG(NicolasHHH)** 
+Feel free to contact tianyang.huang@polytechnique.edu
 
 To compile :
 
@@ -22,6 +23,11 @@ Some overviews:
 - [Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart)](#jump2)
 
 ## Implementations : 
+
+### Head to Head Racing 
+
+- [Head to head Racing](#jump20)  
+  --> f1tenth_gym
 
 ### Navigation
 - [Pure Pursuit----⭐️⭐️](#jump5)  
@@ -59,6 +65,13 @@ Some overviews:
 - <span id="jump2"> Real-time racing simulation (f1tenth_gym_ros & f1tenth_quickstart) </span>
 <img src="https://user-images.githubusercontent.com/57991090/149190984-b1d64572-6465-4cac-bc3a-35b36e396169.png" width="500">
 <img src="https://user-images.githubusercontent.com/57991090/149200842-425aea3b-7aa5-464a-864a-201b8ec8a60e.png" width="500">
+
+## Head to Head Racing
+
+- <span id="jump20"> f1tenth_gym with path visualization </span>
+
+https://user-images.githubusercontent.com/57991090/167842004-a5b8c471-936f-47c0-825a-2abfffe66847.mp4
+
 
 ## Navigation
 
