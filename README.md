@@ -16,7 +16,7 @@ Gym Environment (multiple racecars): `Ubuntu 18.04.6 amd64` with `ROS melodic`
 \
 
 
-Author of source code & ReadMe : **Tianyang HUANG(NicolasHHH)** 
+Author of source code & ReadMe : Tianyang HUANG(NicolasHHH)
 
 Feel free to contact tianyang.huang@polytechnique.edu
 
